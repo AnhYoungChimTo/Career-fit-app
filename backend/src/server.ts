@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { config, validateConfig } from './config';
+import authRoutes from './routes/auth.routes';
 
 // Validate configuration
 try {
@@ -39,8 +40,8 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
-// API routes will be added here
-// app.use('/api/auth', authRoutes);
+// API routes
+app.use('/api/auth', authRoutes);
 // app.use('/api/interviews', interviewRoutes);
 // app.use('/api/results', resultsRoutes);
 // app.use('/api/careers', careerRoutes);
