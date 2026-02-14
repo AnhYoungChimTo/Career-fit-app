@@ -1,0 +1,294 @@
+{
+  "moduleId": "B",
+  "title": "Technical Aptitudes & Skills",
+  "description": "Comprehensive assessment of your technical capabilities and potential",
+  "estimatedMinutes": 25,
+  "isRecommended": true,
+  "questions": [
+    {
+      "id": "b_1",
+      "type": "multiselect",
+      "required": true,
+      "question": "Which programming concepts do you understand? (Select all that apply)",
+      "options": [
+        { "value": "variables_datatypes", "label": "Variables and data types" },
+        { "value": "loops_conditionals", "label": "Loops and conditionals" },
+        { "value": "functions", "label": "Functions and methods" },
+        { "value": "oop", "label": "Object-oriented programming" },
+        { "value": "data_structures", "label": "Data structures (arrays, objects, etc.)" },
+        { "value": "algorithms", "label": "Algorithms and complexity" },
+        { "value": "async", "label": "Asynchronous programming" },
+        { "value": "apis", "label": "APIs and HTTP requests" },
+        { "value": "databases", "label": "Database concepts" },
+        { "value": "none_yet", "label": "None yet, but willing to learn" }
+      ],
+      "scoringKey": "a2_coding_knowledge"
+    },
+    {
+      "id": "b_2",
+      "type": "select",
+      "required": true,
+      "question": "If you've written code, which language(s) are you most comfortable with?",
+      "options": [
+        { "value": "javascript", "label": "JavaScript/TypeScript" },
+        { "value": "python", "label": "Python" },
+        { "value": "java", "label": "Java" },
+        { "value": "csharp", "label": "C#" },
+        { "value": "cpp", "label": "C/C++" },
+        { "value": "ruby", "label": "Ruby" },
+        { "value": "go", "label": "Go" },
+        { "value": "swift", "label": "Swift" },
+        { "value": "other", "label": "Other language" },
+        { "value": "none", "label": "Haven't written code yet" }
+      ],
+      "scoringKey": "a2_primary_language"
+    },
+    {
+      "id": "b_3",
+      "type": "slider",
+      "required": true,
+      "question": "Rate your comfort with reading and understanding existing code",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Very difficult for me",
+      "maxLabel": "I can read code easily",
+      "scoringKey": "a2_code_reading"
+    },
+    {
+      "id": "b_4",
+      "type": "multiselect",
+      "required": true,
+      "question": "Which technical tools/technologies have you used? (Select all)",
+      "options": [
+        { "value": "git", "label": "Git/GitHub for version control" },
+        { "value": "terminal", "label": "Command line/terminal" },
+        { "value": "html_css", "label": "HTML/CSS" },
+        { "value": "sql", "label": "SQL databases" },
+        { "value": "cloud", "label": "Cloud platforms (AWS, Azure, GCP)" },
+        { "value": "docker", "label": "Docker/containers" },
+        { "value": "testing", "label": "Testing frameworks" },
+        { "value": "ci_cd", "label": "CI/CD pipelines" },
+        { "value": "design_tools", "label": "Design tools (Figma, Sketch, etc.)" },
+        { "value": "analytics", "label": "Analytics tools (Google Analytics, etc.)" },
+        { "value": "none", "label": "None of these yet" }
+      ],
+      "scoringKey": "a2_tools_experience"
+    },
+    {
+      "id": "b_5",
+      "type": "select",
+      "required": true,
+      "question": "When you encounter a bug or error, what's your typical approach?",
+      "options": [
+        { "value": "systematic_debug", "label": "Systematic debugging - isolate and test hypotheses" },
+        { "value": "google_search", "label": "Search for the error message online" },
+        { "value": "read_docs", "label": "Read documentation carefully" },
+        { "value": "ask_help", "label": "Ask for help from others" },
+        { "value": "trial_error", "label": "Trial and error until something works" },
+        { "value": "frustrated", "label": "I get frustrated and struggle" }
+      ],
+      "scoringKey": "a2_debugging_approach"
+    },
+    {
+      "id": "b_6",
+      "type": "slider",
+      "required": true,
+      "question": "How quickly do you pick up new programming languages or frameworks?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Very slowly - it takes me months",
+      "maxLabel": "Very quickly - days to weeks",
+      "scoringKey": "a2_tech_learning_speed"
+    },
+    {
+      "id": "b_7",
+      "type": "multiselect",
+      "required": true,
+      "question": "What types of projects have you built or contributed to? (Select all)",
+      "options": [
+        { "value": "personal_website", "label": "Personal website or portfolio" },
+        { "value": "web_app", "label": "Web application (full-stack)" },
+        { "value": "mobile_app", "label": "Mobile application" },
+        { "value": "data_analysis", "label": "Data analysis or visualization project" },
+        { "value": "automation_script", "label": "Automation scripts or tools" },
+        { "value": "api", "label": "REST API or backend service" },
+        { "value": "open_source", "label": "Open source contributions" },
+        { "value": "game", "label": "Game or interactive project" },
+        { "value": "ml_project", "label": "Machine learning project" },
+        { "value": "none", "label": "No projects yet" }
+      ],
+      "scoringKey": "a2_project_types"
+    },
+    {
+      "id": "b_8",
+      "type": "slider",
+      "required": true,
+      "question": "How comfortable are you with mathematical and logical reasoning?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Math is very challenging for me",
+      "maxLabel": "I excel at math and logic",
+      "scoringKey": "a2_math_logic"
+    },
+    {
+      "id": "b_9",
+      "type": "select",
+      "required": true,
+      "question": "Which aspect of building software interests you most?",
+      "options": [
+        { "value": "frontend_ui", "label": "Frontend - building beautiful, interactive UIs" },
+        { "value": "backend_logic", "label": "Backend - server logic, databases, APIs" },
+        { "value": "data_infrastructure", "label": "Data - pipelines, analysis, infrastructure" },
+        { "value": "devops", "label": "DevOps - deployment, infrastructure, automation" },
+        { "value": "mobile", "label": "Mobile - iOS/Android native development" },
+        { "value": "security", "label": "Security - protecting systems and data" },
+        { "value": "ai_ml", "label": "AI/ML - machine learning and data science" },
+        { "value": "not_sure", "label": "Not sure yet, want to explore" }
+      ],
+      "scoringKey": "a2_tech_domain_interest"
+    },
+    {
+      "id": "b_10",
+      "type": "slider",
+      "required": true,
+      "question": "How much do you enjoy working with visual design and aesthetics?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not at all - I focus on functionality",
+      "maxLabel": "Very much - design matters to me",
+      "scoringKey": "a2_design_interest"
+    },
+    {
+      "id": "b_11",
+      "type": "multiselect",
+      "required": false,
+      "question": "What technical certifications or courses have you completed? (Select all)",
+      "options": [
+        { "value": "cs_degree", "label": "CS/Engineering degree" },
+        { "value": "bootcamp", "label": "Coding bootcamp" },
+        { "value": "online_course", "label": "Online courses (Coursera, Udemy, etc.)" },
+        { "value": "aws_cert", "label": "AWS/Cloud certification" },
+        { "value": "security_cert", "label": "Security certification" },
+        { "value": "self_taught", "label": "Self-taught through books/docs" },
+        { "value": "none", "label": "None yet" }
+      ],
+      "scoringKey": "a2_education"
+    },
+    {
+      "id": "b_12",
+      "type": "text",
+      "required": false,
+      "question": "Describe your most technically challenging project or problem you've solved",
+      "placeholder": "What made it difficult? How did you approach it?",
+      "maxLength": 600,
+      "scoringKey": "a2_challenging_project"
+    },
+    {
+      "id": "b_13",
+      "type": "slider",
+      "required": true,
+      "question": "How comfortable are you with ambiguous technical requirements?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I need very specific requirements",
+      "maxLabel": "I thrive with ambiguous requirements",
+      "scoringKey": "a2_requirements_ambiguity"
+    },
+    {
+      "id": "b_14",
+      "type": "select",
+      "required": true,
+      "question": "What's your relationship with staying current with technology trends?",
+      "options": [
+        { "value": "cutting_edge", "label": "I actively follow and try new tech constantly" },
+        { "value": "selective", "label": "I stay aware but adopt selectively" },
+        { "value": "practical", "label": "I learn what I need for my projects" },
+        { "value": "stable", "label": "I prefer stable, proven technologies" },
+        { "value": "overwhelmed", "label": "I feel overwhelmed by constant changes" }
+      ],
+      "scoringKey": "a2_tech_currency"
+    },
+    {
+      "id": "b_15",
+      "type": "multiselect",
+      "required": true,
+      "question": "Which technical skills do you want to develop? (Select up to 5)",
+      "maxSelections": 5,
+      "options": [
+        { "value": "frontend_frameworks", "label": "Frontend frameworks (React, Vue, etc.)" },
+        { "value": "backend_dev", "label": "Backend development" },
+        { "value": "databases", "label": "Database design and optimization" },
+        { "value": "system_design", "label": "System design and architecture" },
+        { "value": "algorithms", "label": "Algorithms and data structures" },
+        { "value": "cloud_infrastructure", "label": "Cloud infrastructure" },
+        { "value": "mobile_dev", "label": "Mobile development" },
+        { "value": "machine_learning", "label": "Machine learning and AI" },
+        { "value": "cybersecurity", "label": "Cybersecurity" },
+        { "value": "devops", "label": "DevOps and CI/CD" }
+      ],
+      "scoringKey": "a2_desired_skills"
+    },
+    {
+      "id": "b_16",
+      "type": "slider",
+      "required": true,
+      "question": "How important is writing clean, well-documented code to you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I focus on making it work first",
+      "maxLabel": "Code quality is essential to me",
+      "scoringKey": "a2_code_quality_value"
+    },
+    {
+      "id": "b_17",
+      "type": "select",
+      "required": true,
+      "question": "How do you feel about code reviews and peer feedback on your code?",
+      "options": [
+        { "value": "love_it", "label": "I love it - essential for growth" },
+        { "value": "appreciate", "label": "I appreciate constructive feedback" },
+        { "value": "neutral", "label": "Neutral - it's part of the job" },
+        { "value": "uncomfortable", "label": "Uncomfortable but I accept it" },
+        { "value": "defensive", "label": "I tend to feel defensive" }
+      ],
+      "scoringKey": "a2_code_review_attitude"
+    },
+    {
+      "id": "b_18",
+      "type": "slider",
+      "required": true,
+      "question": "How much do you enjoy optimizing performance and efficiency?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not interested - I focus on features",
+      "maxLabel": "Love it - optimization excites me",
+      "scoringKey": "a2_optimization_interest"
+    },
+    {
+      "id": "b_19",
+      "type": "select",
+      "required": false,
+      "question": "If you could master one technical skill instantly, what would it be?",
+      "options": [
+        { "value": "fullstack", "label": "Full-stack development expertise" },
+        { "value": "system_design", "label": "System design and scalability" },
+        { "value": "ml_ai", "label": "Machine learning and AI" },
+        { "value": "security", "label": "Cybersecurity and ethical hacking" },
+        { "value": "mobile", "label": "Mobile app development" },
+        { "value": "cloud_arch", "label": "Cloud architecture" },
+        { "value": "data_eng", "label": "Data engineering" },
+        { "value": "ui_ux", "label": "UI/UX design and implementation" }
+      ],
+      "scoringKey": "a2_dream_skill"
+    },
+    {
+      "id": "b_20",
+      "type": "text",
+      "required": false,
+      "question": "What technical concept or technology do you find most fascinating right now?",
+      "placeholder": "e.g., Blockchain, AI, Edge Computing, WebAssembly...",
+      "maxLength": 300,
+      "scoringKey": "a2_current_fascination"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "moduleId": "H",
+  "title": "Work Environment Preferences",
+  "description": "The type of work setting where you thrive",
+  "estimatedMinutes": 12,
+  "isRecommended": false,
+  "questions": [
+    {
+      "id": "h_1",
+      "type": "select",
+      "required": true,
+      "question": "What's your ideal work location setup?",
+      "options": [
+        { "value": "full_remote", "label": "Fully remote - work from anywhere" },
+        { "value": "hybrid", "label": "Hybrid - mix of office and remote" },
+        { "value": "full_office", "label": "Full-time in office - prefer in-person" },
+        { "value": "flexible", "label": "Flexible - don't have a strong preference" }
+      ],
+      "scoringKey": "a3_location_setup"
+    },
+    {
+      "id": "h_2",
+      "type": "slider",
+      "required": true,
+      "question": "What work hours align best with your productivity?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Traditional 9-5 works best",
+      "maxLabel": "Need flexible/non-traditional hours",
+      "scoringKey": "a3_hours_flexibility_need"
+    },
+    {
+      "id": "h_3",
+      "type": "multiselect",
+      "required": true,
+      "question": "What physical environment helps you focus? (Select all that apply)",
+      "options": [
+        { "value": "quiet_private", "label": "Quiet, private space" },
+        { "value": "collaborative_open", "label": "Collaborative, open office" },
+        { "value": "coffee_shop", "label": "Coffee shops with ambient noise" },
+        { "value": "home_office", "label": "Dedicated home office" },
+        { "value": "coworking", "label": "Coworking space" },
+        { "value": "nature_outdoor", "label": "Access to nature/outdoor space" },
+        { "value": "flexible_varies", "label": "Flexible - I work well anywhere" }
+      ],
+      "scoringKey": "a3_physical_environment"
+    },
+    {
+      "id": "h_4",
+      "type": "select",
+      "required": true,
+      "question": "How much structure and process do you prefer at work?",
+      "options": [
+        { "value": "high_structure", "label": "High structure - clear processes for everything" },
+        { "value": "moderate", "label": "Moderate - structure where it helps" },
+        { "value": "minimal", "label": "Minimal - freedom to define my own processes" },
+        { "value": "startup_chaos", "label": "Startup chaos - figure it out as we go" }
+      ],
+      "scoringKey": "a3_structure_preference"
+    },
+    {
+      "id": "h_5",
+      "type": "slider",
+      "required": true,
+      "question": "How important is having the latest equipment and tools?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - I'm fine with basics",
+      "maxLabel": "Very important - I need premium gear",
+      "scoringKey": "a3_equipment_importance"
+    },
+    {
+      "id": "h_6",
+      "type": "multiselect",
+      "required": true,
+      "question": "What company culture traits are important to you? (Select up to 5)",
+      "maxSelections": 5,
+      "options": [
+        { "value": "innovation", "label": "Innovation and experimentation encouraged" },
+        { "value": "transparency", "label": "Transparency and open communication" },
+        { "value": "diversity", "label": "Diversity and inclusion focus" },
+        { "value": "work_life", "label": "Strong work-life balance culture" },
+        { "value": "learning", "label": "Learning and development focus" },
+        { "value": "autonomy", "label": "Trust and autonomy" },
+        { "value": "collaboration", "label": "Collaborative, team-oriented" },
+        { "value": "results_oriented", "label": "Results-oriented, not face-time" },
+        { "value": "fast_paced", "label": "Fast-paced and dynamic" },
+        { "value": "social", "label": "Social events and team bonding" }
+      ],
+      "scoringKey": "a3_culture_priorities"
+    },
+    {
+      "id": "h_7",
+      "type": "select",
+      "required": true,
+      "question": "What pace of work energizes you?",
+      "options": [
+        { "value": "intense_sprints", "label": "Intense sprints with clear goals" },
+        { "value": "fast_consistent", "label": "Consistently fast-paced" },
+        { "value": "moderate_steady", "label": "Moderate, steady pace" },
+        { "value": "flexible_varied", "label": "Flexible - varies by project" },
+        { "value": "relaxed", "label": "Relaxed, low-pressure environment" }
+      ],
+      "scoringKey": "a3_work_pace_preference"
+    },
+    {
+      "id": "h_8",
+      "type": "slider",
+      "required": true,
+      "question": "How important is company reputation and brand name to you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - I focus on the work",
+      "maxLabel": "Very important - want a recognizable name",
+      "scoringKey": "a3_brand_importance"
+    },
+    {
+      "id": "h_9",
+      "type": "select",
+      "required": true,
+      "question": "What company stage appeals to you most?",
+      "options": [
+        { "value": "pre_seed", "label": "Pre-seed/seed - ground floor, high risk/reward" },
+        { "value": "series_a_b", "label": "Series A/B - finding product-market fit" },
+        { "value": "growth", "label": "Growth stage - scaling rapidly" },
+        { "value": "public_company", "label": "Public company - established, stable" },
+        { "value": "mature", "label": "Mature - proven processes, clear path" }
+      ],
+      "scoringKey": "a3_company_stage_preference"
+    },
+    {
+      "id": "h_10",
+      "type": "multiselect",
+      "required": false,
+      "question": "What would be red flags in a company culture for you? (Select all)",
+      "options": [
+        { "value": "long_hours", "label": "Expectation of long hours/weekends" },
+        { "value": "no_feedback", "label": "Lack of feedback or career development" },
+        { "value": "politics", "label": "Heavy politics and bureaucracy" },
+        { "value": "micromanagement", "label": "Micromanagement" },
+        { "value": "blame_culture", "label": "Blame culture instead of learning culture" },
+        { "value": "no_diversity", "label": "Lack of diversity" },
+        { "value": "poor_communication", "label": "Poor communication from leadership" },
+        { "value": "unstable", "label": "Financial instability" }
+      ],
+      "scoringKey": "a3_culture_red_flags"
+    },
+    {
+      "id": "h_11",
+      "type": "text",
+      "required": false,
+      "question": "Describe your ideal work environment in detail",
+      "placeholder": "Where are you? Who are you working with? What does a typical day look like?",
+      "maxLength": 500,
+      "scoringKey": "a3_ideal_environment_description"
+    }
+  ]
+}

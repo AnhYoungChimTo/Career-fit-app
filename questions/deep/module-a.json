@@ -1,0 +1,200 @@
+{
+  "moduleId": "A",
+  "title": "Personality & Work Style",
+  "description": "Deep dive into your personality traits and how you naturally approach work",
+  "estimatedMinutes": 20,
+  "isRecommended": true,
+  "questions": [
+    {
+      "id": "a_1",
+      "type": "slider",
+      "required": true,
+      "question": "When starting a new project, how much planning do you need before diving in?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I jump right in and figure it out",
+      "maxLabel": "I need a detailed plan first",
+      "scoringKey": "a1_planning_style"
+    },
+    {
+      "id": "a_2",
+      "type": "select",
+      "required": true,
+      "question": "In a team meeting, which role do you naturally gravitate toward?",
+      "options": [
+        { "value": "leader", "label": "Leading the discussion and driving decisions" },
+        { "value": "contributor", "label": "Contributing ideas and suggestions" },
+        { "value": "analyzer", "label": "Analyzing proposals and finding issues" },
+        { "value": "supporter", "label": "Supporting others and building consensus" },
+        { "value": "observer", "label": "Observing and speaking when I have something important" }
+      ],
+      "scoringKey": "a1_team_role"
+    },
+    {
+      "id": "a_3",
+      "type": "multiselect",
+      "required": true,
+      "question": "Which personality traits describe you best? (Select 3-5)",
+      "minSelections": 3,
+      "maxSelections": 5,
+      "options": [
+        { "value": "analytical", "label": "Analytical - I break things down logically" },
+        { "value": "creative", "label": "Creative - I think outside the box" },
+        { "value": "detail_oriented", "label": "Detail-oriented - I notice small things" },
+        { "value": "big_picture", "label": "Big-picture thinker - I see the forest, not trees" },
+        { "value": "empathetic", "label": "Empathetic - I understand people well" },
+        { "value": "decisive", "label": "Decisive - I make decisions quickly" },
+        { "value": "perfectionist", "label": "Perfectionist - I want everything just right" },
+        { "value": "pragmatic", "label": "Pragmatic - I focus on what works" },
+        { "value": "curious", "label": "Curious - I always want to learn more" },
+        { "value": "persistent", "label": "Persistent - I don't give up easily" }
+      ],
+      "scoringKey": "a1_personality_traits"
+    },
+    {
+      "id": "a_4",
+      "type": "slider",
+      "required": true,
+      "question": "How do you recharge energy after intense work?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Alone time - I need solitude",
+      "maxLabel": "Social time - I energize with people",
+      "scoringKey": "a1_introversion_extraversion"
+    },
+    {
+      "id": "a_5",
+      "type": "select",
+      "required": true,
+      "question": "When you receive critical feedback on your work, what's your initial reaction?",
+      "options": [
+        { "value": "defensive", "label": "Defensive - I feel the need to explain" },
+        { "value": "analytical", "label": "Analytical - I assess if the feedback is valid" },
+        { "value": "grateful", "label": "Grateful - I appreciate the opportunity to improve" },
+        { "value": "discouraged", "label": "Discouraged - It affects my confidence" },
+        { "value": "motivated", "label": "Motivated - I'm excited to address it" }
+      ],
+      "scoringKey": "a1_feedback_response"
+    },
+    {
+      "id": "a_6",
+      "type": "slider",
+      "required": true,
+      "question": "How comfortable are you with multitasking vs focusing on one thing?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I prefer deep focus on one task",
+      "maxLabel": "I thrive juggling multiple tasks",
+      "scoringKey": "a1_focus_vs_multitask"
+    },
+    {
+      "id": "a_7",
+      "type": "select",
+      "required": true,
+      "question": "How do you handle routine, repetitive tasks?",
+      "options": [
+        { "value": "automate", "label": "I immediately look for ways to automate them" },
+        { "value": "efficient", "label": "I optimize and batch them for efficiency" },
+        { "value": "tolerate", "label": "I tolerate them as necessary" },
+        { "value": "avoid", "label": "I procrastinate or try to delegate them" },
+        { "value": "enjoy", "label": "I find them meditative and calming" }
+      ],
+      "scoringKey": "a1_routine_handling"
+    },
+    {
+      "id": "a_8",
+      "type": "slider",
+      "required": true,
+      "question": "Rate your natural risk tolerance in professional decisions",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Very risk-averse - I prefer safe choices",
+      "maxLabel": "Risk-seeking - I embrace uncertainty",
+      "scoringKey": "a1_risk_tolerance"
+    },
+    {
+      "id": "a_9",
+      "type": "select",
+      "required": true,
+      "question": "What's your natural approach to deadlines?",
+      "options": [
+        { "value": "early_finisher", "label": "I finish well before deadlines" },
+        { "value": "steady_progress", "label": "I make steady progress toward deadlines" },
+        { "value": "last_minute", "label": "I work best under last-minute pressure" },
+        { "value": "flexible", "label": "Depends on the project and stakes" }
+      ],
+      "scoringKey": "a1_deadline_approach"
+    },
+    {
+      "id": "a_10",
+      "type": "multiselect",
+      "required": true,
+      "question": "What conditions help you do your best work? (Select all that apply)",
+      "options": [
+        { "value": "quiet_space", "label": "Quiet, distraction-free environment" },
+        { "value": "music", "label": "Music or ambient sound" },
+        { "value": "collaborative", "label": "Collaborative, energetic atmosphere" },
+        { "value": "flexible_hours", "label": "Flexible hours, not 9-5" },
+        { "value": "clear_goals", "label": "Clear goals and expectations" },
+        { "value": "autonomy", "label": "Autonomy to choose my approach" },
+        { "value": "structure", "label": "Structure and established processes" },
+        { "value": "variety", "label": "Variety in tasks and challenges" }
+      ],
+      "scoringKey": "a1_optimal_conditions"
+    },
+    {
+      "id": "a_11",
+      "type": "text",
+      "required": false,
+      "question": "Describe a work situation where you felt 'in flow' and highly productive",
+      "placeholder": "What were you doing? What made it feel effortless?",
+      "maxLength": 500,
+      "scoringKey": "a1_flow_state_example"
+    },
+    {
+      "id": "a_12",
+      "type": "slider",
+      "required": true,
+      "question": "How much do you need external validation vs internal satisfaction?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I'm driven by internal satisfaction",
+      "maxLabel": "I need external recognition",
+      "scoringKey": "a1_validation_source"
+    },
+    {
+      "id": "a_13",
+      "type": "select",
+      "required": true,
+      "question": "When learning something new, how do you prefer to start?",
+      "options": [
+        { "value": "theory_first", "label": "Understand the theory and concepts first" },
+        { "value": "hands_on", "label": "Jump in hands-on and learn by doing" },
+        { "value": "examples", "label": "Study examples and replicate them" },
+        { "value": "structured", "label": "Follow a structured curriculum" },
+        { "value": "mix", "label": "Mix of theory and practice" }
+      ],
+      "scoringKey": "a1_learning_approach"
+    },
+    {
+      "id": "a_14",
+      "type": "slider",
+      "required": true,
+      "question": "How comfortable are you being the 'expert' or go-to person?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Uncomfortable - I prefer to learn from others",
+      "maxLabel": "Energized - I love being the expert",
+      "scoringKey": "a1_expert_comfort"
+    },
+    {
+      "id": "a_15",
+      "type": "text",
+      "required": false,
+      "question": "What's a situation where you significantly changed your approach after reflection?",
+      "placeholder": "Describe what you learned about yourself",
+      "maxLength": 500,
+      "scoringKey": "a1_self_awareness"
+    }
+  ]
+}

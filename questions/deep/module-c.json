@@ -1,0 +1,174 @@
+{
+  "moduleId": "C",
+  "title": "Values & Motivations",
+  "description": "Understand what drives you and what matters most in your career",
+  "estimatedMinutes": 18,
+  "isRecommended": true,
+  "questions": [
+    {
+      "id": "c_1",
+      "type": "ranking",
+      "required": true,
+      "question": "Rank these career values in order of importance (1 = most important)",
+      "options": [
+        { "value": "compensation", "label": "High compensation and financial security" },
+        { "value": "learning", "label": "Continuous learning and skill development" },
+        { "value": "impact", "label": "Making meaningful impact on users/society" },
+        { "value": "work_life", "label": "Work-life balance and flexibility" },
+        { "value": "autonomy", "label": "Autonomy and independence" },
+        { "value": "recognition", "label": "Recognition and career advancement" },
+        { "value": "creativity", "label": "Creative expression and innovation" },
+        { "value": "stability", "label": "Job security and stability" }
+      ],
+      "scoringKey": "a3_value_ranking"
+    },
+    {
+      "id": "c_2",
+      "type": "slider",
+      "required": true,
+      "question": "How important is working on products you're personally passionate about?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - work is just work",
+      "maxLabel": "Essential - I need to believe in the product",
+      "scoringKey": "a3_product_passion"
+    },
+    {
+      "id": "c_3",
+      "type": "multiselect",
+      "required": true,
+      "question": "What types of impact are meaningful to you? (Select all that apply)",
+      "options": [
+        { "value": "user_delight", "label": "Creating delightful user experiences" },
+        { "value": "efficiency", "label": "Making processes more efficient" },
+        { "value": "accessibility", "label": "Making technology accessible to everyone" },
+        { "value": "social_good", "label": "Contributing to social good" },
+        { "value": "business_growth", "label": "Driving business growth and revenue" },
+        { "value": "innovation", "label": "Pushing technological innovation" },
+        { "value": "team_success", "label": "Helping my team succeed" },
+        { "value": "cost_saving", "label": "Saving costs and resources" }
+      ],
+      "scoringKey": "a3_impact_types"
+    },
+    {
+      "id": "c_4",
+      "type": "select",
+      "required": true,
+      "question": "What aspect of compensation matters most to you?",
+      "options": [
+        { "value": "base_salary", "label": "High base salary" },
+        { "value": "total_comp", "label": "Total compensation (salary + equity + bonus)" },
+        { "value": "equity_upside", "label": "Equity/stock options with high upside" },
+        { "value": "benefits", "label": "Comprehensive benefits package" },
+        { "value": "growth_potential", "label": "Potential for salary growth over time" }
+      ],
+      "scoringKey": "a3_compensation_priority"
+    },
+    {
+      "id": "c_5",
+      "type": "slider",
+      "required": true,
+      "question": "How much do you value being challenged vs being comfortable at work?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I prefer comfort and mastery",
+      "maxLabel": "I need to be challenged constantly",
+      "scoringKey": "a3_challenge_vs_comfort"
+    },
+    {
+      "id": "c_6",
+      "type": "select",
+      "required": true,
+      "question": "What does 'meaningful work' mean to you?",
+      "options": [
+        { "value": "solving_hard_problems", "label": "Solving intellectually challenging problems" },
+        { "value": "helping_people", "label": "Directly helping people" },
+        { "value": "creating_value", "label": "Creating valuable products/services" },
+        { "value": "advancing_field", "label": "Advancing the field of technology" },
+        { "value": "building_things", "label": "Building things that last" },
+        { "value": "personal_growth", "label": "Enabling my personal growth" }
+      ],
+      "scoringKey": "a3_meaningful_work_definition"
+    },
+    {
+      "id": "c_7",
+      "type": "multiselect",
+      "required": true,
+      "question": "What would make you leave a job? (Select all dealbreakers)",
+      "options": [
+        { "value": "toxic_culture", "label": "Toxic culture or poor management" },
+        { "value": "no_growth", "label": "No opportunities for growth" },
+        { "value": "boring_work", "label": "Boring, unchallenging work" },
+        { "value": "poor_comp", "label": "Below-market compensation" },
+        { "value": "no_wlb", "label": "Poor work-life balance" },
+        { "value": "misaligned_values", "label": "Company values misaligned with mine" },
+        { "value": "no_impact", "label": "Feel like my work doesn't matter" },
+        { "value": "tech_debt", "label": "Overwhelming technical debt and poor practices" }
+      ],
+      "scoringKey": "a3_dealbreakers"
+    },
+    {
+      "id": "c_8",
+      "type": "slider",
+      "required": true,
+      "question": "How important is it to work for a company with a clear mission/purpose?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - just need good work",
+      "maxLabel": "Essential - need inspiring mission",
+      "scoringKey": "a3_mission_importance"
+    },
+    {
+      "id": "c_9",
+      "type": "select",
+      "required": true,
+      "question": "Which benefit or perk would you value most?",
+      "options": [
+        { "value": "remote_work", "label": "Full remote work flexibility" },
+        { "value": "learning_budget", "label": "Generous learning and conference budget" },
+        { "value": "unlimited_pto", "label": "Unlimited PTO (and culture that supports it)" },
+        { "value": "equity", "label": "Significant equity stake" },
+        { "value": "health_benefits", "label": "Premium health and wellness benefits" },
+        { "value": "latest_equipment", "label": "Latest equipment and tools" },
+        { "value": "four_day_week", "label": "4-day work week" }
+      ],
+      "scoringKey": "a3_top_benefit"
+    },
+    {
+      "id": "c_10",
+      "type": "text",
+      "required": false,
+      "question": "Describe a time when you felt truly fulfilled by your work or a project",
+      "placeholder": "What made it fulfilling? What were you doing?",
+      "maxLength": 500,
+      "scoringKey": "a3_fulfillment_story"
+    },
+    {
+      "id": "c_11",
+      "type": "slider",
+      "required": true,
+      "question": "How much do you value diversity and inclusion in your workplace?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not a major factor in my decision",
+      "maxLabel": "Absolutely essential to me",
+      "scoringKey": "a3_diversity_value"
+    },
+    {
+      "id": "c_12",
+      "type": "select",
+      "required": true,
+      "question": "If you could only optimize for ONE thing in your next role, what would it be?",
+      "options": [
+        { "value": "learning_curve", "label": "Steep learning curve - maximize growth" },
+        { "value": "compensation", "label": "Maximum compensation" },
+        { "value": "work_life", "label": "Perfect work-life balance" },
+        { "value": "impact_scale", "label": "Massive user impact/scale" },
+        { "value": "interesting_problems", "label": "Most interesting technical problems" },
+        { "value": "team_quality", "label": "Working with the best people" },
+        { "value": "title_advancement", "label": "Fastest career advancement" }
+      ],
+      "scoringKey": "a3_single_optimization"
+    }
+  ]
+}

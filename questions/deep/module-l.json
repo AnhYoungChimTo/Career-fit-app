@@ -1,0 +1,161 @@
+{
+  "moduleId": "L",
+  "title": "Constraints & Dealbreakers",
+  "description": "Practical constraints and non-negotiable requirements",
+  "estimatedMinutes": 10,
+  "isRecommended": false,
+  "questions": [
+    {
+      "id": "l_1",
+      "type": "multiselect",
+      "required": true,
+      "question": "What are your practical constraints right now? (Select all that apply)",
+      "options": [
+        { "value": "location", "label": "Geographic location restrictions" },
+        { "value": "visa", "label": "Visa/work authorization requirements" },
+        { "value": "family", "label": "Family obligations and commitments" },
+        { "value": "financial", "label": "Need to maintain certain income level" },
+        { "value": "health", "label": "Health insurance requirements" },
+        { "value": "education", "label": "Currently in school/pursuing degree" },
+        { "value": "notice_period", "label": "Long notice period at current job" },
+        { "value": "no_major_constraints", "label": "No major constraints - flexible" }
+      ],
+      "scoringKey": "session_practical_constraints"
+    },
+    {
+      "id": "l_2",
+      "type": "select",
+      "required": true,
+      "question": "What's your minimum acceptable base salary? (USD)",
+      "options": [
+        { "value": "under_50k", "label": "Under $50k - early career/learning focused" },
+        { "value": "50_75k", "label": "$50k-$75k" },
+        { "value": "75_100k", "label": "$75k-$100k" },
+        { "value": "100_150k", "label": "$100k-$150k" },
+        { "value": "150_200k", "label": "$150k-$200k" },
+        { "value": "200k_plus", "label": "$200k+" },
+        { "value": "flexible", "label": "Flexible depending on total package" }
+      ],
+      "scoringKey": "session_min_salary"
+    },
+    {
+      "id": "l_3",
+      "type": "multiselect",
+      "required": true,
+      "question": "What are absolute dealbreakers for you? (Select all that apply)",
+      "options": [
+        { "value": "must_remote", "label": "Must be remote or must relocate" },
+        { "value": "comp_floor", "label": "Below my compensation floor" },
+        { "value": "no_growth", "label": "No clear growth path" },
+        { "value": "poor_culture", "label": "Culture red flags" },
+        { "value": "boring_tech", "label": "Outdated or boring tech stack" },
+        { "value": "long_hours", "label": "Expectation of >50 hour weeks" },
+        { "value": "unethical", "label": "Ethically questionable business" },
+        { "value": "no_learning", "label": "No learning opportunities" },
+        { "value": "bad_management", "label": "Poor management or leadership" }
+      ],
+      "scoringKey": "session_dealbreakers"
+    },
+    {
+      "id": "l_4",
+      "type": "slider",
+      "required": true,
+      "question": "How soon are you looking to make a career move?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Just exploring - 6+ months out",
+      "maxLabel": "Actively looking - immediate",
+      "scoringKey": "session_timeline_urgency"
+    },
+    {
+      "id": "l_5",
+      "type": "select",
+      "required": true,
+      "question": "What's your current work authorization status (if in US)?",
+      "options": [
+        { "value": "citizen", "label": "US Citizen or Green Card holder" },
+        { "value": "h1b", "label": "H-1B visa holder" },
+        { "value": "need_sponsorship", "label": "Need visa sponsorship" },
+        { "value": "opt_stem", "label": "OPT or STEM OPT" },
+        { "value": "not_us", "label": "Not in US / Not applicable" }
+      ],
+      "scoringKey": "session_work_authorization"
+    },
+    {
+      "id": "l_6",
+      "type": "multiselect",
+      "required": false,
+      "question": "What benefits are must-haves vs nice-to-haves? (Select must-haves)",
+      "options": [
+        { "value": "health_insurance", "label": "Health insurance" },
+        { "value": "401k_match", "label": "401(k) matching" },
+        { "value": "pto", "label": "Generous PTO (3+ weeks)" },
+        { "value": "remote_option", "label": "Remote work option" },
+        { "value": "learning_budget", "label": "Learning/conference budget" },
+        { "value": "equity", "label": "Equity/stock options" },
+        { "value": "parental_leave", "label": "Parental leave" },
+        { "value": "flexible_hours", "label": "Flexible work hours" }
+      ],
+      "scoringKey": "session_required_benefits"
+    },
+    {
+      "id": "l_7",
+      "type": "select",
+      "required": true,
+      "question": "What's your commute tolerance if not remote?",
+      "options": [
+        { "value": "walk_bike", "label": "Walking/biking distance only (< 2 miles)" },
+        { "value": "short_30min", "label": "Short commute (< 30 minutes)" },
+        { "value": "moderate_45min", "label": "Moderate commute (30-45 minutes)" },
+        { "value": "long_60min", "label": "Longer commute acceptable (45-60 minutes)" },
+        { "value": "very_long", "label": "Very long commute ok (60+ minutes)" },
+        { "value": "must_remote", "label": "Must be fully remote" }
+      ],
+      "scoringKey": "session_commute_tolerance"
+    },
+    {
+      "id": "l_8",
+      "type": "text",
+      "required": false,
+      "question": "Are there any specific companies you want to work for (or avoid)?",
+      "placeholder": "List companies or types of companies",
+      "maxLength": 300,
+      "scoringKey": "session_company_preferences"
+    },
+    {
+      "id": "l_9",
+      "type": "slider",
+      "required": true,
+      "question": "How important is company size to you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - quality matters more",
+      "maxLabel": "Very important - I have a preference",
+      "scoringKey": "a3_company_size_importance"
+    },
+    {
+      "id": "l_10",
+      "type": "select",
+      "required": true,
+      "question": "If you had to choose, what would you prioritize?",
+      "options": [
+        { "value": "comp", "label": "Highest compensation" },
+        { "value": "growth", "label": "Maximum learning and growth" },
+        { "value": "balance", "label": "Best work-life balance" },
+        { "value": "impact", "label": "Biggest impact" },
+        { "value": "team", "label": "Best team and culture" },
+        { "value": "brand", "label": "Best company brand/reputation" }
+      ],
+      "scoringKey": "a3_ultimate_priority"
+    },
+    {
+      "id": "l_11",
+      "type": "text",
+      "required": false,
+      "question": "Any other constraints or requirements we should know about?",
+      "placeholder": "e.g., Need to work certain hours, must use specific technologies, etc.",
+      "maxLength": 500,
+      "scoringKey": "session_other_constraints"
+    }
+  ]
+}

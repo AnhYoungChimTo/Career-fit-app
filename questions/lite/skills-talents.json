@@ -1,0 +1,197 @@
+{
+  "category": "skills-talents",
+  "title": "Skills & Talents Assessment",
+  "description": "Help us understand what you're naturally good at",
+  "estimatedMinutes": 4,
+  "questions": [
+    {
+      "id": "st_1",
+      "type": "select",
+      "required": true,
+      "question": "Which of these technical activities do you find easiest?",
+      "options": [
+        { "value": "coding", "label": "Writing code and solving logic problems" },
+        { "value": "visual_design", "label": "Creating visual designs and layouts" },
+        { "value": "data_analysis", "label": "Analyzing data and finding patterns" },
+        { "value": "system_thinking", "label": "Understanding how systems work together" },
+        { "value": "user_research", "label": "Understanding user needs and behaviors" },
+        { "value": "none", "label": "None of these feel natural to me" }
+      ],
+      "scoringKey": "a2_technical_aptitude"
+    },
+    {
+      "id": "st_2",
+      "type": "slider",
+      "required": true,
+      "question": "Rate your current comfort level with learning new technologies",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I struggle with technical learning",
+      "maxLabel": "I pick up new tech very quickly",
+      "scoringKey": "a2_learning_speed"
+    },
+    {
+      "id": "st_3",
+      "type": "multiselect",
+      "required": true,
+      "question": "Which activities have you successfully done before? (Select all that apply)",
+      "options": [
+        { "value": "built_website", "label": "Built a website or web app" },
+        { "value": "automated_task", "label": "Automated a repetitive task" },
+        { "value": "designed_interface", "label": "Designed a user interface" },
+        { "value": "analyzed_data", "label": "Analyzed data to make decisions" },
+        { "value": "taught_others", "label": "Taught technical concepts to others" },
+        { "value": "debugged_code", "label": "Debugged complex technical issues" },
+        { "value": "led_project", "label": "Led a technical project" },
+        { "value": "none", "label": "None of these" }
+      ],
+      "scoringKey": "a2_proven_skills"
+    },
+    {
+      "id": "st_4",
+      "type": "select",
+      "required": true,
+      "question": "When faced with a complex problem, what's your natural approach?",
+      "options": [
+        { "value": "break_down", "label": "Break it into smaller, logical pieces" },
+        { "value": "research", "label": "Research similar solutions and adapt them" },
+        { "value": "experiment", "label": "Experiment and try different approaches" },
+        { "value": "visualize", "label": "Draw diagrams or visualize the solution" },
+        { "value": "discuss", "label": "Talk it through with others" },
+        { "value": "avoid", "label": "I tend to avoid complex problems" }
+      ],
+      "scoringKey": "a1_problem_solving_style"
+    },
+    {
+      "id": "st_5",
+      "type": "select",
+      "required": true,
+      "question": "How would you describe your attention to detail?",
+      "options": [
+        { "value": "very_high", "label": "I notice and fix tiny errors that others miss" },
+        { "value": "high", "label": "I catch most errors with careful review" },
+        { "value": "moderate", "label": "I focus on big picture, sometimes miss small details" },
+        { "value": "low", "label": "Details aren't my strong suit" }
+      ],
+      "scoringKey": "a2_attention_to_detail"
+    },
+    {
+      "id": "st_6",
+      "type": "select",
+      "required": true,
+      "question": "What type of thinking energizes you most?",
+      "options": [
+        { "value": "creative", "label": "Creative thinking - new ideas, innovative solutions" },
+        { "value": "analytical", "label": "Analytical thinking - data, logic, optimization" },
+        { "value": "strategic", "label": "Strategic thinking - long-term planning, big picture" },
+        { "value": "practical", "label": "Practical thinking - hands-on, immediate results" },
+        { "value": "empathetic", "label": "Empathetic thinking - understanding people and needs" }
+      ],
+      "scoringKey": "a1_thinking_style"
+    },
+    {
+      "id": "st_7",
+      "type": "slider",
+      "required": true,
+      "question": "How comfortable are you with ambiguity and uncertain requirements?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I need clear, specific instructions",
+      "maxLabel": "I thrive when requirements are flexible",
+      "scoringKey": "a1_ambiguity_tolerance"
+    },
+    {
+      "id": "st_8",
+      "type": "select",
+      "required": false,
+      "question": "Which best describes your communication strength?",
+      "options": [
+        { "value": "written_technical", "label": "Writing clear technical documentation" },
+        { "value": "verbal_teaching", "label": "Explaining complex ideas verbally" },
+        { "value": "visual", "label": "Communicating through diagrams and visuals" },
+        { "value": "listening", "label": "Active listening and understanding others" },
+        { "value": "persuading", "label": "Persuading and influencing decisions" }
+      ],
+      "scoringKey": "a2_communication_style"
+    },
+    {
+      "id": "st_9",
+      "type": "multiselect",
+      "required": true,
+      "question": "What are you naturally curious about? (Select up to 3)",
+      "maxSelections": 3,
+      "options": [
+        { "value": "how_things_work", "label": "How systems and technologies work internally" },
+        { "value": "user_behavior", "label": "Why people behave the way they do" },
+        { "value": "optimization", "label": "Making things faster, better, more efficient" },
+        { "value": "design_aesthetics", "label": "Beautiful, intuitive design and aesthetics" },
+        { "value": "business_impact", "label": "Business metrics and growth strategies" },
+        { "value": "data_patterns", "label": "Finding patterns and insights in data" },
+        { "value": "security", "label": "Security, privacy, and protecting systems" },
+        { "value": "emerging_tech", "label": "Cutting-edge and emerging technologies" }
+      ],
+      "scoringKey": "a1_curiosity_areas"
+    },
+    {
+      "id": "st_10",
+      "type": "select",
+      "required": true,
+      "question": "How do you prefer to learn new skills?",
+      "options": [
+        { "value": "building", "label": "Building projects hands-on" },
+        { "value": "courses", "label": "Structured courses and tutorials" },
+        { "value": "documentation", "label": "Reading official documentation" },
+        { "value": "videos", "label": "Watching video tutorials" },
+        { "value": "mentorship", "label": "Learning from mentors or peers" },
+        { "value": "trial_error", "label": "Trial and error experimentation" }
+      ],
+      "scoringKey": "a2_learning_style"
+    },
+    {
+      "id": "st_11",
+      "type": "slider",
+      "required": true,
+      "question": "Rate your persistence when stuck on a difficult technical challenge",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I give up quickly when stuck",
+      "maxLabel": "I persist until I solve it",
+      "scoringKey": "a1_persistence"
+    },
+    {
+      "id": "st_12",
+      "type": "select",
+      "required": true,
+      "question": "What's your relationship with mathematics and logical reasoning?",
+      "options": [
+        { "value": "love_it", "label": "I love it and find it intuitive" },
+        { "value": "comfortable", "label": "I'm comfortable when I practice it" },
+        { "value": "can_learn", "label": "I can learn it if needed, but it's not natural" },
+        { "value": "struggle", "label": "I struggle with mathematical thinking" }
+      ],
+      "scoringKey": "a2_mathematical_aptitude"
+    },
+    {
+      "id": "st_13",
+      "type": "text",
+      "required": false,
+      "question": "Describe a recent accomplishment you're proud of (work, school, or personal)",
+      "placeholder": "e.g., Built a portfolio website, organized a community event, learned a new language...",
+      "maxLength": 500,
+      "scoringKey": "a2_achievements"
+    },
+    {
+      "id": "st_14",
+      "type": "select",
+      "required": true,
+      "question": "How would you describe your work pace preference?",
+      "options": [
+        { "value": "fast_iterative", "label": "Fast and iterative - ship quickly, improve later" },
+        { "value": "steady_quality", "label": "Steady with high quality - get it right the first time" },
+        { "value": "sprints", "label": "Intense sprints followed by breaks" },
+        { "value": "flexible", "label": "Flexible - depends on the situation" }
+      ],
+      "scoringKey": "a1_work_pace"
+    }
+  ]
+}

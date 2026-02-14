@@ -1,0 +1,153 @@
+{
+  "moduleId": "J",
+  "title": "Risk Tolerance & Decision Making",
+  "description": "How you approach risk and make important decisions",
+  "estimatedMinutes": 10,
+  "isRecommended": false,
+  "questions": [
+    {
+      "id": "j_1",
+      "type": "select",
+      "required": true,
+      "question": "How do you approach major career decisions?",
+      "options": [
+        { "value": "analytical", "label": "Analytical - research and pros/cons lists" },
+        { "value": "intuitive", "label": "Intuitive - go with my gut feeling" },
+        { "value": "seek_advice", "label": "Seek advice from mentors and peers" },
+        { "value": "data_driven", "label": "Data-driven - look at market data and trends" },
+        { "value": "mix", "label": "Mix of analysis and intuition" }
+      ],
+      "scoringKey": "a1_decision_making_style"
+    },
+    {
+      "id": "j_2",
+      "type": "slider",
+      "required": true,
+      "question": "Rate your professional risk tolerance",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Very risk-averse - need stability",
+      "maxLabel": "Risk-seeking - high risk, high reward",
+      "scoringKey": "a3_professional_risk_tolerance"
+    },
+    {
+      "id": "j_3",
+      "type": "select",
+      "required": true,
+      "question": "Would you take a pay cut for the right opportunity?",
+      "options": [
+        { "value": "no_way", "label": "No - compensation is non-negotiable" },
+        { "value": "small_cut", "label": "Small cut (<10%) for great opportunity" },
+        { "value": "significant", "label": "Significant cut (10-30%) for perfect fit" },
+        { "value": "major", "label": "Major cut (>30%) if it's my dream role" },
+        { "value": "depends", "label": "Depends on my financial situation" }
+      ],
+      "scoringKey": "a3_pay_cut_willingness"
+    },
+    {
+      "id": "j_4",
+      "type": "multiselect",
+      "required": true,
+      "question": "What factors make you feel secure in a job? (Select all that apply)",
+      "options": [
+        { "value": "company_stable", "label": "Company financial stability" },
+        { "value": "in_demand_skills", "label": "Having in-demand skills" },
+        { "value": "strong_network", "label": "Strong professional network" },
+        { "value": "good_reputation", "label": "Good personal reputation" },
+        { "value": "savings", "label": "Financial savings/runway" },
+        { "value": "clear_performance", "label": "Clear performance and value" },
+        { "value": "contract", "label": "Contract or job protection" },
+        { "value": "portable_skills", "label": "Portable, transferable skills" }
+      ],
+      "scoringKey": "a3_job_security_factors"
+    },
+    {
+      "id": "j_5",
+      "type": "select",
+      "required": true,
+      "question": "How do you feel about joining an early-stage startup?",
+      "options": [
+        { "value": "excited", "label": "Excited - love the opportunity and energy" },
+        { "value": "interested", "label": "Interested but need the right conditions" },
+        { "value": "cautious", "label": "Cautious - would need high equity" },
+        { "value": "avoid", "label": "Avoid - too risky for me" },
+        { "value": "later", "label": "Not now, maybe later in career" }
+      ],
+      "scoringKey": "a3_startup_appetite"
+    },
+    {
+      "id": "j_6",
+      "type": "slider",
+      "required": true,
+      "question": "How quickly do you make career decisions?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Very slowly - need weeks to decide",
+      "maxLabel": "Very quickly - decide within days",
+      "scoringKey": "a1_decision_speed"
+    },
+    {
+      "id": "j_7",
+      "type": "select",
+      "required": true,
+      "question": "What's your approach to negotiating compensation?",
+      "options": [
+        { "value": "aggressive", "label": "Aggressive - always push for more" },
+        { "value": "confident", "label": "Confident - know my worth and ask for it" },
+        { "value": "uncomfortable", "label": "Uncomfortable but I do it" },
+        { "value": "avoid", "label": "Avoid - accept what's offered" },
+        { "value": "data_backed", "label": "Data-backed - use market research" }
+      ],
+      "scoringKey": "a1_negotiation_style"
+    },
+    {
+      "id": "j_8",
+      "type": "multiselect",
+      "required": true,
+      "question": "What would convince you to leave a stable job? (Select all that apply)",
+      "options": [
+        { "value": "much_higher_comp", "label": "Much higher compensation (>30%)" },
+        { "value": "better_role", "label": "Better role/title" },
+        { "value": "exciting_product", "label": "Exciting product or mission" },
+        { "value": "better_team", "label": "Better team and culture" },
+        { "value": "more_growth", "label": "More growth opportunities" },
+        { "value": "equity_upside", "label": "Significant equity upside" },
+        { "value": "better_balance", "label": "Better work-life balance" },
+        { "value": "relocate", "label": "Ability to relocate or go remote" }
+      ],
+      "scoringKey": "a3_leave_job_reasons"
+    },
+    {
+      "id": "j_9",
+      "type": "slider",
+      "required": true,
+      "question": "How much financial runway would you want before joining a risky opportunity?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Don't need much - comfortable with risk",
+      "maxLabel": "Need 12+ months of savings",
+      "scoringKey": "a3_financial_runway_need"
+    },
+    {
+      "id": "j_10",
+      "type": "text",
+      "required": false,
+      "question": "Describe a career risk you took (or wish you had taken)",
+      "placeholder": "What happened? Would you do it again?",
+      "maxLength": 500,
+      "scoringKey": "a1_risk_taking_example"
+    },
+    {
+      "id": "j_11",
+      "type": "select",
+      "required": true,
+      "question": "What's more important when evaluating a new opportunity?",
+      "options": [
+        { "value": "upside_potential", "label": "Upside potential - what I could gain" },
+        { "value": "downside_risk", "label": "Downside risk - what I could lose" },
+        { "value": "balanced", "label": "Balanced consideration of both" }
+      ],
+      "scoringKey": "a1_opportunity_evaluation"
+    }
+  ]
+}

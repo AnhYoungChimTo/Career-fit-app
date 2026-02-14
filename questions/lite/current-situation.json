@@ -1,0 +1,144 @@
+{
+  "category": "current-situation",
+  "title": "Your Current Situation",
+  "description": "Help us understand where you are right now",
+  "estimatedMinutes": 3,
+  "questions": [
+    {
+      "id": "cs_1",
+      "type": "select",
+      "required": true,
+      "question": "What best describes your current situation?",
+      "options": [
+        { "value": "student", "label": "Student - Currently studying (high school/college/bootcamp)" },
+        { "value": "employed_tech", "label": "Employed in tech - Working in a technology role" },
+        { "value": "employed_other", "label": "Employed in non-tech - Working outside of technology" },
+        { "value": "job_searching", "label": "Job searching - Actively looking for opportunities" },
+        { "value": "career_pivot", "label": "Career pivot - Transitioning from another field" },
+        { "value": "unemployed", "label": "Unemployed - Taking a break or between opportunities" }
+      ],
+      "scoringKey": "session_current_situation",
+      "triggersRecommendation": true
+    },
+    {
+      "id": "cs_2",
+      "type": "select",
+      "required": true,
+      "question": "What's your current level of tech experience?",
+      "options": [
+        { "value": "none", "label": "No technical experience" },
+        { "value": "beginner", "label": "Beginner - Learning fundamentals" },
+        { "value": "some_projects", "label": "Some projects - Built a few things" },
+        { "value": "intermediate", "label": "Intermediate - 1-2 years of experience" },
+        { "value": "experienced", "label": "Experienced - 3+ years in tech roles" }
+      ],
+      "scoringKey": "session_experience_level"
+    },
+    {
+      "id": "cs_3",
+      "type": "select",
+      "required": true,
+      "question": "What's your primary goal right now?",
+      "options": [
+        { "value": "validate_current", "label": "Validate my current career direction" },
+        { "value": "discover_options", "label": "Discover what tech careers might fit me" },
+        { "value": "land_first_job", "label": "Land my first tech job" },
+        { "value": "switch_roles", "label": "Switch to a different tech role" },
+        { "value": "level_up", "label": "Level up in my current role" },
+        { "value": "exploring", "label": "Just exploring, no immediate plans" }
+      ],
+      "scoringKey": "session_primary_goal"
+    },
+    {
+      "id": "cs_4",
+      "type": "select",
+      "required": true,
+      "question": "How much time can you dedicate to career transition/development?",
+      "options": [
+        { "value": "full_time", "label": "Full-time - I can dedicate 40+ hours/week" },
+        { "value": "part_time", "label": "Part-time - 10-20 hours/week" },
+        { "value": "evenings_weekends", "label": "Evenings/weekends - 5-10 hours/week" },
+        { "value": "minimal", "label": "Minimal - A few hours when I can" },
+        { "value": "not_sure", "label": "Not sure yet" }
+      ],
+      "scoringKey": "session_time_commitment"
+    },
+    {
+      "id": "cs_5",
+      "type": "slider",
+      "required": true,
+      "question": "How urgent is making a career decision for you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not urgent - exploring casually",
+      "maxLabel": "Very urgent - need to decide soon",
+      "scoringKey": "session_urgency"
+    },
+    {
+      "id": "cs_6",
+      "type": "multiselect",
+      "required": false,
+      "question": "What resources do you currently have? (Select all that apply)",
+      "options": [
+        { "value": "degree_cs", "label": "CS/Engineering degree or equivalent" },
+        { "value": "degree_other", "label": "Degree in another field" },
+        { "value": "bootcamp", "label": "Completed or enrolled in bootcamp" },
+        { "value": "portfolio", "label": "Portfolio of projects" },
+        { "value": "network", "label": "Network in tech industry" },
+        { "value": "savings", "label": "Financial runway to learn/transition" },
+        { "value": "mentor", "label": "Mentor or career coach" },
+        { "value": "none", "label": "None of these currently" }
+      ],
+      "scoringKey": "session_resources"
+    },
+    {
+      "id": "cs_7",
+      "type": "select",
+      "required": true,
+      "question": "Have you already identified specific tech roles you're interested in?",
+      "options": [
+        { "value": "yes_certain", "label": "Yes, I'm fairly certain about my target role" },
+        { "value": "yes_exploring", "label": "Yes, but I'm still exploring options" },
+        { "value": "some_ideas", "label": "I have some ideas but not sure" },
+        { "value": "no_discovery", "label": "No, I'm in discovery mode" }
+      ],
+      "scoringKey": "session_role_clarity"
+    },
+    {
+      "id": "cs_8",
+      "type": "text",
+      "required": false,
+      "question": "If you have a dream tech role in mind, what is it?",
+      "placeholder": "e.g., Frontend Developer, Data Scientist, UX Designer, DevOps Engineer...",
+      "maxLength": 200,
+      "scoringKey": "session_dream_role"
+    },
+    {
+      "id": "cs_9",
+      "type": "select",
+      "required": true,
+      "question": "What's your biggest concern or challenge right now?",
+      "options": [
+        { "value": "lack_experience", "label": "Lack of technical experience or credentials" },
+        { "value": "dont_know_fit", "label": "Not knowing which role would fit me" },
+        { "value": "skill_gaps", "label": "Knowing what skills I need to develop" },
+        { "value": "market_competition", "label": "Competitive job market" },
+        { "value": "financial_pressure", "label": "Financial pressure to decide quickly" },
+        { "value": "imposter_syndrome", "label": "Imposter syndrome or self-doubt" },
+        { "value": "other", "label": "Something else" }
+      ],
+      "scoringKey": "session_biggest_challenge"
+    },
+    {
+      "id": "cs_10",
+      "type": "slider",
+      "required": true,
+      "question": "How confident are you that tech is the right field for you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not confident - still exploring",
+      "maxLabel": "Very confident - I know tech is for me",
+      "scoringKey": "session_tech_confidence"
+    }
+  ]
+}

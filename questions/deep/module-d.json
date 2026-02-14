@@ -1,0 +1,171 @@
+{
+  "moduleId": "D",
+  "title": "Learning Style & Growth",
+  "description": "How you learn best and approach professional development",
+  "estimatedMinutes": 15,
+  "isRecommended": false,
+  "questions": [
+    {
+      "id": "d_1",
+      "type": "select",
+      "required": true,
+      "question": "Which learning method has been most effective for you historically?",
+      "options": [
+        { "value": "hands_on_projects", "label": "Hands-on projects and experimentation" },
+        { "value": "structured_courses", "label": "Structured courses and curricula" },
+        { "value": "mentorship", "label": "One-on-one mentorship" },
+        { "value": "reading_docs", "label": "Reading documentation and books" },
+        { "value": "video_tutorials", "label": "Video tutorials and screencasts" },
+        { "value": "peer_learning", "label": "Learning alongside peers" },
+        { "value": "teaching_others", "label": "Teaching others (learning by teaching)" }
+      ],
+      "scoringKey": "a2_best_learning_method"
+    },
+    {
+      "id": "d_2",
+      "type": "slider",
+      "required": true,
+      "question": "How important is having a mentor or coach in your career?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - I'm self-directed",
+      "maxLabel": "Essential - I need guidance",
+      "scoringKey": "a3_mentorship_need"
+    },
+    {
+      "id": "d_3",
+      "type": "multiselect",
+      "required": true,
+      "question": "How do you typically approach learning a new skill? (Select all that apply)",
+      "options": [
+        { "value": "take_course", "label": "Enroll in a course or bootcamp" },
+        { "value": "build_project", "label": "Build a project to learn by doing" },
+        { "value": "read_book", "label": "Read a comprehensive book" },
+        { "value": "watch_videos", "label": "Watch tutorial videos" },
+        { "value": "study_examples", "label": "Study and modify existing examples" },
+        { "value": "find_mentor", "label": "Find someone to guide me" },
+        { "value": "official_docs", "label": "Work through official documentation" },
+        { "value": "join_community", "label": "Join a learning community" }
+      ],
+      "scoringKey": "a2_learning_strategies"
+    },
+    {
+      "id": "d_4",
+      "type": "slider",
+      "required": true,
+      "question": "How comfortable are you learning from failure and mistakes?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Failures discourage me significantly",
+      "maxLabel": "I actively learn from failures",
+      "scoringKey": "a1_failure_learning"
+    },
+    {
+      "id": "d_5",
+      "type": "select",
+      "required": true,
+      "question": "When learning, do you prefer depth or breadth?",
+      "options": [
+        { "value": "deep_specialist", "label": "Deep - Master one thing thoroughly" },
+        { "value": "broad_generalist", "label": "Broad - Learn many things at a surface level" },
+        { "value": "t_shaped", "label": "T-shaped - Deep in one area, broad in others" },
+        { "value": "situational", "label": "Depends on the situation" }
+      ],
+      "scoringKey": "a2_learning_depth_breadth"
+    },
+    {
+      "id": "d_6",
+      "type": "multiselect",
+      "required": true,
+      "question": "What's helped you stay motivated while learning difficult concepts? (Select all)",
+      "options": [
+        { "value": "clear_goal", "label": "Having a clear goal or project in mind" },
+        { "value": "accountability", "label": "Accountability partners or deadlines" },
+        { "value": "progress_tracking", "label": "Tracking visible progress" },
+        { "value": "community", "label": "Learning community and support" },
+        { "value": "practical_application", "label": "Immediate practical application" },
+        { "value": "competition", "label": "Friendly competition" },
+        { "value": "intrinsic_curiosity", "label": "Pure curiosity and interest" }
+      ],
+      "scoringKey": "a1_learning_motivation"
+    },
+    {
+      "id": "d_7",
+      "type": "slider",
+      "required": true,
+      "question": "How much structure do you need in your learning path?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I chart my own learning path",
+      "maxLabel": "I need a structured curriculum",
+      "scoringKey": "a2_learning_structure_need"
+    },
+    {
+      "id": "d_8",
+      "type": "select",
+      "required": true,
+      "question": "What's your biggest obstacle to learning new technical skills?",
+      "options": [
+        { "value": "time", "label": "Lack of time" },
+        { "value": "overwhelm", "label": "Feeling overwhelmed by options" },
+        { "value": "motivation", "label": "Maintaining motivation" },
+        { "value": "resources", "label": "Finding good learning resources" },
+        { "value": "foundation", "label": "Gaps in foundational knowledge" },
+        { "value": "confidence", "label": "Lack of confidence" },
+        { "value": "practice", "label": "Not enough hands-on practice opportunities" }
+      ],
+      "scoringKey": "a2_learning_obstacle"
+    },
+    {
+      "id": "d_9",
+      "type": "text",
+      "required": false,
+      "question": "Describe the most effective learning experience you've had",
+      "placeholder": "What made it work so well for you?",
+      "maxLength": 500,
+      "scoringKey": "a2_best_learning_experience"
+    },
+    {
+      "id": "d_10",
+      "type": "slider",
+      "required": true,
+      "question": "How important is earning certifications or credentials to you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "Not important - skills matter more",
+      "maxLabel": "Very important for credibility",
+      "scoringKey": "a3_certification_value"
+    },
+    {
+      "id": "d_11",
+      "type": "select",
+      "required": true,
+      "question": "When would you prefer to get feedback on your learning progress?",
+      "options": [
+        { "value": "continuous", "label": "Continuously as I learn" },
+        { "value": "milestone", "label": "At specific milestones" },
+        { "value": "self_assess", "label": "I prefer to self-assess" },
+        { "value": "project_complete", "label": "After completing a project" }
+      ],
+      "scoringKey": "a1_feedback_timing"
+    },
+    {
+      "id": "d_12",
+      "type": "multiselect",
+      "required": true,
+      "question": "What resources would help you learn most effectively? (Select up to 4)",
+      "maxSelections": 4,
+      "options": [
+        { "value": "structured_curriculum", "label": "Structured, curated curriculum" },
+        { "value": "project_ideas", "label": "Project ideas and challenges" },
+        { "value": "code_reviews", "label": "Code reviews and feedback" },
+        { "value": "office_hours", "label": "Office hours with experts" },
+        { "value": "peer_group", "label": "Peer learning group" },
+        { "value": "real_world_projects", "label": "Work on real-world projects" },
+        { "value": "personalized_roadmap", "label": "Personalized learning roadmap" },
+        { "value": "accountability", "label": "Accountability system" }
+      ],
+      "scoringKey": "a2_ideal_learning_resources"
+    }
+  ]
+}
