@@ -1,0 +1,731 @@
+{
+  "careers": [
+    {
+      "id": "frontend-developer",
+      "title": "Frontend Developer",
+      "category": "Engineering",
+      "description": "Build user-facing web applications. A technical role that's accessible to career changers who want to learn coding. Good entry point into tech from non-technical backgrounds.",
+      "dailyWork": [
+        "Implementing UIs from design mockups",
+        "Writing JavaScript/TypeScript code",
+        "Building responsive, accessible websites",
+        "Collaborating with designers and backend teams",
+        "Debugging and optimizing web performance"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["detail_oriented", "problem_solver", "persistent"],
+          "beneficial": ["visual_awareness", "creative"],
+          "dealbreakers": ["low_frustration_tolerance"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner_to_intermediate",
+          "learning_speed": 7,
+          "required_skills": ["html_css", "javascript", "willingness_to_code"],
+          "beneficial_skills": ["design_sense", "frameworks"],
+          "math_requirement": 4
+        },
+        "a3_values": {
+          "work_style": ["remote_work", "flexible_hours"],
+          "environment": ["tech_company", "collaborative"],
+          "motivators": ["building_things", "continuous_learning", "creative_expression"]
+        }
+      },
+      "skills": {
+        "technical": ["HTML/CSS", "JavaScript/TypeScript", "React or Vue", "Git", "Responsive design"],
+        "soft": ["Problem-solving", "Attention to detail", "Collaboration", "Self-learning"]
+      },
+      "compensationRange": {
+        "entry": { "min": 55000, "max": 85000 },
+        "mid": { "min": 85000, "max": 130000 },
+        "senior": { "min": 130000, "max": 180000 }
+      },
+      "educationRequirements": {
+        "preferred": ["Bootcamp", "Self-taught with portfolio", "Any degree + coding skills"],
+        "alternatives": "Strong portfolio of web projects"
+      },
+      "careerPath": {
+        "entry": "Junior Frontend Developer",
+        "progression": ["Frontend Developer (2-3 yrs)", "Senior Frontend (4-6 yrs)", "Lead Frontend (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "Flexible, 40-45 hours/week",
+        "oncall": "Rare",
+        "collaboration_level": "High"
+      },
+      "industryDemand": {
+        "current": "Very High",
+        "growth": "Strong",
+        "jobOpenings": "Abundant"
+      }
+    },
+    {
+      "id": "data-analyst",
+      "title": "Data Analyst",
+      "category": "Data & Analytics",
+      "description": "Analyze business data to drive decisions. Great for economics or quantitative backgrounds. Use SQL, Excel, and visualization tools to find insights and present to stakeholders.",
+      "dailyWork": [
+        "Writing SQL queries and analyzing datasets",
+        "Creating dashboards and reports",
+        "Presenting insights to business teams",
+        "Running A/B tests and experiments",
+        "Identifying trends and opportunities"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["analytical", "detail_oriented", "curious"],
+          "beneficial": ["systematic", "communicative"],
+          "dealbreakers": ["dislikes_numbers"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["excel", "basic_statistics", "logical_thinking"],
+          "beneficial_skills": ["sql", "python", "economics_background"],
+          "math_requirement": 7
+        },
+        "a3_values": {
+          "work_style": ["independent_work", "clear_deliverables"],
+          "environment": ["data_driven", "cross_functional"],
+          "motivators": ["insights_discovery", "business_impact"]
+        }
+      },
+      "skills": {
+        "technical": ["SQL", "Excel/Sheets", "Tableau or PowerBI", "Statistics basics", "Python (optional)"],
+        "soft": ["Data storytelling", "Business acumen", "Presentation skills", "Critical thinking"]
+      },
+      "compensationRange": {
+        "entry": { "min": 50000, "max": 75000 },
+        "mid": { "min": 75000, "max": 110000 },
+        "senior": { "min": 110000, "max": 150000 }
+      },
+      "educationRequirements": {
+        "preferred": ["Economics, Business, Statistics, or any quantitative degree"],
+        "alternatives": "Certificate programs or self-taught with portfolio"
+      },
+      "careerPath": {
+        "entry": "Junior Data Analyst",
+        "progression": ["Data Analyst (2-3 yrs)", "Senior Data Analyst (4-5 yrs)", "Analytics Manager (6+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-45 hours/week",
+        "oncall": "Never",
+        "collaboration_level": "Medium"
+      },
+      "industryDemand": {
+        "current": "Very High",
+        "growth": "Very Strong",
+        "jobOpenings": "Abundant"
+      }
+    },
+    {
+      "id": "content-marketing-manager",
+      "title": "Content Marketing Manager",
+      "category": "Marketing & Communications",
+      "description": "Create strategic content to drive brand awareness and leads. Perfect for strong writers from communications backgrounds. Manage blogs, social media, and content strategy for tech companies.",
+      "dailyWork": [
+        "Developing content strategy and calendars",
+        "Writing blog posts, case studies, and whitepapers",
+        "Managing social media presence",
+        "Analyzing content performance and SEO",
+        "Collaborating with design and product teams"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["creative", "communicative", "organized"],
+          "beneficial": ["strategic_thinker", "data_driven"],
+          "dealbreakers": ["poor_writing"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["excellent_writing", "storytelling", "basic_seo"],
+          "beneficial_skills": ["social_media", "analytics", "cms_platforms"],
+          "math_requirement": 3
+        },
+        "a3_values": {
+          "work_style": ["creative_freedom", "variety"],
+          "environment": ["collaborative", "growth_focused"],
+          "motivators": ["creative_expression", "brand_building", "audience_impact"]
+        }
+      },
+      "skills": {
+        "technical": ["SEO and content strategy", "WordPress/CMS", "Google Analytics", "Social media tools", "Email marketing"],
+        "soft": ["Storytelling", "Brand voice", "Cross-functional collaboration", "Time management"]
+      },
+      "compensationRange": {
+        "entry": { "min": 45000, "max": 65000 },
+        "mid": { "min": 65000, "max": 95000 },
+        "senior": { "min": 95000, "max": 140000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Communication, Marketing, Journalism, English degree"],
+        "alternatives": "Strong portfolio of published content"
+      },
+      "careerPath": {
+        "entry": "Content Marketing Associate",
+        "progression": ["Content Manager (2-3 yrs)", "Senior Content Manager (4-5 yrs)", "Head of Content (6+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-45 hours/week",
+        "oncall": "Never",
+        "collaboration_level": "High"
+      },
+      "industryDemand": {
+        "current": "Very High",
+        "growth": "Strong",
+        "jobOpenings": "Abundant"
+      }
+    },
+    {
+      "id": "brand-strategist",
+      "title": "Brand Strategist (Digital/Tech)",
+      "category": "Marketing & Communications",
+      "description": "Shape brand positioning and go-to-market strategy for tech companies. Ideal for strategic thinkers from communications or international relations who want to work in brand and marketing.",
+      "dailyWork": [
+        "Conducting market and competitive research",
+        "Developing brand positioning and messaging",
+        "Creating brand guidelines and frameworks",
+        "Leading product launch campaigns",
+        "Presenting strategies to leadership"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["strategic_thinker", "creative", "analytical"],
+          "beneficial": ["persuasive", "big_picture"],
+          "dealbreakers": ["no_business_sense"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["research", "strategic_thinking", "presentation"],
+          "beneficial_skills": ["data_analysis", "design_basics"],
+          "math_requirement": 4
+        },
+        "a3_values": {
+          "work_style": ["strategic_work", "creative"],
+          "environment": ["growth_company", "collaborative"],
+          "motivators": ["brand_impact", "creative_strategy", "business_influence"]
+        }
+      },
+      "skills": {
+        "technical": ["Market research", "Brand frameworks", "Competitive analysis", "Consumer insights", "Presentation tools"],
+        "soft": ["Strategic thinking", "Stakeholder management", "Creative problem-solving", "Business acumen"]
+      },
+      "compensationRange": {
+        "entry": { "min": 50000, "max": 70000 },
+        "mid": { "min": 70000, "max": 110000 },
+        "senior": { "min": 110000, "max": 160000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Communication, Marketing, Business, International Relations degree"],
+        "alternatives": "Portfolio of brand strategy work"
+      },
+      "careerPath": {
+        "entry": "Brand Associate",
+        "progression": ["Brand Strategist (2-3 yrs)", "Senior Strategist (4-6 yrs)", "Brand Director (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-50 hours/week",
+        "oncall": "Never",
+        "collaboration_level": "Very High"
+      },
+      "industryDemand": {
+        "current": "High",
+        "growth": "Strong",
+        "jobOpenings": "Strong"
+      }
+    },
+    {
+      "id": "product-marketing-manager",
+      "title": "Product Marketing Manager",
+      "category": "Marketing & Communications",
+      "description": "Own product launches and positioning for tech products. Bridge product, sales, and marketing. Great for strategic communicators who want high-impact, cross-functional work.",
+      "dailyWork": [
+        "Developing product positioning and messaging",
+        "Planning and executing launches",
+        "Creating sales enablement materials",
+        "Conducting market and customer research",
+        "Collaborating with product, sales, and marketing"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["strategic", "organized", "communicative"],
+          "beneficial": ["analytical", "customer_focused"],
+          "dealbreakers": ["poor_communication"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner_to_intermediate",
+          "learning_speed": 7,
+          "required_skills": ["research", "communication", "project_management"],
+          "beneficial_skills": ["tech_understanding", "data_analysis"],
+          "math_requirement": 4
+        },
+        "a3_values": {
+          "work_style": ["cross_functional", "strategic"],
+          "environment": ["product_company", "fast_paced"],
+          "motivators": ["product_success", "strategic_impact"]
+        }
+      },
+      "skills": {
+        "technical": ["Product positioning", "Go-to-market strategy", "Market research", "Sales enablement", "Product analytics"],
+        "soft": ["Cross-functional collaboration", "Storytelling", "Strategic thinking", "Project management"]
+      },
+      "compensationRange": {
+        "entry": { "min": 60000, "max": 85000 },
+        "mid": { "min": 85000, "max": 130000 },
+        "senior": { "min": 130000, "max": 180000 }
+      },
+      "educationRequirements": {
+        "preferred": ["Marketing, Communications, Business, or Technical degree"],
+        "alternatives": "Relevant experience in product or marketing roles"
+      },
+      "careerPath": {
+        "entry": "Associate PMM",
+        "progression": ["PMM (2-3 yrs)", "Senior PMM (4-5 yrs)", "Director of PMM (6+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "45-50 hours/week",
+        "oncall": "Never",
+        "collaboration_level": "Very High"
+      },
+      "industryDemand": {
+        "current": "Very High",
+        "growth": "Very Strong",
+        "jobOpenings": "Abundant"
+      }
+    },
+    {
+      "id": "international-expansion-manager",
+      "title": "International Expansion Manager",
+      "category": "Business & Strategy",
+      "description": "Lead global growth for tech companies. Perfect for international relations/economics majors. Research markets, develop entry strategies, manage localization, and build international partnerships.",
+      "dailyWork": [
+        "Researching international markets and regulations",
+        "Developing market entry strategies",
+        "Managing localization projects",
+        "Building partnerships in new regions",
+        "Coordinating cross-regional teams",
+        "Analyzing international performance"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["strategic", "culturally_aware", "adaptable"],
+          "beneficial": ["entrepreneurial", "detail_oriented"],
+          "dealbreakers": ["culturally_insensitive"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 7,
+          "required_skills": ["research", "languages", "project_management"],
+          "beneficial_skills": ["data_analysis", "legal_basics", "tech_savvy"],
+          "math_requirement": 5
+        },
+        "a3_values": {
+          "work_style": ["international", "strategic"],
+          "environment": ["global_company", "growth_focused"],
+          "motivators": ["global_impact", "cultural_exchange", "business_growth"]
+        }
+      },
+      "skills": {
+        "technical": ["International market analysis", "Localization management", "Regulatory knowledge", "Business strategy", "2+ languages"],
+        "soft": ["Cultural intelligence", "Strategic thinking", "Adaptability", "Cross-cultural communication"]
+      },
+      "compensationRange": {
+        "entry": { "min": 60000, "max": 85000 },
+        "mid": { "min": 85000, "max": 130000 },
+        "senior": { "min": 130000, "max": 190000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Relations, International Economics, Business degree", "International experience"],
+        "alternatives": "Proven track record in international business"
+      },
+      "careerPath": {
+        "entry": "Expansion Associate",
+        "progression": ["Expansion Manager (2-3 yrs)", "Senior Manager (4-6 yrs)", "Director of International (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "45-50 hours/week (global time zones)",
+        "oncall": "Never",
+        "collaboration_level": "Very High"
+      },
+      "industryDemand": {
+        "current": "High",
+        "growth": "Very Strong",
+        "jobOpenings": "Strong"
+      }
+    },
+    {
+      "id": "localization-manager",
+      "title": "Localization Manager",
+      "category": "International & Communications",
+      "description": "Adapt products and content for global markets. Ideal for international communication majors with language skills. Manage translation, cultural adaptation, and international user experience.",
+      "dailyWork": [
+        "Managing translation and localization projects",
+        "Ensuring cultural appropriateness of content",
+        "Working with translators and agencies",
+        "Adapting UX/UI for different markets",
+        "Quality assurance for localized content",
+        "Collaborating with product and marketing teams"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["detail_oriented", "culturally_aware", "organized"],
+          "beneficial": ["communicative", "patient"],
+          "dealbreakers": ["culturally_insensitive", "sloppy"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["languages", "project_management", "cultural_knowledge"],
+          "beneficial_skills": ["translation_tools", "tech_understanding"],
+          "math_requirement": 3
+        },
+        "a3_values": {
+          "work_style": ["international", "detail_work"],
+          "environment": ["global_company", "remote_friendly"],
+          "motivators": ["cultural_bridge", "language_use", "global_reach"]
+        }
+      },
+      "skills": {
+        "technical": ["2+ languages (fluent)", "Translation management tools", "Localization platforms", "CAT tools", "Project management"],
+        "soft": ["Cultural sensitivity", "Attention to detail", "Vendor management", "Cross-cultural communication"]
+      },
+      "compensationRange": {
+        "entry": { "min": 50000, "max": 70000 },
+        "mid": { "min": 70000, "max": 100000 },
+        "senior": { "min": 100000, "max": 140000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Communication, Translation, Languages degree", "Multilingual required"],
+        "alternatives": "Native-level proficiency in 2+ languages with localization experience"
+      },
+      "careerPath": {
+        "entry": "Localization Coordinator",
+        "progression": ["Localization Manager (2-3 yrs)", "Senior Manager (4-6 yrs)", "Director of Localization (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-45 hours/week",
+        "oncall": "Never",
+        "collaboration_level": "High"
+      },
+      "industryDemand": {
+        "current": "High",
+        "growth": "Strong",
+        "jobOpenings": "Strong"
+      }
+    },
+    {
+      "id": "tech-policy-analyst",
+      "title": "Tech Policy Analyst",
+      "category": "Policy & Regulatory",
+      "description": "Research and analyze technology policy and regulations. Perfect for international law/relations majors. Work at tech companies, think tanks, or advocacy organizations on policy issues.",
+      "dailyWork": [
+        "Researching technology regulations and policies",
+        "Analyzing impact of legislation on tech companies",
+        "Writing policy briefs and recommendations",
+        "Monitoring regulatory developments globally",
+        "Liaising with government and advocacy groups",
+        "Presenting findings to leadership"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["analytical", "detail_oriented", "diplomatic"],
+          "beneficial": ["strategic", "curious"],
+          "dealbreakers": ["poor_research_skills", "apolitical"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 7,
+          "required_skills": ["research", "policy_analysis", "writing"],
+          "beneficial_skills": ["legal_knowledge", "tech_understanding"],
+          "math_requirement": 4
+        },
+        "a3_values": {
+          "work_style": ["research_focused", "intellectual"],
+          "environment": ["policy_focused", "mission_driven"],
+          "motivators": ["public_interest", "intellectual_challenge", "policy_impact"]
+        }
+      },
+      "skills": {
+        "technical": ["Policy research and analysis", "Legal research", "Regulatory frameworks", "Data analysis", "Tech industry knowledge"],
+        "soft": ["Written communication", "Critical thinking", "Stakeholder engagement", "Diplomatic communication"]
+      },
+      "compensationRange": {
+        "entry": { "min": 50000, "max": 70000 },
+        "mid": { "min": 70000, "max": 105000 },
+        "senior": { "min": 105000, "max": 150000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Law, International Relations, Public Policy degree", "Master's beneficial"],
+        "alternatives": "Law degree or strong policy research background"
+      },
+      "careerPath": {
+        "entry": "Policy Research Associate",
+        "progression": ["Policy Analyst (2-3 yrs)", "Senior Analyst (4-6 yrs)", "Policy Director (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-50 hours/week",
+        "oncall": "Rare (during major policy events)",
+        "collaboration_level": "Medium"
+      },
+      "industryDemand": {
+        "current": "Medium to High",
+        "growth": "Strong",
+        "jobOpenings": "Moderate to Strong"
+      }
+    },
+    {
+      "id": "corporate-affairs-manager",
+      "title": "Corporate Affairs Manager",
+      "category": "Communications & Relations",
+      "description": "Manage external relations, government affairs, and stakeholder communications for tech companies. Perfect for international relations grads who want to work at intersection of business, policy, and communications.",
+      "dailyWork": [
+        "Managing government and regulatory relationships",
+        "Developing public affairs strategies",
+        "Coordinating with PR and communications teams",
+        "Monitoring political and regulatory landscape",
+        "Representing company at industry events",
+        "Managing crisis communications"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["diplomatic", "strategic", "professional"],
+          "beneficial": ["networker", "calm_under_pressure"],
+          "dealbreakers": ["poor_communication", "politically_naive"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["stakeholder_management", "strategic_communication"],
+          "beneficial_skills": ["policy_knowledge", "media_relations"],
+          "math_requirement": 3
+        },
+        "a3_values": {
+          "work_style": ["relationship_focused", "strategic"],
+          "environment": ["corporate", "high_stakes"],
+          "motivators": ["influence", "relationship_building", "strategic_impact"]
+        }
+      },
+      "skills": {
+        "technical": ["Government relations", "Public affairs strategy", "Crisis communications", "Stakeholder mapping", "Media relations"],
+        "soft": ["Diplomatic communication", "Relationship building", "Strategic thinking", "Crisis management", "Political awareness"]
+      },
+      "compensationRange": {
+        "entry": { "min": 55000, "max": 80000 },
+        "mid": { "min": 80000, "max": 120000 },
+        "senior": { "min": 120000, "max": 180000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Relations, Political Science, Communications degree", "Master's beneficial"],
+        "alternatives": "Experience in government, diplomacy, or corporate relations"
+      },
+      "careerPath": {
+        "entry": "Government Relations Associate",
+        "progression": ["Corporate Affairs Manager (2-3 yrs)", "Senior Manager (4-6 yrs)", "Director of Corporate Affairs (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": false,
+        "typical_hours": "45-55 hours/week",
+        "oncall": "Yes (for crisis situations)",
+        "collaboration_level": "Very High"
+      },
+      "industryDemand": {
+        "current": "Medium to High",
+        "growth": "Strong",
+        "jobOpenings": "Moderate"
+      }
+    },
+    {
+      "id": "international-trade-specialist",
+      "title": "International Trade Specialist (Tech)",
+      "category": "Business & Economics",
+      "description": "Navigate international trade regulations, tariffs, and compliance for tech companies doing global business. Ideal for international economics/law majors who like detailed regulatory work.",
+      "dailyWork": [
+        "Managing import/export compliance",
+        "Researching trade regulations and tariffs",
+        "Coordinating with customs and logistics",
+        "Ensuring regulatory compliance across markets",
+        "Analyzing trade agreements and impacts",
+        "Working with legal and finance teams"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["detail_oriented", "analytical", "systematic"],
+          "beneficial": ["patient", "rule_following"],
+          "dealbreakers": ["sloppy", "impatient_with_details"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["regulatory_research", "compliance", "documentation"],
+          "beneficial_skills": ["legal_knowledge", "economics", "languages"],
+          "math_requirement": 5
+        },
+        "a3_values": {
+          "work_style": ["detail_work", "process_oriented"],
+          "environment": ["corporate", "international"],
+          "motivators": ["regulatory_mastery", "compliance", "international_work"]
+        }
+      },
+      "skills": {
+        "technical": ["Trade compliance and regulations", "Import/export documentation", "Tariff classification", "Trade agreements", "Compliance software"],
+        "soft": ["Attention to detail", "Analytical thinking", "Cross-functional collaboration", "Problem-solving"]
+      },
+      "compensationRange": {
+        "entry": { "min": 50000, "max": 70000 },
+        "mid": { "min": 70000, "max": 100000 },
+        "senior": { "min": 100000, "max": 140000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Economics, International Law, Trade degree", "Certifications beneficial"],
+        "alternatives": "Experience in customs, logistics, or international business"
+      },
+      "careerPath": {
+        "entry": "Trade Compliance Coordinator",
+        "progression": ["Trade Specialist (2-3 yrs)", "Senior Specialist (4-6 yrs)", "Director of Trade Compliance (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-45 hours/week",
+        "oncall": "Rare",
+        "collaboration_level": "Medium"
+      },
+      "industryDemand": {
+        "current": "Medium",
+        "growth": "Moderate to Strong",
+        "jobOpenings": "Moderate"
+      }
+    },
+    {
+      "id": "digital-communications-specialist",
+      "title": "Digital Communications Specialist",
+      "category": "Communications & PR",
+      "description": "Manage corporate communications and public relations for tech companies. Perfect for international communication majors. Handle media relations, crisis communications, and executive visibility.",
+      "dailyWork": [
+        "Writing press releases and statements",
+        "Managing media relations and interviews",
+        "Coordinating crisis communications",
+        "Developing communication strategies",
+        "Monitoring brand reputation and sentiment",
+        "Supporting executive thought leadership"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["communicative", "calm_under_pressure", "diplomatic"],
+          "beneficial": ["strategic", "detail_oriented"],
+          "dealbreakers": ["poor_writing", "reactive"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["excellent_writing", "media_relations"],
+          "beneficial_skills": ["crisis_management", "social_media"],
+          "math_requirement": 3
+        },
+        "a3_values": {
+          "work_style": ["fast_paced", "variety"],
+          "environment": ["corporate", "tech"],
+          "motivators": ["brand_reputation", "storytelling", "media_influence"]
+        }
+      },
+      "skills": {
+        "technical": ["Professional writing", "Media relations", "Crisis communication", "Social media", "Media monitoring tools"],
+        "soft": ["Strategic communication", "Relationship building", "Crisis management", "Storytelling", "Cultural awareness"]
+      },
+      "compensationRange": {
+        "entry": { "min": 45000, "max": 65000 },
+        "mid": { "min": 65000, "max": 95000 },
+        "senior": { "min": 95000, "max": 140000 }
+      },
+      "educationRequirements": {
+        "preferred": ["International Communication, PR, Journalism degree"],
+        "alternatives": "Portfolio of PR work and media placements"
+      },
+      "careerPath": {
+        "entry": "Communications Coordinator",
+        "progression": ["Communications Specialist (2-3 yrs)", "Senior Manager (4-6 yrs)", "Director of Comms (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "40-50 hours/week",
+        "oncall": "Yes (for crises)",
+        "collaboration_level": "High"
+      },
+      "industryDemand": {
+        "current": "Medium to High",
+        "growth": "Strong",
+        "jobOpenings": "Strong"
+      }
+    },
+    {
+      "id": "business-development-manager",
+      "title": "Business Development Manager (SaaS/Tech)",
+      "category": "Business & Strategy",
+      "description": "Drive growth through partnerships and new business opportunities. Great for relationship-builders from international relations/economics who want sales-adjacent work without cold calling.",
+      "dailyWork": [
+        "Identifying partnership opportunities",
+        "Building relationships with partners and clients",
+        "Negotiating contracts and deals",
+        "Developing market entry strategies",
+        "Collaborating with sales and product teams",
+        "Presenting business cases to leadership"
+      ],
+      "aFactorRequirements": {
+        "a1_personality": {
+          "required": ["relationship_builder", "strategic", "persuasive"],
+          "beneficial": ["entrepreneurial", "resilient"],
+          "dealbreakers": ["poor_communication", "not_business_minded"]
+        },
+        "a2_skills": {
+          "technical_baseline": "beginner",
+          "learning_speed": 6,
+          "required_skills": ["business_acumen", "negotiation"],
+          "beneficial_skills": ["tech_understanding", "languages", "data_analysis"],
+          "math_requirement": 5
+        },
+        "a3_values": {
+          "work_style": ["autonomy", "relationship_focused"],
+          "environment": ["growth_company", "international"],
+          "motivators": ["deal_making", "relationship_building", "business_growth"]
+        }
+      },
+      "skills": {
+        "technical": ["Business strategy", "Market research", "CRM (Salesforce)", "Negotiation", "Financial basics"],
+        "soft": ["Relationship building", "Strategic thinking", "Persuasion", "Resilience", "Cross-cultural communication"]
+      },
+      "compensationRange": {
+        "entry": { "min": 55000, "max": 75000 },
+        "mid": { "min": 75000, "max": 120000 },
+        "senior": { "min": 120000, "max": 200000 }
+      },
+      "educationRequirements": {
+        "preferred": ["Business, International Relations, Economics degree"],
+        "alternatives": "Proven track record of successful partnerships"
+      },
+      "careerPath": {
+        "entry": "BD Associate",
+        "progression": ["BD Manager (2-3 yrs)", "Senior BD Manager (4-6 yrs)", "Director of BD (7+ yrs)"]
+      },
+      "workEnvironment": {
+        "remote_friendly": true,
+        "typical_hours": "45-50 hours/week",
+        "oncall": "Never",
+        "collaboration_level": "High"
+      },
+      "industryDemand": {
+        "current": "High",
+        "growth": "Strong",
+        "jobOpenings": "Strong"
+      }
+    }
+  ]
+}
