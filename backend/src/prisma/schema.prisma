@@ -1,0 +1,118 @@
+// Prisma schema for Career Fit Analysis
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id                  String      @id @default(uuid())
+  email               String      @unique
+  passwordHash        String
+  name                String?
+  securityQuestion    String
+  securityAnswerHash  String
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  interviews          Interview[]
+
+  @@index([email])
+}
+
+// Interview model with interviewType field
+model Interview {
+  id                String    @id @default(uuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Interview type: lite, deep, or lite_upgraded
+  interviewType     String    @default("deep") // 'lite' | 'deep' | 'lite_upgraded'
+
+  // Interview status
+  status            String    @default("in_progress") // 'in_progress' | 'completed' | 'abandoned'
+  currentModule     String?   // 'A', 'B', 'C', ... 'L' or 'skills', 'values', 'situation'
+  currentQuestion   Int?      // Question number within module
+
+  // Timestamps
+  startedAt         DateTime  @default(now())
+  completedAt       DateTime?
+  lastActivityAt    DateTime  @updatedAt
+
+  // A1: Personality Data (JSON)
+  // Stores: MBTI, Big Five, Work Style, EQ, Motivation, Stress Management
+  personalityData   Json?
+
+  // A2: Talents Data (JSON)
+  // Stores: Cognitive abilities, Physical skills, Interpersonal skills, Learning agility
+  talentsData       Json?
+
+  // A3: Values Data (JSON)
+  // Stores: Work-life balance, Impact vs Money, Stability, Ethics, Vision
+  valuesData        Json?
+
+  // Session data (all answers stored here)
+  sessionData       Json?     // { completed_modules: [], answers: {module: {questionId: answer}} }
+
+  results           Result[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([interviewType])
+}
+
+// Result model
+model Result {
+  id            String    @id @default(uuid())
+  interviewId   String
+  interview     Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+
+  // A Score (Personal Attributes) - 0 to 100
+  aScore        Float     @default(0)
+  a1Score       Float     @default(0) // Personality score
+  a2Score       Float     @default(0) // Talents score
+  a3Score       Float     @default(0) // Values score
+
+  // Confidence level based on data completeness
+  confidenceLevel String  @default("medium") // 'low' | 'medium' | 'high'
+
+  // Career Matches (JSON array)
+  // Format: [{careerName, fitScore, reasons: [], gaps: [], roadmap: {}}]
+  careerMatches Json
+
+  // Top Recommendation
+  topCareer     String
+  topFitScore   Float
+
+  generatedAt   DateTime  @default(now())
+
+  @@index([interviewId])
+}
+
+// Career model
+model Career {
+  id                String   @id @default(uuid())
+  name              String   @unique
+  vietnameseName    String
+  description       String
+
+  // Requirements (JSON)
+  // Format: { a1: {trait1: value, trait2: value}, a2: {...}, a3: {...} }
+  requirements      Json
+
+  // Metadata
+  avgSalaryVND      String?
+  workHoursPerWeek  Int?
+  stressLevel       String?  // 'low' | 'moderate' | 'high' | 'very_high'
+  growthPotential   String?  // 'low' | 'moderate' | 'high' | 'very_high'
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([name])
+}
