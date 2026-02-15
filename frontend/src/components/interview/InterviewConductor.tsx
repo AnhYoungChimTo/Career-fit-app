@@ -8,11 +8,15 @@ import ProgressBar from './ProgressBar';
 interface InterviewConductorProps {
   interviewId: string;
   interviewType: 'lite' | 'deep';
+  moduleId?: string; // For deep interviews - specific module to work on
+  onBackToDashboard?: () => void; // For deep interviews - return to module dashboard
 }
 
 export default function InterviewConductor({
   interviewId,
   interviewType,
+  moduleId,
+  onBackToDashboard,
 }: InterviewConductorProps) {
   const navigate = useNavigate();
 
@@ -30,7 +34,7 @@ export default function InterviewConductor({
   // Load questions on mount
   useEffect(() => {
     loadQuestions();
-  }, [interviewType]);
+  }, [interviewType, moduleId]);
 
   const loadQuestions = async () => {
     try {
@@ -44,8 +48,15 @@ export default function InterviewConductor({
           const flattened = response.data.categories.flatMap((set) => set.questions);
           setAllQuestions(flattened);
         }
+      } else if (interviewType === 'deep' && moduleId) {
+        // Load specific module for Deep interview
+        const response = await api.getDeepModule(moduleId);
+        if (response.success && response.data) {
+          const module = response.data;
+          setQuestionSets([module]);
+          setAllQuestions(module.questions);
+        }
       }
-      // TODO: Add deep interview loading when implemented
 
       setIsLoading(false);
     } catch (error: any) {
@@ -135,6 +146,7 @@ export default function InterviewConductor({
         questionId,
         answer: value,
         category,
+        moduleId: moduleId, // Include moduleId for Deep interviews
       });
 
       setIsSaving(false);
@@ -207,16 +219,25 @@ export default function InterviewConductor({
     }
   };
 
-  // Complete interview
+  // Complete interview or module
   const handleComplete = async () => {
     try {
       setIsCompleting(true);
-      await api.completeInterview(interviewId);
-      // Navigate to results page
-      navigate(`/results/${interviewId}`);
+
+      // For Deep interviews with module dashboard, mark module as complete and return
+      if (moduleId && onBackToDashboard) {
+        await api.completeModule(interviewId, moduleId);
+        onBackToDashboard();
+      } else {
+        // For Lite interviews or final Deep completion, complete entire interview
+        await api.completeInterview(interviewId);
+        navigate(`/results/${interviewId}`);
+      }
     } catch (error: any) {
-      console.error('Failed to complete interview:', error);
-      setSaveError('Failed to complete interview. Please try again.');
+      console.error('Failed to complete:', error);
+      setSaveError(
+        error.response?.data?.error?.message || 'Failed to complete. Please try again.'
+      );
       setIsCompleting(false);
     }
   };
@@ -256,20 +277,38 @@ export default function InterviewConductor({
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-3xl mx-auto">
+        {/* Back to Dashboard button for Deep interviews */}
+        {onBackToDashboard && (
+          <button
+            onClick={onBackToDashboard}
+            className="mb-4 text-indigo-600 hover:text-indigo-800 font-medium flex items-center"
+          >
+            <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Module Dashboard
+          </button>
+        )}
+
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold text-gray-900">
-              {interviewType === 'lite' ? 'Lite Assessment' : 'Deep Analysis'}
-            </h1>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">
+                {moduleId ? `Module ${moduleId}` : interviewType === 'lite' ? 'Lite Assessment' : 'Deep Analysis'}
+              </h1>
+              {moduleId && questionSets[0] && (
+                <p className="text-sm text-gray-600 mt-1">{questionSets[0].title}</p>
+              )}
+            </div>
             <div className="text-sm text-gray-500">
-              {answeredQuestions}/{totalQuestions} answered
+              {currentQuestionIndex + 1}/{totalQuestions}
             </div>
           </div>
           <ProgressBar
             current={currentQuestionIndex + 1}
             total={totalQuestions}
-            categoryName={getCurrentCategory()}
+            categoryName={moduleId ? questionSets[0]?.title || '' : getCurrentCategory()}
           />
         </div>
 
@@ -349,7 +388,7 @@ export default function InterviewConductor({
                 Completing...
               </>
             ) : currentQuestionIndex === totalQuestions - 1 ? (
-              'Complete →'
+              moduleId && onBackToDashboard ? 'Complete Module →' : 'Complete →'
             ) : (
               'Next →'
             )}

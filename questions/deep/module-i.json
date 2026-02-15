@@ -2,7 +2,7 @@
   "moduleId": "I",
   "title": "Project & Task Preferences",
   "description": "The types of projects and tasks that energize you",
-  "estimatedMinutes": 12,
+  "estimatedMinutes": 6,
   "isRecommended": false,
   "questions": [
     {
@@ -11,10 +11,22 @@
       "required": true,
       "question": "What project duration do you prefer?",
       "options": [
-        { "value": "short_sprint", "label": "Short sprints (1-2 weeks) - quick wins" },
-        { "value": "medium", "label": "Medium (1-2 months) - balanced" },
-        { "value": "long_term", "label": "Long-term (6+ months) - deep work" },
-        { "value": "mixed", "label": "Mix of short and long-term projects" }
+        {
+          "value": "short_sprint",
+          "label": "Short sprints (1-2 weeks) - quick wins"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (1-2 months) - balanced"
+        },
+        {
+          "value": "long_term",
+          "label": "Long-term (6+ months) - deep work"
+        },
+        {
+          "value": "mixed",
+          "label": "Mix of short and long-term projects"
+        }
       ],
       "scoringKey": "a3_project_duration_preference"
     },
@@ -25,14 +37,38 @@
       "question": "Which types of projects excite you? (Select up to 4)",
       "maxSelections": 4,
       "options": [
-        { "value": "greenfield", "label": "Greenfield - building from scratch" },
-        { "value": "refactoring", "label": "Refactoring and improving existing code" },
-        { "value": "bug_fixing", "label": "Bug hunting and debugging" },
-        { "value": "performance", "label": "Performance optimization" },
-        { "value": "new_features", "label": "Adding new features" },
-        { "value": "infrastructure", "label": "Infrastructure and tooling" },
-        { "value": "research", "label": "Research and proof-of-concepts" },
-        { "value": "migration", "label": "Migrations and upgrades" }
+        {
+          "value": "greenfield",
+          "label": "Greenfield - building from scratch"
+        },
+        {
+          "value": "refactoring",
+          "label": "Refactoring and improving existing code"
+        },
+        {
+          "value": "bug_fixing",
+          "label": "Bug hunting and debugging"
+        },
+        {
+          "value": "performance",
+          "label": "Performance optimization"
+        },
+        {
+          "value": "new_features",
+          "label": "Adding new features"
+        },
+        {
+          "value": "infrastructure",
+          "label": "Infrastructure and tooling"
+        },
+        {
+          "value": "research",
+          "label": "Research and proof-of-concepts"
+        },
+        {
+          "value": "migration",
+          "label": "Migrations and upgrades"
+        }
       ],
       "scoringKey": "a3_project_types_exciting"
     },
@@ -53,10 +89,22 @@
       "required": true,
       "question": "What level of ownership do you want over your work?",
       "options": [
-        { "value": "full_ownership", "label": "Full ownership - own it end-to-end" },
-        { "value": "collaborative", "label": "Collaborative ownership with team" },
-        { "value": "delegated", "label": "Clear tasks delegated to me" },
-        { "value": "flexible", "label": "Flexible - depends on the project" }
+        {
+          "value": "full_ownership",
+          "label": "Full ownership - own it end-to-end"
+        },
+        {
+          "value": "collaborative",
+          "label": "Collaborative ownership with team"
+        },
+        {
+          "value": "delegated",
+          "label": "Clear tasks delegated to me"
+        },
+        {
+          "value": "flexible",
+          "label": "Flexible - depends on the project"
+        }
       ],
       "scoringKey": "a3_ownership_level"
     },
@@ -67,15 +115,42 @@
       "question": "What aspects of development do you enjoy most? (Select up to 5)",
       "maxSelections": 5,
       "options": [
-        { "value": "architecture", "label": "Architecting systems and solutions" },
-        { "value": "coding", "label": "Writing code and implementing features" },
-        { "value": "testing", "label": "Testing and ensuring quality" },
-        { "value": "deployment", "label": "Deployment and DevOps" },
-        { "value": "planning", "label": "Planning and breaking down tasks" },
-        { "value": "reviewing", "label": "Code review and mentoring" },
-        { "value": "documentation", "label": "Documentation and knowledge sharing" },
-        { "value": "user_interaction", "label": "Interacting with users for feedback" },
-        { "value": "monitoring", "label": "Monitoring and observability" }
+        {
+          "value": "architecture",
+          "label": "Architecting systems and solutions"
+        },
+        {
+          "value": "coding",
+          "label": "Writing code and implementing features"
+        },
+        {
+          "value": "testing",
+          "label": "Testing and ensuring quality"
+        },
+        {
+          "value": "deployment",
+          "label": "Deployment and DevOps"
+        },
+        {
+          "value": "planning",
+          "label": "Planning and breaking down tasks"
+        },
+        {
+          "value": "reviewing",
+          "label": "Code review and mentoring"
+        },
+        {
+          "value": "documentation",
+          "label": "Documentation and knowledge sharing"
+        },
+        {
+          "value": "user_interaction",
+          "label": "Interacting with users for feedback"
+        },
+        {
+          "value": "monitoring",
+          "label": "Monitoring and observability"
+        }
       ],
       "scoringKey": "a3_development_aspects_enjoyed"
     },
@@ -96,12 +171,30 @@
       "required": true,
       "question": "When starting a new project, what excites you most?",
       "options": [
-        { "value": "technical_challenge", "label": "The technical challenge to solve" },
-        { "value": "user_impact", "label": "The impact it will have on users" },
-        { "value": "learning_opportunity", "label": "The opportunity to learn new skills" },
-        { "value": "clean_slate", "label": "Starting with a clean slate" },
-        { "value": "team_collaboration", "label": "Collaborating with the team" },
-        { "value": "completion", "label": "Completing and shipping it" }
+        {
+          "value": "technical_challenge",
+          "label": "The technical challenge to solve"
+        },
+        {
+          "value": "user_impact",
+          "label": "The impact it will have on users"
+        },
+        {
+          "value": "learning_opportunity",
+          "label": "The opportunity to learn new skills"
+        },
+        {
+          "value": "clean_slate",
+          "label": "Starting with a clean slate"
+        },
+        {
+          "value": "team_collaboration",
+          "label": "Collaborating with the team"
+        },
+        {
+          "value": "completion",
+          "label": "Completing and shipping it"
+        }
       ],
       "scoringKey": "a3_project_start_excitement"
     },
@@ -122,12 +215,30 @@
       "required": true,
       "question": "What gives you the most satisfaction in completing work?",
       "options": [
-        { "value": "user_feedback", "label": "Positive user feedback" },
-        { "value": "code_elegance", "label": "Elegant, clean code" },
-        { "value": "problem_solved", "label": "Solving a hard problem" },
-        { "value": "team_success", "label": "Team achieving goals together" },
-        { "value": "metrics_impact", "label": "Measurable metrics impact" },
-        { "value": "learning", "label": "What I learned along the way" }
+        {
+          "value": "user_feedback",
+          "label": "Positive user feedback"
+        },
+        {
+          "value": "code_elegance",
+          "label": "Elegant, clean code"
+        },
+        {
+          "value": "problem_solved",
+          "label": "Solving a hard problem"
+        },
+        {
+          "value": "team_success",
+          "label": "Team achieving goals together"
+        },
+        {
+          "value": "metrics_impact",
+          "label": "Measurable metrics impact"
+        },
+        {
+          "value": "learning",
+          "label": "What I learned along the way"
+        }
       ],
       "scoringKey": "a3_work_satisfaction_source"
     },
@@ -137,14 +248,38 @@
       "required": false,
       "question": "What tasks drain your energy? (Select all that apply)",
       "options": [
-        { "value": "meetings", "label": "Too many meetings" },
-        { "value": "documentation", "label": "Writing documentation" },
-        { "value": "legacy_code", "label": "Working with legacy code" },
-        { "value": "unclear_requirements", "label": "Unclear or changing requirements" },
-        { "value": "bureaucracy", "label": "Process and bureaucracy" },
-        { "value": "repetitive", "label": "Repetitive, routine tasks" },
-        { "value": "context_switching", "label": "Constant context switching" },
-        { "value": "firefighting", "label": "Constant firefighting and urgent issues" }
+        {
+          "value": "meetings",
+          "label": "Too many meetings"
+        },
+        {
+          "value": "documentation",
+          "label": "Writing documentation"
+        },
+        {
+          "value": "legacy_code",
+          "label": "Working with legacy code"
+        },
+        {
+          "value": "unclear_requirements",
+          "label": "Unclear or changing requirements"
+        },
+        {
+          "value": "bureaucracy",
+          "label": "Process and bureaucracy"
+        },
+        {
+          "value": "repetitive",
+          "label": "Repetitive, routine tasks"
+        },
+        {
+          "value": "context_switching",
+          "label": "Constant context switching"
+        },
+        {
+          "value": "firefighting",
+          "label": "Constant firefighting and urgent issues"
+        }
       ],
       "scoringKey": "a3_energy_draining_tasks"
     },

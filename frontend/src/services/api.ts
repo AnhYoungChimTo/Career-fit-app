@@ -179,6 +179,43 @@ class ApiService {
     const response = await this.api.post(`/api/interviews/${interviewId}/complete`);
     return response.data;
   }
+
+  async upgradeInterview(interviewId: string): Promise<ApiResponse<Interview>> {
+    const response = await this.api.post(`/api/interviews/${interviewId}/upgrade`);
+    return response.data;
+  }
+
+  async abandonInterview(interviewId: string): Promise<ApiResponse<Interview>> {
+    const response = await this.api.delete(`/api/interviews/${interviewId}/abandon`);
+    return response.data;
+  }
+
+  async getDeepModules(interviewId: string): Promise<ApiResponse<any[]>> {
+    const response = await this.api.get(`/api/interviews/${interviewId}/modules`);
+    return response.data;
+  }
+
+  async getResults(interviewId: string): Promise<ApiResponse<any>> {
+    const response = await this.api.get(`/api/results/${interviewId}`);
+    return response.data;
+  }
+
+  async downloadResultsPDF(interviewId: string): Promise<void> {
+    const response = await this.api.get(`/api/results/${interviewId}/pdf`, {
+      responseType: 'blob',
+    });
+
+    // Create a blob URL and trigger download
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `career-fit-report-${new Date().toISOString().split('T')[0]}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  }
 }
 
 // Export singleton instance

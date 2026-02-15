@@ -113,6 +113,27 @@ export interface SaveAnswerRequest {
   category?: string;
 }
 
+// Results types
+export interface CareerMatch {
+  careerId: string;
+  careerTitle: string;
+  careerCategory: string;
+  fitScore: number;
+  confidence: 'low' | 'medium' | 'high';
+  explanation: string;
+  strengths: string[];
+  growthAreas: string[];
+  roadmap: string;
+}
+
+export interface MatchingResult {
+  interviewId: string;
+  interviewType: string;
+  matches: CareerMatch[];
+  analysisDate: string;
+  dataCompleteness: number;
+}
+
 // API Response types
 export interface ApiResponse<T> {
   success: boolean;

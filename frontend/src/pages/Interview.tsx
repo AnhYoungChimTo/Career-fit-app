@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { api } from '../services/api';
 import InterviewConductor from '../components/interview/InterviewConductor';
+import ModuleDashboard from '../components/interview/ModuleDashboard';
 import type { InterviewStatus } from '../types';
 
 export default function Interview() {
@@ -10,6 +11,7 @@ export default function Interview() {
   const [interview, setInterview] = useState<InterviewStatus | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
+  const [selectedModule, setSelectedModule] = useState<string | null>(null);
 
   useEffect(() => {
     loadInterview();
@@ -89,14 +91,30 @@ export default function Interview() {
     );
   }
 
+  // For Deep interviews, show module dashboard if no module selected
+  const isDeepInterview = interview.interviewType === 'deep' || interview.interviewType === 'lite_upgraded';
+
+  if (isDeepInterview && !selectedModule) {
+    return (
+      <ModuleDashboard
+        interviewId={interviewId!}
+        interview={interview}
+        onModuleSelect={(moduleId) => setSelectedModule(moduleId)}
+      />
+    );
+  }
+
   // Render interview conductor
-  // Note: 'lite_upgraded' is treated as 'lite' for the conductor
+  // For Lite: show conductor directly
+  // For Deep: show conductor for selected module
   const conductorType = interview.interviewType === 'lite_upgraded' ? 'lite' : interview.interviewType;
 
   return (
     <InterviewConductor
       interviewId={interviewId!}
       interviewType={conductorType}
+      moduleId={selectedModule || undefined}
+      onBackToDashboard={isDeepInterview ? () => setSelectedModule(null) : undefined}
     />
   );
 }

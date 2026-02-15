@@ -2,7 +2,7 @@
   "moduleId": "F",
   "title": "Problem-Solving Approaches",
   "description": "How you tackle challenges and solve complex problems",
-  "estimatedMinutes": 15,
+  "estimatedMinutes": 5,
   "isRecommended": false,
   "questions": [
     {
@@ -11,11 +11,26 @@
       "required": true,
       "question": "When faced with a new technical problem, what's your first step?",
       "options": [
-        { "value": "understand_problem", "label": "Fully understand the problem before acting" },
-        { "value": "research_solutions", "label": "Research how others solved similar problems" },
-        { "value": "try_something", "label": "Try something and iterate" },
-        { "value": "break_down", "label": "Break it into smaller sub-problems" },
-        { "value": "discuss", "label": "Discuss with others for ideas" }
+        {
+          "value": "understand_problem",
+          "label": "Fully understand the problem before acting"
+        },
+        {
+          "value": "research_solutions",
+          "label": "Research how others solved similar problems"
+        },
+        {
+          "value": "try_something",
+          "label": "Try something and iterate"
+        },
+        {
+          "value": "break_down",
+          "label": "Break it into smaller sub-problems"
+        },
+        {
+          "value": "discuss",
+          "label": "Discuss with others for ideas"
+        }
       ],
       "scoringKey": "a1_problem_first_step"
     },
@@ -36,14 +51,38 @@
       "required": true,
       "question": "Which problem-solving strategies do you use? (Select all that apply)",
       "options": [
-        { "value": "divide_conquer", "label": "Divide and conquer - break into pieces" },
-        { "value": "pattern_matching", "label": "Pattern matching - relate to known problems" },
-        { "value": "first_principles", "label": "First principles - build up from fundamentals" },
-        { "value": "trial_error", "label": "Trial and error - experiment until it works" },
-        { "value": "visualization", "label": "Visualization - draw diagrams" },
-        { "value": "rubber_duck", "label": "Rubber duck debugging - explain it aloud" },
-        { "value": "step_away", "label": "Step away and return with fresh perspective" },
-        { "value": "systematic_debug", "label": "Systematic debugging - test hypotheses" }
+        {
+          "value": "divide_conquer",
+          "label": "Divide and conquer - break into pieces"
+        },
+        {
+          "value": "pattern_matching",
+          "label": "Pattern matching - relate to known problems"
+        },
+        {
+          "value": "first_principles",
+          "label": "First principles - build up from fundamentals"
+        },
+        {
+          "value": "trial_error",
+          "label": "Trial and error - experiment until it works"
+        },
+        {
+          "value": "visualization",
+          "label": "Visualization - draw diagrams"
+        },
+        {
+          "value": "rubber_duck",
+          "label": "Rubber duck debugging - explain it aloud"
+        },
+        {
+          "value": "step_away",
+          "label": "Step away and return with fresh perspective"
+        },
+        {
+          "value": "systematic_debug",
+          "label": "Systematic debugging - test hypotheses"
+        }
       ],
       "scoringKey": "a1_problem_solving_strategies"
     },
@@ -53,12 +92,30 @@
       "required": true,
       "question": "When debugging, what's your typical approach?",
       "options": [
-        { "value": "print_statements", "label": "Print/log statements to trace flow" },
-        { "value": "debugger", "label": "Use debugger to step through code" },
-        { "value": "reproduce_minimal", "label": "Create minimal reproduction" },
-        { "value": "read_code", "label": "Carefully read and trace through code" },
-        { "value": "binary_search", "label": "Binary search - isolate the problematic section" },
-        { "value": "google_error", "label": "Google the error message" }
+        {
+          "value": "print_statements",
+          "label": "Print/log statements to trace flow"
+        },
+        {
+          "value": "debugger",
+          "label": "Use debugger to step through code"
+        },
+        {
+          "value": "reproduce_minimal",
+          "label": "Create minimal reproduction"
+        },
+        {
+          "value": "read_code",
+          "label": "Carefully read and trace through code"
+        },
+        {
+          "value": "binary_search",
+          "label": "Binary search - isolate the problematic section"
+        },
+        {
+          "value": "google_error",
+          "label": "Google the error message"
+        }
       ],
       "scoringKey": "a2_debugging_method"
     },
@@ -79,11 +136,26 @@
       "required": true,
       "question": "What's your approach when you don't know the answer?",
       "options": [
-        { "value": "admit_research", "label": "Admit it and research the best approach" },
-        { "value": "fake_til_make", "label": "Figure it out as I go" },
-        { "value": "ask_expert", "label": "Find and ask an expert" },
-        { "value": "experiment", "label": "Experiment and test different approaches" },
-        { "value": "study_first", "label": "Study the fundamentals before attempting" }
+        {
+          "value": "admit_research",
+          "label": "Admit it and research the best approach"
+        },
+        {
+          "value": "fake_til_make",
+          "label": "Figure it out as I go"
+        },
+        {
+          "value": "ask_expert",
+          "label": "Find and ask an expert"
+        },
+        {
+          "value": "experiment",
+          "label": "Experiment and test different approaches"
+        },
+        {
+          "value": "study_first",
+          "label": "Study the fundamentals before attempting"
+        }
       ],
       "scoringKey": "a1_unknown_handling"
     },
@@ -93,13 +165,34 @@
       "required": true,
       "question": "What helps you when you're stuck? (Select all that apply)",
       "options": [
-        { "value": "break", "label": "Taking a break and coming back fresh" },
-        { "value": "different_perspective", "label": "Getting a different perspective" },
-        { "value": "simplify", "label": "Simplifying the problem" },
-        { "value": "start_over", "label": "Starting over from scratch" },
-        { "value": "similar_examples", "label": "Finding similar solved examples" },
-        { "value": "explain_others", "label": "Explaining the problem to others" },
-        { "value": "research_deeply", "label": "Deep research into the topic" }
+        {
+          "value": "break",
+          "label": "Taking a break and coming back fresh"
+        },
+        {
+          "value": "different_perspective",
+          "label": "Getting a different perspective"
+        },
+        {
+          "value": "simplify",
+          "label": "Simplifying the problem"
+        },
+        {
+          "value": "start_over",
+          "label": "Starting over from scratch"
+        },
+        {
+          "value": "similar_examples",
+          "label": "Finding similar solved examples"
+        },
+        {
+          "value": "explain_others",
+          "label": "Explaining the problem to others"
+        },
+        {
+          "value": "research_deeply",
+          "label": "Deep research into the topic"
+        }
       ],
       "scoringKey": "a1_unstuck_strategies"
     },
@@ -120,12 +213,30 @@
       "required": true,
       "question": "When multiple solutions exist, how do you choose?",
       "options": [
-        { "value": "simplest", "label": "Simplest solution that works" },
-        { "value": "most_performant", "label": "Most performant solution" },
-        { "value": "most_maintainable", "label": "Most maintainable long-term" },
-        { "value": "fastest_to_implement", "label": "Fastest to implement" },
-        { "value": "most_scalable", "label": "Most scalable for future growth" },
-        { "value": "most_elegant", "label": "Most elegant or clever" }
+        {
+          "value": "simplest",
+          "label": "Simplest solution that works"
+        },
+        {
+          "value": "most_performant",
+          "label": "Most performant solution"
+        },
+        {
+          "value": "most_maintainable",
+          "label": "Most maintainable long-term"
+        },
+        {
+          "value": "fastest_to_implement",
+          "label": "Fastest to implement"
+        },
+        {
+          "value": "most_scalable",
+          "label": "Most scalable for future growth"
+        },
+        {
+          "value": "most_elegant",
+          "label": "Most elegant or clever"
+        }
       ],
       "scoringKey": "a1_solution_selection_criteria"
     },
@@ -155,12 +266,30 @@
       "required": true,
       "question": "What type of problems energize you most?",
       "options": [
-        { "value": "well_defined", "label": "Well-defined with clear requirements" },
-        { "value": "open_ended", "label": "Open-ended requiring creativity" },
-        { "value": "urgent_fires", "label": "Urgent fires that need quick solutions" },
-        { "value": "complex_systems", "label": "Complex system-level problems" },
-        { "value": "user_facing", "label": "User-facing problems with direct impact" },
-        { "value": "optimization", "label": "Performance and optimization challenges" }
+        {
+          "value": "well_defined",
+          "label": "Well-defined with clear requirements"
+        },
+        {
+          "value": "open_ended",
+          "label": "Open-ended requiring creativity"
+        },
+        {
+          "value": "urgent_fires",
+          "label": "Urgent fires that need quick solutions"
+        },
+        {
+          "value": "complex_systems",
+          "label": "Complex system-level problems"
+        },
+        {
+          "value": "user_facing",
+          "label": "User-facing problems with direct impact"
+        },
+        {
+          "value": "optimization",
+          "label": "Performance and optimization challenges"
+        }
       ],
       "scoringKey": "a3_energizing_problem_type"
     }

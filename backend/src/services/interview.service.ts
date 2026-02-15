@@ -146,17 +146,8 @@ export async function startInterview(data: StartInterviewRequest) {
     throw new Error('User not found');
   }
 
-  // Check if user already has an in-progress interview
-  const existingInterview = await prisma.interview.findFirst({
-    where: {
-      userId,
-      status: 'in_progress',
-    },
-  });
-
-  if (existingInterview) {
-    throw new Error('User already has an in-progress interview. Please complete or cancel it first.');
-  }
+  // Note: Removed restriction - users can now have multiple in-progress interviews
+  // This allows for better UX where users can explore different paths
 
   // Create new interview
   const interview = await prisma.interview.create({
@@ -292,11 +283,16 @@ export async function getInterviewStatus(interviewId: string): Promise<Interview
   let totalQuestions = 0;
   if (interview.interviewType === 'lite') {
     totalQuestions = 37; // Lite has ~37 questions
-  } else if (interview.interviewType === 'deep') {
+  } else if (interview.interviewType === 'deep' || interview.interviewType === 'lite_upgraded') {
     const sessionData = (interview.sessionData as any) || {};
     const selectedModules = sessionData.selectedModules || ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
     // Average 12 questions per module
     totalQuestions = selectedModules.length * 12;
+
+    // For lite_upgraded, add the Lite questions that were already answered
+    if (interview.interviewType === 'lite_upgraded') {
+      totalQuestions += 37;
+    }
   }
 
   const percentComplete = totalQuestions > 0
@@ -305,7 +301,7 @@ export async function getInterviewStatus(interviewId: string): Promise<Interview
 
   // Determine completed modules (for deep interviews)
   const completedModules: string[] = [];
-  if (interview.interviewType === 'deep') {
+  if (interview.interviewType === 'deep' || interview.interviewType === 'lite_upgraded') {
     const sessionData = (interview.sessionData as any) || {};
     completedModules.push(...(sessionData.completedModules || []));
   }
@@ -399,4 +395,134 @@ export async function getUserInterviews(userId: string) {
   });
 
   return interviews;
+}
+
+/**
+ * Get Deep interview modules with status for a specific interview
+ */
+export async function getInterviewModules(interviewId: string) {
+  // Get interview
+  const interview = await prisma.interview.findUnique({
+    where: { id: interviewId },
+  });
+
+  if (!interview) {
+    throw new Error('Interview not found');
+  }
+
+  if (interview.interviewType !== 'deep' && interview.interviewType !== 'lite_upgraded') {
+    throw new Error('This is not a Deep interview');
+  }
+
+  // Load all modules metadata
+  const modulesMetadata = await getDeepModulesMetadata();
+
+  // Get completed modules from session data
+  const sessionData = (interview.sessionData as any) || {};
+  const completedModules = sessionData.completedModules || [];
+
+  // Get all answers to count how many questions per module have been answered
+  const allAnswers = {
+    ...(interview.personalityData as any || {}),
+    ...(interview.talentsData as any || {}),
+    ...(interview.valuesData as any || {}),
+    ...(interview.sessionData as any || {}),
+  };
+
+  // Build module status array
+  const modules = modulesMetadata.map((meta) => {
+    const moduleId = meta.moduleId;
+
+    // Count answers for this module (questions start with module letter lowercase)
+    const modulePrefix = moduleId.toLowerCase() + '_';
+    const answeredCount = Object.keys(allAnswers).filter(
+      (key) => key.startsWith(modulePrefix)
+    ).length;
+
+    // Determine status
+    let status: 'not_started' | 'in_progress' | 'completed';
+    if (completedModules.includes(moduleId)) {
+      status = 'completed';
+    } else if (answeredCount > 0) {
+      status = 'in_progress';
+    } else {
+      status = 'not_started';
+    }
+
+    return {
+      moduleId: meta.moduleId,
+      title: meta.title,
+      description: meta.description,
+      estimatedMinutes: meta.estimatedMinutes,
+      isRecommended: meta.isRecommended,
+      questionsCount: meta.questionCount,
+      answeredCount,
+      status,
+    };
+  });
+
+  return modules;
+}
+
+/**
+ * Upgrade a Lite interview to Deep (lite_upgraded)
+ */
+export async function upgradeInterview(interviewId: string) {
+  // Get interview
+  const interview = await prisma.interview.findUnique({
+    where: { id: interviewId },
+  });
+
+  if (!interview) {
+    throw new Error('Interview not found');
+  }
+
+  if (interview.interviewType !== 'lite') {
+    throw new Error('Only Lite interviews can be upgraded');
+  }
+
+  if (interview.status !== 'completed') {
+    throw new Error('Interview must be completed before upgrading');
+  }
+
+  // Update interview to lite_upgraded and set status back to in_progress
+  const updated = await prisma.interview.update({
+    where: { id: interviewId },
+    data: {
+      interviewType: 'lite_upgraded',
+      status: 'in_progress',
+      currentModule: 'A', // Start with Module A
+      currentQuestion: 0,
+      sessionData: {
+        completedModules: [], // No Deep modules completed yet
+        upgradedFrom: 'lite',
+        upgradedAt: new Date().toISOString(),
+      },
+    },
+  });
+
+  return updated;
+}
+
+/**
+ * Abandon/delete an interview
+ */
+export async function abandonInterview(interviewId: string) {
+  const interview = await prisma.interview.findUnique({
+    where: { id: interviewId },
+  });
+
+  if (!interview) {
+    throw new Error('Interview not found');
+  }
+
+  // Mark as abandoned instead of deleting (preserves data)
+  const updated = await prisma.interview.update({
+    where: { id: interviewId },
+    data: {
+      status: 'abandoned',
+    },
+  });
+
+  return updated;
 }

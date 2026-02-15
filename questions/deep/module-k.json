@@ -2,7 +2,7 @@
   "moduleId": "K",
   "title": "Industry & Domain Interests",
   "description": "Which industries and problem domains interest you most",
-  "estimatedMinutes": 12,
+  "estimatedMinutes": 5,
   "isRecommended": false,
   "questions": [
     {
@@ -12,21 +12,66 @@
       "question": "Which industries or domains interest you? (Select up to 5)",
       "maxSelections": 5,
       "options": [
-        { "value": "fintech", "label": "Fintech - payments, banking, investing" },
-        { "value": "healthtech", "label": "Healthtech - medical, wellness, healthcare" },
-        { "value": "edtech", "label": "Edtech - education and learning" },
-        { "value": "ecommerce", "label": "E-commerce and retail tech" },
-        { "value": "social", "label": "Social media and community platforms" },
-        { "value": "gaming", "label": "Gaming and entertainment" },
-        { "value": "enterprise_saas", "label": "Enterprise SaaS and B2B tools" },
-        { "value": "devtools", "label": "Developer tools and infrastructure" },
-        { "value": "ai_ml", "label": "AI/ML platforms and applications" },
-        { "value": "climate", "label": "Climate tech and sustainability" },
-        { "value": "cybersecurity", "label": "Cybersecurity" },
-        { "value": "blockchain", "label": "Blockchain and web3" },
-        { "value": "transportation", "label": "Transportation and mobility" },
-        { "value": "real_estate", "label": "Real estate and proptech" },
-        { "value": "no_preference", "label": "No strong preference" }
+        {
+          "value": "fintech",
+          "label": "Fintech - payments, banking, investing"
+        },
+        {
+          "value": "healthtech",
+          "label": "Healthtech - medical, wellness, healthcare"
+        },
+        {
+          "value": "edtech",
+          "label": "Edtech - education and learning"
+        },
+        {
+          "value": "ecommerce",
+          "label": "E-commerce and retail tech"
+        },
+        {
+          "value": "social",
+          "label": "Social media and community platforms"
+        },
+        {
+          "value": "gaming",
+          "label": "Gaming and entertainment"
+        },
+        {
+          "value": "enterprise_saas",
+          "label": "Enterprise SaaS and B2B tools"
+        },
+        {
+          "value": "devtools",
+          "label": "Developer tools and infrastructure"
+        },
+        {
+          "value": "ai_ml",
+          "label": "AI/ML platforms and applications"
+        },
+        {
+          "value": "climate",
+          "label": "Climate tech and sustainability"
+        },
+        {
+          "value": "cybersecurity",
+          "label": "Cybersecurity"
+        },
+        {
+          "value": "blockchain",
+          "label": "Blockchain and web3"
+        },
+        {
+          "value": "transportation",
+          "label": "Transportation and mobility"
+        },
+        {
+          "value": "real_estate",
+          "label": "Real estate and proptech"
+        },
+        {
+          "value": "no_preference",
+          "label": "No strong preference"
+        }
       ],
       "scoringKey": "a3_industry_interests"
     },
@@ -36,12 +81,30 @@
       "required": true,
       "question": "What type of user do you want to build products for?",
       "options": [
-        { "value": "consumers", "label": "Consumers - general public" },
-        { "value": "developers", "label": "Developers - building tools for builders" },
-        { "value": "businesses", "label": "Businesses - B2B enterprise" },
-        { "value": "specific_vertical", "label": "Specific vertical (healthcare, education, etc.)" },
-        { "value": "internal", "label": "Internal users - improving my own company" },
-        { "value": "open_minded", "label": "Open-minded - depends on the product" }
+        {
+          "value": "consumers",
+          "label": "Consumers - general public"
+        },
+        {
+          "value": "developers",
+          "label": "Developers - building tools for builders"
+        },
+        {
+          "value": "businesses",
+          "label": "Businesses - B2B enterprise"
+        },
+        {
+          "value": "specific_vertical",
+          "label": "Specific vertical (healthcare, education, etc.)"
+        },
+        {
+          "value": "internal",
+          "label": "Internal users - improving my own company"
+        },
+        {
+          "value": "open_minded",
+          "label": "Open-minded - depends on the product"
+        }
       ],
       "scoringKey": "a3_target_user_preference"
     },
@@ -62,15 +125,42 @@
       "required": true,
       "question": "What types of problems do you want to solve? (Select all that apply)",
       "options": [
-        { "value": "efficiency", "label": "Making things more efficient" },
-        { "value": "accessibility", "label": "Making tech accessible to more people" },
-        { "value": "connection", "label": "Connecting people" },
-        { "value": "automation", "label": "Automating manual processes" },
-        { "value": "insights", "label": "Deriving insights from data" },
-        { "value": "creativity", "label": "Enabling creativity and expression" },
-        { "value": "security", "label": "Protecting and securing systems/data" },
-        { "value": "scale", "label": "Scaling systems to handle growth" },
-        { "value": "intelligence", "label": "Building intelligent, adaptive systems" }
+        {
+          "value": "efficiency",
+          "label": "Making things more efficient"
+        },
+        {
+          "value": "accessibility",
+          "label": "Making tech accessible to more people"
+        },
+        {
+          "value": "connection",
+          "label": "Connecting people"
+        },
+        {
+          "value": "automation",
+          "label": "Automating manual processes"
+        },
+        {
+          "value": "insights",
+          "label": "Deriving insights from data"
+        },
+        {
+          "value": "creativity",
+          "label": "Enabling creativity and expression"
+        },
+        {
+          "value": "security",
+          "label": "Protecting and securing systems/data"
+        },
+        {
+          "value": "scale",
+          "label": "Scaling systems to handle growth"
+        },
+        {
+          "value": "intelligence",
+          "label": "Building intelligent, adaptive systems"
+        }
       ],
       "scoringKey": "a3_problem_domains"
     },
@@ -80,10 +170,22 @@
       "required": true,
       "question": "Would you prefer to work in a regulated industry (healthcare, finance)?",
       "options": [
-        { "value": "yes_interesting", "label": "Yes - I find the challenges interesting" },
-        { "value": "neutral", "label": "Neutral - doesn't matter to me" },
-        { "value": "prefer_avoid", "label": "Prefer to avoid - too restrictive" },
-        { "value": "depends", "label": "Depends on the specific opportunity" }
+        {
+          "value": "yes_interesting",
+          "label": "Yes - I find the challenges interesting"
+        },
+        {
+          "value": "neutral",
+          "label": "Neutral - doesn't matter to me"
+        },
+        {
+          "value": "prefer_avoid",
+          "label": "Prefer to avoid - too restrictive"
+        },
+        {
+          "value": "depends",
+          "label": "Depends on the specific opportunity"
+        }
       ],
       "scoringKey": "a3_regulated_industry_interest"
     },
@@ -104,15 +206,42 @@
       "required": false,
       "question": "Which causes or missions resonate with you? (Select all that apply)",
       "options": [
-        { "value": "education", "label": "Improving education access" },
-        { "value": "health", "label": "Advancing healthcare" },
-        { "value": "environment", "label": "Environmental sustainability" },
-        { "value": "equality", "label": "Social equality and justice" },
-        { "value": "poverty", "label": "Reducing poverty" },
-        { "value": "free_internet", "label": "Open and free internet" },
-        { "value": "privacy", "label": "Privacy and data rights" },
-        { "value": "innovation", "label": "Pushing human innovation forward" },
-        { "value": "none", "label": "None specifically - I'm mission-agnostic" }
+        {
+          "value": "education",
+          "label": "Improving education access"
+        },
+        {
+          "value": "health",
+          "label": "Advancing healthcare"
+        },
+        {
+          "value": "environment",
+          "label": "Environmental sustainability"
+        },
+        {
+          "value": "equality",
+          "label": "Social equality and justice"
+        },
+        {
+          "value": "poverty",
+          "label": "Reducing poverty"
+        },
+        {
+          "value": "free_internet",
+          "label": "Open and free internet"
+        },
+        {
+          "value": "privacy",
+          "label": "Privacy and data rights"
+        },
+        {
+          "value": "innovation",
+          "label": "Pushing human innovation forward"
+        },
+        {
+          "value": "none",
+          "label": "None specifically - I'm mission-agnostic"
+        }
       ],
       "scoringKey": "a3_mission_alignment"
     },
@@ -122,11 +251,26 @@
       "required": true,
       "question": "What scale of impact excites you most?",
       "options": [
-        { "value": "massive_millions", "label": "Massive - millions of users" },
-        { "value": "meaningful_thousands", "label": "Meaningful - thousands of engaged users" },
-        { "value": "deep_hundreds", "label": "Deep - hundreds who really need it" },
-        { "value": "focused_niche", "label": "Focused - niche group, high value" },
-        { "value": "dont_care", "label": "Don't care about scale - care about impact quality" }
+        {
+          "value": "massive_millions",
+          "label": "Massive - millions of users"
+        },
+        {
+          "value": "meaningful_thousands",
+          "label": "Meaningful - thousands of engaged users"
+        },
+        {
+          "value": "deep_hundreds",
+          "label": "Deep - hundreds who really need it"
+        },
+        {
+          "value": "focused_niche",
+          "label": "Focused - niche group, high value"
+        },
+        {
+          "value": "dont_care",
+          "label": "Don't care about scale - care about impact quality"
+        }
       ],
       "scoringKey": "a3_impact_scale_preference"
     },
@@ -145,11 +289,26 @@
       "required": true,
       "question": "What's your view on working for companies with ethical concerns?",
       "options": [
-        { "value": "dealbreaker", "label": "Absolute dealbreaker - values must align" },
-        { "value": "important", "label": "Important - would need to carefully evaluate" },
-        { "value": "depends", "label": "Depends on the specific concerns" },
-        { "value": "separate", "label": "Separate - I can compartmentalize work" },
-        { "value": "pragmatic", "label": "Pragmatic - perfect companies don't exist" }
+        {
+          "value": "dealbreaker",
+          "label": "Absolute dealbreaker - values must align"
+        },
+        {
+          "value": "important",
+          "label": "Important - would need to carefully evaluate"
+        },
+        {
+          "value": "depends",
+          "label": "Depends on the specific concerns"
+        },
+        {
+          "value": "separate",
+          "label": "Separate - I can compartmentalize work"
+        },
+        {
+          "value": "pragmatic",
+          "label": "Pragmatic - perfect companies don't exist"
+        }
       ],
       "scoringKey": "a3_ethical_standards"
     },

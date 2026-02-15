@@ -2,7 +2,7 @@
   "moduleId": "G",
   "title": "Career Goals & Vision",
   "description": "Where you see yourself heading in your career",
-  "estimatedMinutes": 15,
+  "estimatedMinutes": 5,
   "isRecommended": true,
   "questions": [
     {
@@ -11,13 +11,34 @@
       "required": true,
       "question": "What's your primary career goal for the next 2-3 years?",
       "options": [
-        { "value": "land_first_role", "label": "Land my first tech role" },
-        { "value": "become_senior", "label": "Reach senior-level expertise" },
-        { "value": "switch_domains", "label": "Switch to a different tech domain" },
-        { "value": "leadership", "label": "Move into technical leadership" },
-        { "value": "specialist", "label": "Become a recognized specialist" },
-        { "value": "start_business", "label": "Start my own tech business/product" },
-        { "value": "stable_growth", "label": "Stable employment with steady growth" }
+        {
+          "value": "land_first_role",
+          "label": "Land my first tech role"
+        },
+        {
+          "value": "become_senior",
+          "label": "Reach senior-level expertise"
+        },
+        {
+          "value": "switch_domains",
+          "label": "Switch to a different tech domain"
+        },
+        {
+          "value": "leadership",
+          "label": "Move into technical leadership"
+        },
+        {
+          "value": "specialist",
+          "label": "Become a recognized specialist"
+        },
+        {
+          "value": "start_business",
+          "label": "Start my own tech business/product"
+        },
+        {
+          "value": "stable_growth",
+          "label": "Stable employment with steady growth"
+        }
       ],
       "scoringKey": "a3_short_term_goal"
     },
@@ -27,15 +48,42 @@
       "required": true,
       "question": "In 5-10 years, which career path appeals to you most?",
       "options": [
-        { "value": "ic_staff_principal", "label": "Individual Contributor - Staff/Principal Engineer" },
-        { "value": "tech_lead", "label": "Tech Lead - guiding technical direction" },
-        { "value": "engineering_manager", "label": "Engineering Manager - leading teams" },
-        { "value": "architect", "label": "Architect - designing systems" },
-        { "value": "product_manager", "label": "Product Manager - driving product strategy" },
-        { "value": "founder_cto", "label": "Founder/CTO - building my own company" },
-        { "value": "consultant", "label": "Consultant/Freelancer - working independently" },
-        { "value": "educator", "label": "Educator - teaching and mentoring" },
-        { "value": "unsure", "label": "Not sure yet - exploring options" }
+        {
+          "value": "ic_staff_principal",
+          "label": "Individual Contributor - Staff/Principal Engineer"
+        },
+        {
+          "value": "tech_lead",
+          "label": "Tech Lead - guiding technical direction"
+        },
+        {
+          "value": "engineering_manager",
+          "label": "Engineering Manager - leading teams"
+        },
+        {
+          "value": "architect",
+          "label": "Architect - designing systems"
+        },
+        {
+          "value": "product_manager",
+          "label": "Product Manager - driving product strategy"
+        },
+        {
+          "value": "founder_cto",
+          "label": "Founder/CTO - building my own company"
+        },
+        {
+          "value": "consultant",
+          "label": "Consultant/Freelancer - working independently"
+        },
+        {
+          "value": "educator",
+          "label": "Educator - teaching and mentoring"
+        },
+        {
+          "value": "unsure",
+          "label": "Not sure yet - exploring options"
+        }
       ],
       "scoringKey": "a3_long_term_path"
     },
@@ -46,16 +94,46 @@
       "question": "What does career success mean to you? (Select up to 4)",
       "maxSelections": 4,
       "options": [
-        { "value": "high_comp", "label": "High compensation (top 10% in field)" },
-        { "value": "technical_mastery", "label": "Technical mastery and expertise" },
-        { "value": "impact_scale", "label": "Massive impact (millions of users)" },
-        { "value": "work_life", "label": "Perfect work-life balance" },
-        { "value": "recognition", "label": "Industry recognition and reputation" },
-        { "value": "team_building", "label": "Building and leading great teams" },
-        { "value": "innovation", "label": "Driving innovation and new ideas" },
-        { "value": "financial_freedom", "label": "Financial freedom and security" },
-        { "value": "continuous_learning", "label": "Continuous learning and growth" },
-        { "value": "autonomy", "label": "Autonomy and independence" }
+        {
+          "value": "high_comp",
+          "label": "High compensation (top 10% in field)"
+        },
+        {
+          "value": "technical_mastery",
+          "label": "Technical mastery and expertise"
+        },
+        {
+          "value": "impact_scale",
+          "label": "Massive impact (millions of users)"
+        },
+        {
+          "value": "work_life",
+          "label": "Perfect work-life balance"
+        },
+        {
+          "value": "recognition",
+          "label": "Industry recognition and reputation"
+        },
+        {
+          "value": "team_building",
+          "label": "Building and leading great teams"
+        },
+        {
+          "value": "innovation",
+          "label": "Driving innovation and new ideas"
+        },
+        {
+          "value": "financial_freedom",
+          "label": "Financial freedom and security"
+        },
+        {
+          "value": "continuous_learning",
+          "label": "Continuous learning and growth"
+        },
+        {
+          "value": "autonomy",
+          "label": "Autonomy and independence"
+        }
       ],
       "scoringKey": "a3_success_definition"
     },
@@ -76,14 +154,38 @@
       "required": true,
       "question": "What type of company do you want to work for long-term?",
       "options": [
-        { "value": "faang", "label": "FAANG/Big Tech - prestige, scale, compensation" },
-        { "value": "high_growth_startup", "label": "High-growth startup - equity upside, fast pace" },
-        { "value": "early_startup", "label": "Early-stage startup - high impact, build from scratch" },
-        { "value": "midsize_tech", "label": "Mid-size tech company - balance of stability and growth" },
-        { "value": "enterprise", "label": "Enterprise - stability, clear career path" },
-        { "value": "remote_first", "label": "Remote-first company - flexibility and autonomy" },
-        { "value": "own_company", "label": "My own company - full control" },
-        { "value": "mission_driven", "label": "Mission-driven org - social impact" }
+        {
+          "value": "faang",
+          "label": "FAANG/Big Tech - prestige, scale, compensation"
+        },
+        {
+          "value": "high_growth_startup",
+          "label": "High-growth startup - equity upside, fast pace"
+        },
+        {
+          "value": "early_startup",
+          "label": "Early-stage startup - high impact, build from scratch"
+        },
+        {
+          "value": "midsize_tech",
+          "label": "Mid-size tech company - balance of stability and growth"
+        },
+        {
+          "value": "enterprise",
+          "label": "Enterprise - stability, clear career path"
+        },
+        {
+          "value": "remote_first",
+          "label": "Remote-first company - flexibility and autonomy"
+        },
+        {
+          "value": "own_company",
+          "label": "My own company - full control"
+        },
+        {
+          "value": "mission_driven",
+          "label": "Mission-driven org - social impact"
+        }
       ],
       "scoringKey": "a3_ideal_company_type"
     },
@@ -105,15 +207,42 @@
       "question": "What skills do you want to develop in the next 1-2 years? (Select up to 5)",
       "maxSelections": 5,
       "options": [
-        { "value": "system_design", "label": "System design and architecture" },
-        { "value": "leadership", "label": "Leadership and people management" },
-        { "value": "specific_tech", "label": "Specific technology stack mastery" },
-        { "value": "product_thinking", "label": "Product thinking and strategy" },
-        { "value": "communication", "label": "Communication and presentation" },
-        { "value": "data_skills", "label": "Data analysis and decision-making" },
-        { "value": "business_acumen", "label": "Business and commercial awareness" },
-        { "value": "mentorship", "label": "Mentorship and coaching" },
-        { "value": "domain_expertise", "label": "Deep domain expertise (e.g., fintech, healthtech)" }
+        {
+          "value": "system_design",
+          "label": "System design and architecture"
+        },
+        {
+          "value": "leadership",
+          "label": "Leadership and people management"
+        },
+        {
+          "value": "specific_tech",
+          "label": "Specific technology stack mastery"
+        },
+        {
+          "value": "product_thinking",
+          "label": "Product thinking and strategy"
+        },
+        {
+          "value": "communication",
+          "label": "Communication and presentation"
+        },
+        {
+          "value": "data_skills",
+          "label": "Data analysis and decision-making"
+        },
+        {
+          "value": "business_acumen",
+          "label": "Business and commercial awareness"
+        },
+        {
+          "value": "mentorship",
+          "label": "Mentorship and coaching"
+        },
+        {
+          "value": "domain_expertise",
+          "label": "Deep domain expertise (e.g., fintech, healthtech)"
+        }
       ],
       "scoringKey": "a3_skill_development_goals"
     },
@@ -143,14 +272,38 @@
       "required": true,
       "question": "What would make you feel like you've 'made it' in your career?",
       "options": [
-        { "value": "senior_title", "label": "Reaching senior/principal title" },
-        { "value": "comp_target", "label": "Hitting a specific compensation target" },
-        { "value": "shipping_product", "label": "Shipping a product used by millions" },
-        { "value": "leading_team", "label": "Leading a successful team" },
-        { "value": "industry_speaker", "label": "Being invited to speak at conferences" },
-        { "value": "financial_independence", "label": "Achieving financial independence" },
-        { "value": "starting_company", "label": "Starting a successful company" },
-        { "value": "work_life_balance", "label": "Perfect work-life balance with meaningful work" }
+        {
+          "value": "senior_title",
+          "label": "Reaching senior/principal title"
+        },
+        {
+          "value": "comp_target",
+          "label": "Hitting a specific compensation target"
+        },
+        {
+          "value": "shipping_product",
+          "label": "Shipping a product used by millions"
+        },
+        {
+          "value": "leading_team",
+          "label": "Leading a successful team"
+        },
+        {
+          "value": "industry_speaker",
+          "label": "Being invited to speak at conferences"
+        },
+        {
+          "value": "financial_independence",
+          "label": "Achieving financial independence"
+        },
+        {
+          "value": "starting_company",
+          "label": "Starting a successful company"
+        },
+        {
+          "value": "work_life_balance",
+          "label": "Perfect work-life balance with meaningful work"
+        }
       ],
       "scoringKey": "a3_made_it_definition"
     },
@@ -171,14 +324,38 @@
       "required": false,
       "question": "If you could skip directly to one role, what would it be?",
       "options": [
-        { "value": "senior_engineer", "label": "Senior Software Engineer at top company" },
-        { "value": "tech_lead", "label": "Tech Lead on impactful product" },
-        { "value": "staff_engineer", "label": "Staff Engineer (senior IC)" },
-        { "value": "eng_manager", "label": "Engineering Manager" },
-        { "value": "product_manager", "label": "Product Manager" },
-        { "value": "founding_engineer", "label": "Founding Engineer at startup" },
-        { "value": "cto", "label": "CTO of growing company" },
-        { "value": "independent", "label": "Independent consultant/contractor" }
+        {
+          "value": "senior_engineer",
+          "label": "Senior Software Engineer at top company"
+        },
+        {
+          "value": "tech_lead",
+          "label": "Tech Lead on impactful product"
+        },
+        {
+          "value": "staff_engineer",
+          "label": "Staff Engineer (senior IC)"
+        },
+        {
+          "value": "eng_manager",
+          "label": "Engineering Manager"
+        },
+        {
+          "value": "product_manager",
+          "label": "Product Manager"
+        },
+        {
+          "value": "founding_engineer",
+          "label": "Founding Engineer at startup"
+        },
+        {
+          "value": "cto",
+          "label": "CTO of growing company"
+        },
+        {
+          "value": "independent",
+          "label": "Independent consultant/contractor"
+        }
       ],
       "scoringKey": "a3_dream_role"
     }

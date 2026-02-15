@@ -34,6 +34,16 @@ export default function Register() {
       return;
     }
 
+    if (!/\d/.test(formData.password)) {
+      setError('Password must contain at least one number');
+      return;
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+      setError('Password must contain at least one special character (!@#$%^&*(),.?":{}|<>)');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -54,7 +64,7 @@ export default function Register() {
         securityQuestion: formData.securityQuestion,
         securityAnswer: formData.securityAnswer,
       });
-      navigate('/interview-selection');
+      navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {
@@ -146,7 +156,7 @@ export default function Register() {
                 placeholder="••••••••"
               />
               <p className="mt-1 text-sm text-gray-500">
-                Must be at least 8 characters
+                Must be at least 8 characters with a number and special character
               </p>
             </div>
 

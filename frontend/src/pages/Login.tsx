@@ -19,7 +19,7 @@ export default function Login() {
 
     try {
       await login(formData.email, formData.password);
-      navigate('/interview-selection');
+      navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check your credentials.');
     } finally {

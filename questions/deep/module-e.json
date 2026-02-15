@@ -2,7 +2,7 @@
   "moduleId": "E",
   "title": "Communication & Collaboration",
   "description": "How you interact with others and work in teams",
-  "estimatedMinutes": 15,
+  "estimatedMinutes": 6,
   "isRecommended": false,
   "questions": [
     {
@@ -11,11 +11,26 @@
       "required": true,
       "question": "Which communication medium do you prefer for work discussions?",
       "options": [
-        { "value": "async_written", "label": "Asynchronous written (Slack, email)" },
-        { "value": "video_calls", "label": "Video calls" },
-        { "value": "in_person", "label": "In-person conversations" },
-        { "value": "voice_calls", "label": "Voice calls (no video)" },
-        { "value": "mix", "label": "Mix depending on the situation" }
+        {
+          "value": "async_written",
+          "label": "Asynchronous written (Slack, email)"
+        },
+        {
+          "value": "video_calls",
+          "label": "Video calls"
+        },
+        {
+          "value": "in_person",
+          "label": "In-person conversations"
+        },
+        {
+          "value": "voice_calls",
+          "label": "Voice calls (no video)"
+        },
+        {
+          "value": "mix",
+          "label": "Mix depending on the situation"
+        }
       ],
       "scoringKey": "a1_communication_preference"
     },
@@ -36,14 +51,38 @@
       "required": true,
       "question": "What collaboration strengths do you bring? (Select all that apply)",
       "options": [
-        { "value": "clear_communicator", "label": "Clear, concise communication" },
-        { "value": "active_listener", "label": "Active listening" },
-        { "value": "conflict_resolution", "label": "Conflict resolution" },
-        { "value": "facilitator", "label": "Facilitating discussions and decisions" },
-        { "value": "empathy", "label": "Empathy and emotional intelligence" },
-        { "value": "documentation", "label": "Thorough documentation" },
-        { "value": "mentoring", "label": "Mentoring and teaching" },
-        { "value": "feedback_giving", "label": "Giving constructive feedback" }
+        {
+          "value": "clear_communicator",
+          "label": "Clear, concise communication"
+        },
+        {
+          "value": "active_listener",
+          "label": "Active listening"
+        },
+        {
+          "value": "conflict_resolution",
+          "label": "Conflict resolution"
+        },
+        {
+          "value": "facilitator",
+          "label": "Facilitating discussions and decisions"
+        },
+        {
+          "value": "empathy",
+          "label": "Empathy and emotional intelligence"
+        },
+        {
+          "value": "documentation",
+          "label": "Thorough documentation"
+        },
+        {
+          "value": "mentoring",
+          "label": "Mentoring and teaching"
+        },
+        {
+          "value": "feedback_giving",
+          "label": "Giving constructive feedback"
+        }
       ],
       "scoringKey": "a1_collaboration_strengths"
     },
@@ -53,11 +92,26 @@
       "required": true,
       "question": "In team conflicts, what role do you typically take?",
       "options": [
-        { "value": "mediator", "label": "Mediator - try to find middle ground" },
-        { "value": "direct", "label": "Direct - address the issue head-on" },
-        { "value": "avoid", "label": "Avoider - prefer to step back" },
-        { "value": "solution_finder", "label": "Solution-finder - focus on resolving it" },
-        { "value": "escalate", "label": "Escalator - bring in leadership" }
+        {
+          "value": "mediator",
+          "label": "Mediator - try to find middle ground"
+        },
+        {
+          "value": "direct",
+          "label": "Direct - address the issue head-on"
+        },
+        {
+          "value": "avoid",
+          "label": "Avoider - prefer to step back"
+        },
+        {
+          "value": "solution_finder",
+          "label": "Solution-finder - focus on resolving it"
+        },
+        {
+          "value": "escalate",
+          "label": "Escalator - bring in leadership"
+        }
       ],
       "scoringKey": "a1_conflict_style"
     },
@@ -78,11 +132,26 @@
       "required": true,
       "question": "How do you prefer to give updates on your work?",
       "options": [
-        { "value": "detailed_written", "label": "Detailed written updates" },
-        { "value": "brief_status", "label": "Brief status updates in standups" },
-        { "value": "demo", "label": "Demos and show-and-tell" },
-        { "value": "when_asked", "label": "Only when asked" },
-        { "value": "automated", "label": "Automated tracking/dashboards" }
+        {
+          "value": "detailed_written",
+          "label": "Detailed written updates"
+        },
+        {
+          "value": "brief_status",
+          "label": "Brief status updates in standups"
+        },
+        {
+          "value": "demo",
+          "label": "Demos and show-and-tell"
+        },
+        {
+          "value": "when_asked",
+          "label": "Only when asked"
+        },
+        {
+          "value": "automated",
+          "label": "Automated tracking/dashboards"
+        }
       ],
       "scoringKey": "a1_update_style"
     },
@@ -93,14 +162,38 @@
       "question": "What makes for effective team communication in your experience? (Select up to 4)",
       "maxSelections": 4,
       "options": [
-        { "value": "clear_goals", "label": "Clear goals and expectations" },
-        { "value": "regular_checkins", "label": "Regular check-ins and updates" },
-        { "value": "open_feedback", "label": "Open, honest feedback culture" },
-        { "value": "documentation", "label": "Good documentation practices" },
-        { "value": "async_first", "label": "Async-first communication" },
-        { "value": "face_time", "label": "Regular face-to-face time" },
-        { "value": "psychological_safety", "label": "Psychological safety to speak up" },
-        { "value": "concise_messages", "label": "Concise, to-the-point messages" }
+        {
+          "value": "clear_goals",
+          "label": "Clear goals and expectations"
+        },
+        {
+          "value": "regular_checkins",
+          "label": "Regular check-ins and updates"
+        },
+        {
+          "value": "open_feedback",
+          "label": "Open, honest feedback culture"
+        },
+        {
+          "value": "documentation",
+          "label": "Good documentation practices"
+        },
+        {
+          "value": "async_first",
+          "label": "Async-first communication"
+        },
+        {
+          "value": "face_time",
+          "label": "Regular face-to-face time"
+        },
+        {
+          "value": "psychological_safety",
+          "label": "Psychological safety to speak up"
+        },
+        {
+          "value": "concise_messages",
+          "label": "Concise, to-the-point messages"
+        }
       ],
       "scoringKey": "a1_effective_team_communication"
     },
@@ -121,11 +214,26 @@
       "required": true,
       "question": "What's your preferred team size?",
       "options": [
-        { "value": "solo", "label": "Solo - I work best alone" },
-        { "value": "small_2_4", "label": "Small (2-4 people) - close-knit team" },
-        { "value": "medium_5_8", "label": "Medium (5-8 people) - balanced team" },
-        { "value": "large_9plus", "label": "Large (9+ people) - diverse perspectives" },
-        { "value": "flexible", "label": "Flexible - I adapt to any size" }
+        {
+          "value": "solo",
+          "label": "Solo - I work best alone"
+        },
+        {
+          "value": "small_2_4",
+          "label": "Small (2-4 people) - close-knit team"
+        },
+        {
+          "value": "medium_5_8",
+          "label": "Medium (5-8 people) - balanced team"
+        },
+        {
+          "value": "large_9plus",
+          "label": "Large (9+ people) - diverse perspectives"
+        },
+        {
+          "value": "flexible",
+          "label": "Flexible - I adapt to any size"
+        }
       ],
       "scoringKey": "a3_team_size_preference"
     },
@@ -155,11 +263,26 @@
       "required": true,
       "question": "How do you handle receiving critical feedback in public (e.g., code review comments)?",
       "options": [
-        { "value": "grateful", "label": "Grateful - I appreciate the learning opportunity" },
-        { "value": "neutral", "label": "Neutral - it's just part of the job" },
-        { "value": "prefer_private", "label": "Prefer private feedback but can handle public" },
-        { "value": "uncomfortable", "label": "Uncomfortable - I prefer all feedback private" },
-        { "value": "defensive", "label": "Sometimes defensive - working on it" }
+        {
+          "value": "grateful",
+          "label": "Grateful - I appreciate the learning opportunity"
+        },
+        {
+          "value": "neutral",
+          "label": "Neutral - it's just part of the job"
+        },
+        {
+          "value": "prefer_private",
+          "label": "Prefer private feedback but can handle public"
+        },
+        {
+          "value": "uncomfortable",
+          "label": "Uncomfortable - I prefer all feedback private"
+        },
+        {
+          "value": "defensive",
+          "label": "Sometimes defensive - working on it"
+        }
       ],
       "scoringKey": "a1_public_feedback_comfort"
     }
