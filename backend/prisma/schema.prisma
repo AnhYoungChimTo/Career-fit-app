@@ -15,6 +15,13 @@ model User {
   email               String      @unique
   passwordHash        String
   name                String?
+  headline            String?
+  location            String?
+  phoneNumber         String?
+  linkedinUrl         String?
+  about               String?
+  currentRole         String?
+  currentCompany      String?
   securityQuestion    String
   securityAnswerHash  String
   createdAt           DateTime    @default(now())

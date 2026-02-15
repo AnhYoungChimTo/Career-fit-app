@@ -170,5 +170,45 @@ export async function getUserById(userId: string): Promise<UserDTO | null> {
     email: user.email,
     name: user.name,
     createdAt: user.createdAt,
+    headline: (user as any).headline,
+    location: (user as any).location,
+    phoneNumber: (user as any).phoneNumber,
+    linkedinUrl: (user as any).linkedinUrl,
+    about: (user as any).about,
+    currentRole: (user as any).currentRole,
+    currentCompany: (user as any).currentCompany,
+  };
+}
+
+/**
+ * Update user profile
+ */
+export async function updateUserProfile(userId: string, updates: Partial<{
+  name: string;
+  headline: string;
+  location: string;
+  phoneNumber: string;
+  linkedinUrl: string;
+  about: string;
+  currentRole: string;
+  currentCompany: string;
+}>): Promise<UserDTO> {
+  const user = await prisma.user.update({
+    where: { id: userId },
+    data: updates as any,
+  });
+
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    createdAt: user.createdAt,
+    headline: (user as any).headline,
+    location: (user as any).location,
+    phoneNumber: (user as any).phoneNumber,
+    linkedinUrl: (user as any).linkedinUrl,
+    about: (user as any).about,
+    currentRole: (user as any).currentRole,
+    currentCompany: (user as any).currentCompany,
   };
 }

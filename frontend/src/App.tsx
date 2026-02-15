@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import InterviewSelection from './pages/InterviewSelection';
 import Interview from './pages/Interview';
 import Results from './pages/Results';
+import JobLibrary from './pages/JobLibrary';
 import './index.css';
 
 function App() {
@@ -51,6 +52,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Results />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/job-library"
+            element={
+              <ProtectedRoute>
+                <JobLibrary />
               </ProtectedRoute>
             }
           />

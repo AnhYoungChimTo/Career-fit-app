@@ -150,6 +150,38 @@ export async function getCurrentUser(req: Request, res: Response) {
 }
 
 /**
+ * Update user profile
+ * PUT /api/auth/profile
+ */
+export async function updateProfile(req: Request, res: Response) {
+  try {
+    const userId = (req as any).userId;
+    const updates = req.body;
+
+    // Remove fields that shouldn't be updated
+    delete updates.email;
+    delete updates.password;
+    delete updates.id;
+
+    const updatedUser = await authService.updateUserProfile(userId, updates);
+
+    res.status(200).json({
+      success: true,
+      data: updatedUser,
+      message: 'Profile updated successfully',
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      error: {
+        code: 'UPDATE_ERROR',
+        message: error.message,
+      },
+    });
+  }
+}
+
+/**
  * Logout (client-side handles token removal)
  * POST /api/auth/logout
  */

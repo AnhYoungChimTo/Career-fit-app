@@ -3,6 +3,13 @@ export interface User {
   id: string;
   email: string;
   name?: string;
+  headline?: string;
+  location?: string;
+  phoneNumber?: string;
+  linkedinUrl?: string;
+  about?: string;
+  currentRole?: string;
+  currentCompany?: string;
 }
 
 export interface AuthResponse {
@@ -153,6 +160,46 @@ export interface MatchingResult {
   matches: CareerMatch[];
   analysisDate: string;
   dataCompleteness: number;
+}
+
+// Career types
+export interface Career {
+  id: string;
+  name: string;
+  vietnameseName: string;
+  description: string;
+  avgSalaryVND?: string;
+  salaryRange: {
+    min: number;
+    max: number;
+  };
+  workHoursPerWeek?: number;
+  stressLevel?: string;
+  growthPotential?: string;
+  category: string;
+  experienceLevel: string;
+  requirements: any;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CareerFilters {
+  search?: string;
+  category?: string;
+  experienceLevel?: string;
+  minSalary?: number;
+  maxSalary?: number;
+  stressLevel?: string;
+  growthPotential?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export interface CareerStats {
+  totalCareers: number;
+  byCategory: Record<string, number>;
+  byStressLevel: Record<string, number>;
+  byGrowthPotential: Record<string, number>;
 }
 
 // API Response types

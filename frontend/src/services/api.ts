@@ -10,6 +10,9 @@ import type {
   InterviewStatus,
   StartInterviewRequest,
   SaveAnswerRequest,
+  Career,
+  CareerFilters,
+  CareerStats,
 } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -101,6 +104,20 @@ class ApiService {
   logout() {
     this.clearAuth();
     window.location.href = '/login';
+  }
+
+  async updateProfile(data: {
+    name?: string;
+    headline?: string;
+    location?: string;
+    phoneNumber?: string;
+    linkedinUrl?: string;
+    about?: string;
+    currentRole?: string;
+    currentCompany?: string;
+  }): Promise<ApiResponse<User>> {
+    const response = await this.api.put('/api/auth/profile', data);
+    return response.data;
   }
 
   // Interview question endpoints (public)
@@ -254,6 +271,40 @@ class ApiService {
       });
       throw error;
     }
+  }
+
+  // Career endpoints (public)
+  async getAllCareers(filters?: CareerFilters): Promise<ApiResponse<{
+    careers: Career[];
+    pagination: {
+      total: number;
+      limit: number;
+      offset: number;
+      hasMore: boolean;
+    };
+  }>> {
+    const params = new URLSearchParams();
+
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.append(key, String(value));
+        }
+      });
+    }
+
+    const response = await this.api.get(`/api/careers?${params.toString()}`);
+    return response.data;
+  }
+
+  async getCareerById(id: string): Promise<ApiResponse<Career>> {
+    const response = await this.api.get(`/api/careers/${id}`);
+    return response.data;
+  }
+
+  async getCareerStats(): Promise<ApiResponse<CareerStats>> {
+    const response = await this.api.get('/api/careers/stats');
+    return response.data;
   }
 }
 

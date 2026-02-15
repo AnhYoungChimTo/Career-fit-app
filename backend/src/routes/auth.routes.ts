@@ -29,6 +29,12 @@ router.post('/reset-password', authController.resetPassword);
 router.get('/me', authMiddleware, authController.getCurrentUser);
 
 /**
+ * PUT /api/auth/profile
+ * Update user profile (protected route)
+ */
+router.put('/profile', authMiddleware, authController.updateProfile);
+
+/**
  * POST /api/auth/logout
  * Logout (client-side handles token removal)
  */

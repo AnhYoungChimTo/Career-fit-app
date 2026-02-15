@@ -20,6 +20,13 @@ export interface UserDTO {
   id: string;
   email: string;
   name: string | null;
+  headline?: string | null;
+  location?: string | null;
+  phoneNumber?: string | null;
+  linkedinUrl?: string | null;
+  about?: string | null;
+  currentRole?: string | null;
+  currentCompany?: string | null;
   createdAt: Date;
 }
 

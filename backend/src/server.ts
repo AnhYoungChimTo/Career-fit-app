@@ -4,6 +4,7 @@ import { config, validateConfig } from './config';
 import authRoutes from './routes/auth.routes';
 import interviewRoutes from './routes/interview.routes';
 import resultsRoutes from './routes/results.routes';
+import careersRoutes from './routes/careers.routes';
 
 // Validate configuration
 try {
@@ -46,7 +47,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/interviews', interviewRoutes);
 app.use('/api/results', resultsRoutes);
-// app.use('/api/careers', careerRoutes);
+app.use('/api/careers', careersRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
