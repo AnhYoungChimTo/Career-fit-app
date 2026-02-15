@@ -124,6 +124,27 @@ export interface CareerMatch {
   strengths: string[];
   growthAreas: string[];
   roadmap: string;
+  // Enhanced detailed information
+  detailedAnalysis: string; // 6-10 paragraphs in-depth analysis
+  careerPattern: {
+    progression: string; // Career progression path
+    dailyResponsibilities: string; // Day-to-day work by level
+    industryOutlook: string; // Trends and future in Vietnam
+  };
+  salaryInfo: {
+    entryLevel: { range: string; experience: string };
+    midLevel: { range: string; experience: string };
+    seniorLevel: { range: string; experience: string };
+  };
+  skillStack: string[]; // Required skills to acquire
+  learningPlan: {
+    month1: string;
+    month2: string;
+    month3: string;
+    month4: string;
+    month5: string;
+    month6: string;
+  };
 }
 
 export interface MatchingResult {

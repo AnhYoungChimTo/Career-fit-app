@@ -78,10 +78,31 @@ export default function Results() {
 
     try {
       setIsDownloading(true);
+      setError(''); // Clear previous errors
       await api.downloadResultsPDF(interviewId);
+
+      // Show success message briefly
+      console.log('✅ PDF downloaded successfully');
     } catch (err: any) {
-      console.error('PDF download error:', err);
-      setError('Failed to download PDF report');
+      console.error('❌ PDF download error in Results page:', err);
+
+      // Provide more detailed error message
+      let errorMsg = 'Failed to download PDF report';
+      if (err.response) {
+        if (err.response.status === 404) {
+          errorMsg = 'Interview results not found';
+        } else if (err.response.status === 403) {
+          errorMsg = 'Access denied to this interview';
+        } else if (err.response.status === 500) {
+          errorMsg = 'Server error generating PDF. Please try again.';
+        } else {
+          errorMsg = `Error: ${err.response.data?.error?.message || err.message || 'Unknown error'}`;
+        }
+      } else if (err.message) {
+        errorMsg = `Download failed: ${err.message}`;
+      }
+
+      setError(errorMsg);
     } finally {
       setIsDownloading(false);
     }
@@ -161,6 +182,19 @@ export default function Results() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
+        {/* Home Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => navigate('/interview-selection')}
+            className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Dashboard
+          </button>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="mb-4">
@@ -226,9 +260,10 @@ export default function Results() {
             className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+              <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+              <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
             </svg>
-            {isDownloading ? 'Generating PDF...' : 'Download PDF Report'}
+            {isDownloading ? 'Generating PDF...' : 'View PDF Report'}
           </button>
           <button
             onClick={() => navigate('/interview-selection')}
@@ -331,17 +366,155 @@ function CareerMatchCard({ match, index, isExpanded, onToggleExpand }: CareerMat
           </div>
         </div>
 
-        {/* Roadmap (Expandable) */}
+        {/* Detailed Information (Expandable) */}
         {isExpanded && (
-          <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200 mb-4">
-            <h3 className="font-semibold text-indigo-900 mb-3 flex items-center">
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-              6-Month Career Roadmap
-            </h3>
-            <div className="text-sm text-indigo-900 whitespace-pre-line leading-relaxed">
-              {match.roadmap}
+          <div className="space-y-4 mb-4">
+            {/* Detailed Analysis */}
+            {match.detailedAnalysis && (
+              <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                <h3 className="font-semibold text-purple-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  </svg>
+                  In-Depth Analysis
+                </h3>
+                <div className="text-sm text-purple-900 whitespace-pre-line leading-relaxed">
+                  {match.detailedAnalysis}
+                </div>
+              </div>
+            )}
+
+            {/* Career Pattern */}
+            {match.careerPattern && (
+              <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
+                <h3 className="font-semibold text-indigo-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Career Pattern
+                </h3>
+                <div className="space-y-3">
+                  {match.careerPattern.progression && (
+                    <div>
+                      <h4 className="font-semibold text-indigo-800 text-sm mb-1">Career Progression:</h4>
+                      <p className="text-sm text-indigo-900 whitespace-pre-line leading-relaxed">{match.careerPattern.progression}</p>
+                    </div>
+                  )}
+                  {match.careerPattern.dailyResponsibilities && (
+                    <div>
+                      <h4 className="font-semibold text-indigo-800 text-sm mb-1">Daily Responsibilities:</h4>
+                      <p className="text-sm text-indigo-900 whitespace-pre-line leading-relaxed">{match.careerPattern.dailyResponsibilities}</p>
+                    </div>
+                  )}
+                  {match.careerPattern.industryOutlook && (
+                    <div>
+                      <h4 className="font-semibold text-indigo-800 text-sm mb-1">Industry Outlook (Vietnam):</h4>
+                      <p className="text-sm text-indigo-900 whitespace-pre-line leading-relaxed">{match.careerPattern.industryOutlook}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Salary Information */}
+            {match.salaryInfo && (
+              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                <h3 className="font-semibold text-green-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd" />
+                  </svg>
+                  Salary Information (Vietnam Market)
+                </h3>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-green-200">
+                    <thead>
+                      <tr>
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-green-900">Level</th>
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-green-900">Salary Range</th>
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-green-900">Experience</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-green-100">
+                      {match.salaryInfo.entryLevel && (
+                        <tr>
+                          <td className="px-4 py-2 text-sm font-medium text-green-900">Entry Level</td>
+                          <td className="px-4 py-2 text-sm text-green-800">{match.salaryInfo.entryLevel.range}</td>
+                          <td className="px-4 py-2 text-sm text-green-800">{match.salaryInfo.entryLevel.experience}</td>
+                        </tr>
+                      )}
+                      {match.salaryInfo.midLevel && (
+                        <tr>
+                          <td className="px-4 py-2 text-sm font-medium text-green-900">Mid Level</td>
+                          <td className="px-4 py-2 text-sm text-green-800">{match.salaryInfo.midLevel.range}</td>
+                          <td className="px-4 py-2 text-sm text-green-800">{match.salaryInfo.midLevel.experience}</td>
+                        </tr>
+                      )}
+                      {match.salaryInfo.seniorLevel && (
+                        <tr>
+                          <td className="px-4 py-2 text-sm font-medium text-green-900">Senior Level</td>
+                          <td className="px-4 py-2 text-sm text-green-800">{match.salaryInfo.seniorLevel.range}</td>
+                          <td className="px-4 py-2 text-sm text-green-800">{match.salaryInfo.seniorLevel.experience}</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Skill Stack */}
+            {match.skillStack && match.skillStack.length > 0 && (
+              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                <h3 className="font-semibold text-blue-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                  </svg>
+                  Skills to Acquire
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {match.skillStack.map((skill, i) => (
+                    <span key={i} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-200 text-blue-900">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 6-Month Learning Plan */}
+            {match.learningPlan && (
+              <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                <h3 className="font-semibold text-orange-900 mb-3 flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                  </svg>
+                  6-Month Learning & Development Plan
+                </h3>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {Object.entries(match.learningPlan).map(([month, plan], i) => (
+                    plan && (
+                      <div key={month} className="bg-white rounded p-3 border border-orange-100">
+                        <h4 className="font-semibold text-orange-900 text-sm mb-1">Month {i + 1}</h4>
+                        <p className="text-sm text-orange-800">{plan}</p>
+                      </div>
+                    )
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Original Roadmap */}
+            <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
+              <h3 className="font-semibold text-indigo-900 mb-3 flex items-center">
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+                Career Roadmap Summary
+              </h3>
+              <div className="text-sm text-indigo-900 whitespace-pre-line leading-relaxed">
+                {match.roadmap}
+              </div>
             </div>
           </div>
         )}

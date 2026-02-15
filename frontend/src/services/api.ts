@@ -201,20 +201,59 @@ class ApiService {
   }
 
   async downloadResultsPDF(interviewId: string): Promise<void> {
-    const response = await this.api.get(`/api/results/${interviewId}/pdf`, {
-      responseType: 'blob',
-    });
+    try {
+      console.log('🔵 Starting PDF download for interview:', interviewId);
 
-    // Create a blob URL and trigger download
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `career-fit-report-${new Date().toISOString().split('T')[0]}.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+      const response = await this.api.get(`/api/results/${interviewId}/pdf`, {
+        responseType: 'blob',
+      });
+
+      console.log('🔵 PDF response received:', {
+        status: response.status,
+        contentType: response.headers['content-type'],
+        dataSize: response.data?.size,
+        dataType: typeof response.data
+      });
+
+      // Create a blob URL and open in new tab (bypasses download managers like IDM)
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      console.log('🔵 Blob created:', { size: blob.size, type: blob.type });
+
+      const url = window.URL.createObjectURL(blob);
+      console.log('🔵 Blob URL created:', url);
+
+      // Open PDF in new tab instead of forcing download
+      // This bypasses IDM and other download managers
+      const newWindow = window.open(url, '_blank');
+
+      if (!newWindow) {
+        // Popup blocked, fallback to download
+        console.log('⚠️ Popup blocked, falling back to download method');
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `career-fit-report-${new Date().toISOString().split('T')[0]}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        console.log('✅ PDF opened in new tab');
+        // Clean up the blob URL after a delay to ensure it loads
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+        }, 1000);
+      }
+
+      console.log('✅ PDF viewing completed successfully');
+    } catch (error: any) {
+      console.error('❌ PDF download failed:', {
+        message: error.message,
+        response: error.response,
+        status: error.response?.status,
+        data: error.response?.data,
+        fullError: error
+      });
+      throw error;
+    }
   }
 }
 

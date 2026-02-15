@@ -62,6 +62,8 @@ export async function downloadPDF(req: Request, res: Response) {
     const interviewId = String(req.params.interviewId);
     const userId = (req as any).userId; // From auth middleware
 
+    console.log(`📄 PDF download requested for interview: ${interviewId}`);
+
     // Get interview to retrieve user email
     const interview = await prisma.interview.findUnique({
       where: { id: interviewId },
@@ -69,6 +71,7 @@ export async function downloadPDF(req: Request, res: Response) {
     });
 
     if (!interview) {
+      console.error(`❌ Interview not found: ${interviewId}`);
       return res.status(404).json({
         success: false,
         error: {
@@ -80,6 +83,7 @@ export async function downloadPDF(req: Request, res: Response) {
 
     // Verify ownership
     if (interview.userId !== userId) {
+      console.error(`❌ Forbidden access to interview: ${interviewId}`);
       return res.status(403).json({
         success: false,
         error: {
@@ -89,23 +93,35 @@ export async function downloadPDF(req: Request, res: Response) {
       });
     }
 
+    console.log(`🔄 Generating matches for PDF...`);
     // Generate matches
     const results = await matchingService.generateMatches(interviewId);
+    console.log(`✅ Matches generated. Creating PDF with ${results.matches.length} matches...`);
 
-    // Generate PDF stream
-    const pdfStream = await pdfService.generateResultsPDF(results, interview.user.email);
+    // Generate PDF buffer
+    const pdfBuffer = await pdfService.generateResultsPDF(results, interview.user.email);
+    console.log(`✅ PDF buffer created: ${pdfBuffer.length} bytes. Sending to client...`);
 
     // Set response headers for PDF download
     const filename = `career-fit-report-${new Date().toISOString().split('T')[0]}.pdf`;
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', pdfBuffer.length.toString());
 
-    // Pipe PDF stream to response
-    pdfStream.pipe(res);
+    // Send PDF buffer
+    res.send(pdfBuffer);
+    console.log(`✅ PDF sent successfully (${pdfBuffer.length} bytes)`);
   } catch (error: any) {
-    console.error('Error generating PDF:', error);
+    console.error('❌ Error generating PDF:', error);
+    console.error('Stack:', error.stack);
 
-    if (error.message.includes('not found')) {
+    // Check if headers already sent
+    if (res.headersSent) {
+      console.error('⚠️ Headers already sent, cannot send error response');
+      return;
+    }
+
+    if (error.message && error.message.includes('not found')) {
       return res.status(404).json({
         success: false,
         error: {
@@ -115,7 +131,7 @@ export async function downloadPDF(req: Request, res: Response) {
       });
     }
 
-    if (error.message.includes('not completed')) {
+    if (error.message && error.message.includes('not completed')) {
       return res.status(400).json({
         success: false,
         error: {
@@ -129,7 +145,7 @@ export async function downloadPDF(req: Request, res: Response) {
       success: false,
       error: {
         code: 'PDF_GENERATION_ERROR',
-        message: error.message,
+        message: error.message || 'Unknown error generating PDF',
       },
     });
   }

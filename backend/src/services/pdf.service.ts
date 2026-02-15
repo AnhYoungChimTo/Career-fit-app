@@ -11,6 +11,27 @@ interface CareerMatch {
   strengths: string[];
   growthAreas: string[];
   roadmap: string;
+  // Enhanced detailed information
+  detailedAnalysis: string;
+  careerPattern: {
+    progression: string;
+    dailyResponsibilities: string;
+    industryOutlook: string;
+  };
+  salaryInfo: {
+    entryLevel: { range: string; experience: string };
+    midLevel: { range: string; experience: string };
+    seniorLevel: { range: string; experience: string };
+  };
+  skillStack: string[];
+  learningPlan: {
+    month1: string;
+    month2: string;
+    month3: string;
+    month4: string;
+    month5: string;
+    month6: string;
+  };
 }
 
 interface MatchingResult {
@@ -23,11 +44,12 @@ interface MatchingResult {
 
 /**
  * Generate a PDF report for career matching results
+ * Returns a Buffer instead of a stream for more reliable HTTP responses
  */
 export async function generateResultsPDF(
   results: MatchingResult,
   userEmail: string
-): Promise<NodeJS.ReadableStream> {
+): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     try {
       // Create PDF document
@@ -36,9 +58,24 @@ export async function generateResultsPDF(
         margins: { top: 50, bottom: 50, left: 50, right: 50 },
       });
 
-      // Create a stream to collect PDF data
-      const stream = new PassThrough();
-      doc.pipe(stream);
+      // Collect PDF data in chunks
+      const chunks: Buffer[] = [];
+
+      doc.on('data', (chunk: Buffer) => {
+        chunks.push(chunk);
+      });
+
+      doc.on('end', () => {
+        // Combine all chunks into a single buffer
+        const pdfBuffer = Buffer.concat(chunks);
+        console.log(`✅ PDF buffer created: ${pdfBuffer.length} bytes`);
+        resolve(pdfBuffer);
+      });
+
+      doc.on('error', (error: Error) => {
+        console.error('❌ PDF generation error:', error);
+        reject(error);
+      });
 
       // Add content to PDF
       addHeader(doc, results, userEmail);
@@ -48,9 +85,8 @@ export async function generateResultsPDF(
 
       // Finalize PDF
       doc.end();
-
-      resolve(stream);
     } catch (error) {
+      console.error('❌ PDF service error:', error);
       reject(error);
     }
   });
@@ -203,18 +239,188 @@ function addCareerMatches(doc: PDFKit.PDFDocument, matches: CareerMatch[]) {
 
     doc.moveDown(0.5);
 
-    // Roadmap
+    // Roadmap Summary
     doc
       .fontSize(11)
       .font('Helvetica-Bold')
       .fillColor('#8B5CF6')
-      .text('🗺 6-Month Career Roadmap:');
+      .text('🗺 Career Roadmap Summary:');
 
     doc
       .fontSize(9)
       .font('Helvetica')
       .fillColor('#374151')
       .text(match.roadmap, { align: 'left', indent: 10 });
+
+    doc.moveDown(0.5);
+
+    // Check if we need a new page before detailed sections
+    if (doc.y > 600) {
+      doc.addPage();
+    }
+
+    // Detailed Analysis (only if available)
+    if (match.detailedAnalysis) {
+      doc
+        .fontSize(11)
+        .font('Helvetica-Bold')
+        .fillColor('#9333EA')
+        .text('📊 In-Depth Analysis:');
+
+      doc
+        .fontSize(9)
+        .font('Helvetica')
+        .fillColor('#374151')
+        .text(match.detailedAnalysis, { align: 'justify', indent: 10 });
+
+      doc.moveDown(0.5);
+    }
+
+    // Check if we need a new page
+    if (doc.y > 650) {
+      doc.addPage();
+    }
+
+    // Career Pattern (only if available)
+    if (match.careerPattern) {
+      doc
+        .fontSize(11)
+        .font('Helvetica-Bold')
+        .fillColor('#4F46E5')
+        .text('🎯 Career Pattern:');
+
+      doc.moveDown(0.3);
+
+      if (match.careerPattern.progression) {
+        doc
+          .fontSize(10)
+          .font('Helvetica-Bold')
+          .fillColor('#6366F1')
+          .text('Career Progression:', { indent: 10 });
+
+        doc
+          .fontSize(9)
+          .font('Helvetica')
+          .fillColor('#374151')
+          .text(match.careerPattern.progression, { indent: 15 });
+
+        doc.moveDown(0.3);
+      }
+
+      if (match.careerPattern.dailyResponsibilities) {
+        doc
+          .fontSize(10)
+          .font('Helvetica-Bold')
+          .fillColor('#6366F1')
+          .text('Daily Responsibilities:', { indent: 10 });
+
+        doc
+          .fontSize(9)
+          .font('Helvetica')
+          .fillColor('#374151')
+          .text(match.careerPattern.dailyResponsibilities, { indent: 15 });
+
+        doc.moveDown(0.3);
+      }
+
+      if (match.careerPattern.industryOutlook) {
+        doc
+          .fontSize(10)
+          .font('Helvetica-Bold')
+          .fillColor('#6366F1')
+          .text('Industry Outlook (Vietnam):', { indent: 10 });
+
+        doc
+          .fontSize(9)
+          .font('Helvetica')
+          .fillColor('#374151')
+          .text(match.careerPattern.industryOutlook, { indent: 15 });
+
+        doc.moveDown(0.3);
+      }
+
+      doc.moveDown(0.2);
+    }
+
+    // Check if we need a new page
+    if (doc.y > 650) {
+      doc.addPage();
+    }
+
+    // Salary Information (only if available)
+    if (match.salaryInfo) {
+      doc
+        .fontSize(11)
+        .font('Helvetica-Bold')
+        .fillColor('#10B981')
+        .text('💰 Salary Information (Vietnam Market):');
+
+      doc.moveDown(0.3);
+
+      doc.fontSize(9).font('Helvetica').fillColor('#374151');
+      if (match.salaryInfo.entryLevel) {
+        doc.text(`Entry Level: ${match.salaryInfo.entryLevel.range} (${match.salaryInfo.entryLevel.experience})`, { indent: 10 });
+      }
+      if (match.salaryInfo.midLevel) {
+        doc.text(`Mid Level: ${match.salaryInfo.midLevel.range} (${match.salaryInfo.midLevel.experience})`, { indent: 10 });
+      }
+      if (match.salaryInfo.seniorLevel) {
+        doc.text(`Senior Level: ${match.salaryInfo.seniorLevel.range} (${match.salaryInfo.seniorLevel.experience})`, { indent: 10 });
+      }
+
+      doc.moveDown(0.5);
+    }
+
+    // Skill Stack (only if available)
+    if (match.skillStack && match.skillStack.length > 0) {
+      doc
+        .fontSize(11)
+        .font('Helvetica-Bold')
+        .fillColor('#3B82F6')
+        .text('🎓 Skills to Acquire:');
+
+      doc.fontSize(9).font('Helvetica').fillColor('#374151');
+      match.skillStack.forEach((skill) => {
+        doc.text(`  • ${skill}`, { indent: 10 });
+      });
+
+      doc.moveDown(0.5);
+    }
+
+    // Check if we need a new page
+    if (doc.y > 650) {
+      doc.addPage();
+    }
+
+    // 6-Month Learning Plan (only if available)
+    if (match.learningPlan) {
+      doc
+        .fontSize(11)
+        .font('Helvetica-Bold')
+        .fillColor('#F97316')
+        .text('📅 6-Month Learning & Development Plan:');
+
+      doc.moveDown(0.3);
+
+      const learningPlanEntries = Object.entries(match.learningPlan);
+      learningPlanEntries.forEach(([month, plan], i) => {
+        if (plan) {
+          doc
+            .fontSize(10)
+            .font('Helvetica-Bold')
+            .fillColor('#FB923C')
+            .text(`Month ${i + 1}:`, { indent: 10 });
+
+          doc
+            .fontSize(9)
+            .font('Helvetica')
+            .fillColor('#374151')
+            .text(plan, { indent: 15 });
+
+          doc.moveDown(0.3);
+        }
+      });
+    }
 
     // Separator line
     doc.moveDown(1);

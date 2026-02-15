@@ -16,6 +16,27 @@ interface CareerMatch {
   strengths: string[];
   growthAreas: string[];
   roadmap: string;
+  // Enhanced details
+  detailedAnalysis: string; // 6-10 paragraphs in-depth analysis
+  careerPattern: {
+    progression: string; // Career progression path
+    dailyResponsibilities: string; // Day-to-day work by level
+    industryOutlook: string; // Trends and future in Vietnam
+  };
+  salaryInfo: {
+    entryLevel: { range: string; experience: string };
+    midLevel: { range: string; experience: string };
+    seniorLevel: { range: string; experience: string };
+  };
+  skillStack: string[]; // Required skills to acquire
+  learningPlan: {
+    month1: string;
+    month2: string;
+    month3: string;
+    month4: string;
+    month5: string;
+    month6: string;
+  };
 }
 
 interface MatchingResult {
@@ -120,6 +141,12 @@ export async function generateMatches(interviewId: string): Promise<MatchingResu
         strengths: explanation.strengths,
         growthAreas: explanation.growthAreas,
         roadmap: explanation.roadmap,
+        // Enhanced detailed information
+        detailedAnalysis: explanation.detailedAnalysis,
+        careerPattern: explanation.careerPattern,
+        salaryInfo: explanation.salaryInfo,
+        skillStack: explanation.skillStack,
+        learningPlan: explanation.learningPlan,
       };
     })
   );
@@ -274,7 +301,7 @@ function getConfidenceLevel(
 }
 
 /**
- * Generate personalized explanation using GPT-4
+ * Generate comprehensive career analysis with caching (Job Card system)
  */
 async function generateCareerExplanation(
   career: any,
@@ -286,41 +313,101 @@ async function generateCareerExplanation(
   strengths: string[];
   growthAreas: string[];
   roadmap: string;
+  detailedAnalysis: string;
+  careerPattern: {
+    progression: string;
+    dailyResponsibilities: string;
+    industryOutlook: string;
+  };
+  salaryInfo: {
+    entryLevel: { range: string; experience: string };
+    midLevel: { range: string; experience: string };
+    seniorLevel: { range: string; experience: string };
+  };
+  skillStack: string[];
+  learningPlan: {
+    month1: string;
+    month2: string;
+    month3: string;
+    month4: string;
+    month5: string;
+    month6: string;
+  };
 }> {
   try {
-    console.log(`    🔄 Calling OpenAI for: ${career.name}`);
-    // Prepare context about the user
-    const userContext = buildUserContext(answers);
+    // Check cache first (Job Card system - saves API tokens!)
+    if (career.cachedAnalysis) {
+      console.log(`    💾 Using cached analysis for: ${career.name} (saved API tokens!)`);
+      const cached = career.cachedAnalysis as any;
+      return {
+        explanation: cached.explanation,
+        strengths: cached.strengths,
+        growthAreas: cached.growthAreas,
+        roadmap: cached.roadmap,
+        detailedAnalysis: cached.detailedAnalysis,
+        careerPattern: cached.careerPattern,
+        salaryInfo: cached.salaryInfo,
+        skillStack: cached.skillStack,
+        learningPlan: cached.learningPlan,
+      };
+    }
 
-    const prompt = `You are a career counselor analyzing a user's fit for the career: "${career.name}".
+    console.log(`    🔄 Generating NEW Job Card for: ${career.name} (calling GPT-4o...)`);
 
-Career Description: ${career.description || 'A role in ' + career.category}
+    const prompt = `You are a senior career counselor with deep expertise in the Vietnam tech job market. Analyze the career: "${career.name}" (${career.vietnameseName}).
 
-User Profile:
-${userContext}
+Career Description: ${career.description}
 
-Fit Score: ${Math.round(fitScore)}%
+Provide an EXTREMELY DETAILED analysis in JSON format with the following structure:
 
-Please provide:
-1. A 2-3 sentence explanation of why this career is a good match
-2. 3-4 key strengths that make them suited for this role
-3. 2-3 areas for growth or development
-4. A brief 6-month roadmap (3-4 concrete steps) to transition into this career
-
-Format your response as JSON:
 {
-  "explanation": "...",
-  "strengths": ["...", "...", "..."],
-  "growthAreas": ["...", "..."],
-  "roadmap": "Step-by-step roadmap..."
-}`;
+  "explanation": "2-3 sentence summary of why this career is a good match",
+  "detailedAnalysis": "6-10 comprehensive paragraphs covering: (1) Why this career path, (2) Personality and work style fit, (3) Skills alignment, (4) Day-to-day realities, (5) Long-term prospects, (6) Challenges to expect, (7) Cultural fit in Vietnam market, (8) Work-life balance considerations, (9) Growth trajectory, (10) Who thrives in this role",
+  "strengths": ["3-4 key strengths needed"],
+  "growthAreas": ["2-3 development areas"],
+  "roadmap": "Brief 6-month transition roadmap",
+  "careerPattern": {
+    "progression": "Detailed career progression path from Junior (0-2 years) → Mid (2-5 years) → Senior (5-8 years) → Lead (8-12 years) → Principal/Manager (12+ years). Include typical timeline and requirements for each level.",
+    "dailyResponsibilities": "Describe a typical day for Junior, Mid-level, and Senior professionals. Be specific about tasks, meetings, collaboration, and focus areas at each level.",
+    "industryOutlook": "Analyze Vietnam market demand, growth projections for next 3-5 years, emerging opportunities, salary trends, and which companies/sectors are hiring."
+  },
+  "salaryInfo": {
+    "entryLevel": {
+      "range": "X - Y triệu VND/tháng (net)",
+      "experience": "0-2 years"
+    },
+    "midLevel": {
+      "range": "X - Y triệu VND/tháng (net)",
+      "experience": "2-5 years"
+    },
+    "seniorLevel": {
+      "range": "X - Y triệu VND/tháng (net)",
+      "experience": "5+ years"
+    }
+  },
+  "skillStack": ["10-15 specific technical and soft skills to master, ordered by priority"],
+  "learningPlan": {
+    "month1": "Week-by-week breakdown of what to learn, practice, and build. Include specific resources and milestones.",
+    "month2": "Continue with...",
+    "month3": "Focus on...",
+    "month4": "Master...",
+    "month5": "Build portfolio...",
+    "month6": "Job ready: final polish, interview prep, networking..."
+  }
+}
+
+IMPORTANT:
+- Use realistic Vietnam salary data for 2026
+- Be extremely detailed and practical
+- Include specific tools, technologies, frameworks where relevant
+- Provide actionable, concrete guidance`;
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [
         {
           role: 'system',
-          content: 'You are an expert career counselor providing personalized career guidance.',
+          content: 'You are an expert career counselor specializing in Vietnam tech market with deep knowledge of salaries, career paths, and industry trends.',
         },
         {
           role: 'user',
@@ -329,22 +416,53 @@ Format your response as JSON:
       ],
       temperature: 0.7,
       response_format: { type: 'json_object' },
+      max_tokens: 4000, // Allow longer responses for detailed analysis
     });
 
     const result = JSON.parse(completion.choices[0].message.content || '{}');
-    console.log(`    ✅ OpenAI responded for: ${career.name}`);
+    console.log(`    ✅ Generated comprehensive Job Card for: ${career.name}`);
 
-    return {
+    const analysisData = {
       explanation: result.explanation || 'This career aligns well with your profile.',
+      detailedAnalysis: result.detailedAnalysis || 'Detailed analysis not available.',
       strengths: result.strengths || ['Strong analytical skills', 'Good problem solver', 'Fast learner'],
       growthAreas: result.growthAreas || ['Build domain expertise', 'Expand network'],
       roadmap: result.roadmap || 'Focus on building relevant skills and gaining experience.',
+      careerPattern: result.careerPattern || {
+        progression: 'Standard career progression path.',
+        dailyResponsibilities: 'Day-to-day responsibilities vary by level.',
+        industryOutlook: 'Growing demand in Vietnam market.',
+      },
+      salaryInfo: result.salaryInfo || {
+        entryLevel: { range: '10 - 20 triệu VND/tháng', experience: '0-2 years' },
+        midLevel: { range: '20 - 40 triệu VND/tháng', experience: '2-5 years' },
+        seniorLevel: { range: '40 - 80 triệu VND/tháng', experience: '5+ years' },
+      },
+      skillStack: result.skillStack || ['Core competencies', 'Technical skills', 'Soft skills'],
+      learningPlan: result.learningPlan || {
+        month1: 'Foundation building',
+        month2: 'Skill development',
+        month3: 'Practice and projects',
+        month4: 'Advanced topics',
+        month5: 'Portfolio building',
+        month6: 'Job preparation',
+      },
     };
+
+    // Save to cache (Job Card) for future use - saves API tokens!
+    await prisma.career.update({
+      where: { id: career.id },
+      data: { cachedAnalysis: analysisData as any },
+    });
+    console.log(`    💾 Saved Job Card to cache for: ${career.name}`);
+
+    return analysisData;
   } catch (error: any) {
-    console.error(`    ❌ OpenAI error for ${career.name}:`, error.message || error);
-    // Fallback to basic explanation
+    console.error(`    ❌ Error generating analysis for ${career.name}:`, error.message || error);
+    // Fallback to basic data
     return {
-      explanation: `Based on your profile, ${career.name} is a strong match with a ${Math.round(fitScore)}% fit score. Your skills and preferences align well with the demands of this role.`,
+      explanation: `Based on your profile, ${career.name} is a strong match with a ${Math.round(fitScore)}% fit score.`,
+      detailedAnalysis: 'Unable to generate detailed analysis at this time.',
       strengths: [
         'Strong alignment with core competencies',
         'Compatible work style preferences',
@@ -354,7 +472,26 @@ Format your response as JSON:
         'Continue developing technical skills',
         'Build industry-specific knowledge',
       ],
-      roadmap: '1. Research the field (Month 1)\n2. Build foundational skills (Months 2-3)\n3. Start networking (Month 4)\n4. Pursue entry opportunities (Months 5-6)',
+      roadmap: '6-month learning plan to be developed.',
+      careerPattern: {
+        progression: 'Standard progression path',
+        dailyResponsibilities: 'Varies by level',
+        industryOutlook: 'Contact career counselor for details',
+      },
+      salaryInfo: {
+        entryLevel: { range: 'Contact HR for details', experience: '0-2 years' },
+        midLevel: { range: 'Contact HR for details', experience: '2-5 years' },
+        seniorLevel: { range: 'Contact HR for details', experience: '5+ years' },
+      },
+      skillStack: ['Core skills required for this role'],
+      learningPlan: {
+        month1: 'Research and foundation',
+        month2: 'Skill building',
+        month3: 'Practice',
+        month4: 'Advanced learning',
+        month5: 'Portfolio',
+        month6: 'Job prep',
+      },
     };
   }
 }
