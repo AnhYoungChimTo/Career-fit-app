@@ -1,188 +1,174 @@
 {
   "category": "values-preferences",
   "title": "Values & Work Preferences",
-  "description": "What matters most to you in your career",
-  "estimatedMinutes": 4,
+  "description": "What matters most to you in your career and life",
+  "estimatedMinutes": 5,
   "questions": [
     {
       "id": "vp_1",
       "type": "ranking",
       "required": true,
-      "question": "Rank these work aspects from most to least important to you (drag to reorder)",
+      "question": "Rank these career aspects from most to least important to you (drag to reorder)",
       "options": [
-        { "value": "compensation", "label": "High compensation" },
-        { "value": "growth", "label": "Learning and growth opportunities" },
-        { "value": "impact", "label": "Making meaningful impact" },
-        { "value": "flexibility", "label": "Work-life balance and flexibility" },
-        { "value": "creativity", "label": "Creative freedom" },
-        { "value": "stability", "label": "Job security and stability" }
+        { "value": "high_income", "label": "High income and financial rewards" },
+        { "value": "learning_growth", "label": "Continuous learning and personal growth" },
+        { "value": "meaningful_impact", "label": "Making meaningful impact on society" },
+        { "value": "work_life_balance", "label": "Work-life balance and personal time" },
+        { "value": "creative_freedom", "label": "Creative freedom and self-expression" },
+        { "value": "job_security", "label": "Job security and stability" }
       ],
       "scoringKey": "a3_value_priorities"
     },
     {
       "id": "vp_2",
+      "type": "textarea",
+      "required": true,
+      "question": "Imagine your ideal workday 5 years from now. Where are you, what are you doing, and who are you working with?",
+      "placeholder": "Describe a day you'd be excited to wake up to...",
+      "maxLength": 600,
+      "scoringKey": "a3_ideal_workday_vision"
+    },
+    {
+      "id": "vp_3",
       "type": "select",
       "required": true,
       "question": "What type of work environment appeals to you most?",
       "options": [
-        { "value": "startup", "label": "Fast-paced startup - high impact, some chaos" },
-        { "value": "tech_company", "label": "Established tech company - innovation with stability" },
-        { "value": "enterprise", "label": "Large enterprise - structure, resources, clear growth path" },
-        { "value": "agency", "label": "Agency/consulting - variety of clients and projects" },
-        { "value": "remote_first", "label": "Remote-first company - location independence" },
-        { "value": "unsure", "label": "I'm not sure yet" }
+        { "value": "startup_dynamic", "label": "Fast-paced startup - high energy, rapid change, wearing many hats" },
+        { "value": "established_structured", "label": "Established organization - clear structure, resources, defined processes" },
+        { "value": "ngo_mission", "label": "NGO/Non-profit - mission-driven, social impact focus" },
+        { "value": "government_public", "label": "Government/Public sector - serving the public interest, stability" },
+        { "value": "creative_agency", "label": "Creative agency - variety of projects and clients" },
+        { "value": "entrepreneurial", "label": "Entrepreneurial/Self-employed - full autonomy and independence" }
       ],
       "scoringKey": "a3_environment_preference"
     },
     {
-      "id": "vp_3",
-      "type": "slider",
-      "required": true,
-      "question": "How important is working with cutting-edge technology to you?",
-      "min": 1,
-      "max": 10,
-      "minLabel": "Not important - I prefer proven, stable tech",
-      "maxLabel": "Very important - I want the latest tools",
-      "scoringKey": "a3_tech_novelty"
-    },
-    {
       "id": "vp_4",
-      "type": "select",
+      "type": "multiselect",
       "required": true,
-      "question": "What motivates you most in your work?",
+      "question": "What motivates you in your work? (Select your top 3)",
+      "maxSelections": 3,
       "options": [
         { "value": "solving_problems", "label": "Solving challenging problems" },
-        { "value": "helping_users", "label": "Helping users and seeing them benefit" },
-        { "value": "building_things", "label": "Building and creating tangible products" },
-        { "value": "recognition", "label": "Recognition and career advancement" },
-        { "value": "autonomy", "label": "Autonomy and independence" },
-        { "value": "collaboration", "label": "Collaborating with talented people" }
+        { "value": "helping_others", "label": "Helping others and seeing them benefit" },
+        { "value": "creating_building", "label": "Creating and building things from scratch" },
+        { "value": "recognition_advancement", "label": "Recognition and career advancement" },
+        { "value": "autonomy_independence", "label": "Having autonomy and independence" },
+        { "value": "teamwork_collaboration", "label": "Collaborating with talented people" },
+        { "value": "innovation_change", "label": "Driving innovation and change" },
+        { "value": "mastery_expertise", "label": "Becoming an expert in something" }
       ],
-      "scoringKey": "a3_primary_motivator"
+      "scoringKey": "a3_primary_motivators"
     },
     {
       "id": "vp_5",
-      "type": "multiselect",
+      "type": "textarea",
       "required": true,
-      "question": "What aspects of work do you want to avoid? (Select all that apply)",
-      "options": [
-        { "value": "repetitive", "label": "Repetitive, routine tasks" },
-        { "value": "high_pressure", "label": "High-pressure, stressful deadlines" },
-        { "value": "political", "label": "Office politics and bureaucracy" },
-        { "value": "isolation", "label": "Working alone with little interaction" },
-        { "value": "constant_meetings", "label": "Constant meetings and interruptions" },
-        { "value": "legacy_systems", "label": "Maintaining old, outdated systems" },
-        { "value": "unclear_expectations", "label": "Unclear expectations and goals" },
-        { "value": "none", "label": "None of these concern me" }
-      ],
-      "scoringKey": "a3_work_dislikes"
+      "question": "What aspects of work would drain your energy or make you unhappy? What do you want to avoid?",
+      "placeholder": "e.g., 'I don't want to do the same thing every day' or 'I need to see the impact of my work' or 'I can't handle constant pressure'...",
+      "maxLength": 400,
+      "scoringKey": "a3_work_dislikes_narrative"
     },
     {
       "id": "vp_6",
-      "type": "select",
+      "type": "slider",
       "required": true,
-      "question": "How do you prefer to collaborate?",
-      "options": [
-        { "value": "independent", "label": "Independently - occasional check-ins" },
-        { "value": "pair_programming", "label": "Close collaboration (e.g., pair programming)" },
-        { "value": "async", "label": "Asynchronously with written communication" },
-        { "value": "team_sprints", "label": "Team sprints with daily standups" },
-        { "value": "flexible", "label": "Flexible - depends on the task" }
-      ],
-      "scoringKey": "a3_collaboration_style"
+      "question": "How important is work-life balance to you?",
+      "min": 1,
+      "max": 10,
+      "minLabel": "I'm willing to sacrifice personal time for career growth",
+      "maxLabel": "Work-life balance is essential to my well-being",
+      "scoringKey": "a3_work_life_balance_priority"
     },
     {
       "id": "vp_7",
-      "type": "slider",
+      "type": "select",
       "required": true,
-      "question": "How important is visible impact of your work?",
-      "min": 1,
-      "max": 10,
-      "minLabel": "I'm fine working on infrastructure others won't see",
-      "maxLabel": "I need to see my work used by real people",
-      "scoringKey": "a3_impact_visibility"
+      "question": "How do you prefer to work with others?",
+      "options": [
+        { "value": "independent", "label": "Independently - I work best alone with minimal oversight" },
+        { "value": "collaborative_equal", "label": "Collaboratively as equals - teamwork and shared decisions" },
+        { "value": "leading", "label": "Leading others - I enjoy guiding and coordinating teams" },
+        { "value": "being_guided", "label": "With clear guidance - I appreciate mentorship and direction" },
+        { "value": "flexible_mixed", "label": "Flexibly - sometimes solo, sometimes collaborative" }
+      ],
+      "scoringKey": "a3_collaboration_style"
     },
     {
       "id": "vp_8",
       "type": "select",
       "required": true,
-      "question": "What type of problems excite you most?",
+      "question": "What type of challenges energize you most?",
       "options": [
-        { "value": "technical_complexity", "label": "Deep technical complexity and optimization" },
-        { "value": "user_experience", "label": "User experience and interface challenges" },
-        { "value": "scale", "label": "Scale and performance challenges" },
-        { "value": "business_logic", "label": "Business logic and domain modeling" },
-        { "value": "data_insights", "label": "Data analysis and deriving insights" },
-        { "value": "creative_solutions", "label": "Creative, unconventional solutions" }
+        { "value": "analytical_complex", "label": "Complex analytical problems requiring deep thinking" },
+        { "value": "creative_innovative", "label": "Creative challenges with innovative solutions" },
+        { "value": "people_relationships", "label": "People and relationship challenges" },
+        { "value": "strategic_planning", "label": "Strategic planning and long-term thinking" },
+        { "value": "hands_on_practical", "label": "Hands-on practical problems with immediate results" },
+        { "value": "large_scale_impact", "label": "Large-scale challenges that impact many people" }
       ],
-      "scoringKey": "a3_problem_type_preference"
+      "scoringKey": "a3_challenge_type_preference"
     },
     {
       "id": "vp_9",
       "type": "slider",
       "required": true,
-      "question": "How much do you value having mentorship and learning from others?",
+      "question": "How important is it to see the direct impact of your work?",
       "min": 1,
       "max": 10,
-      "minLabel": "I prefer to figure things out myself",
-      "maxLabel": "Mentorship is essential to me",
-      "scoringKey": "a3_mentorship_value"
+      "minLabel": "I'm fine working behind the scenes on long-term projects",
+      "maxLabel": "I need to see tangible results and impact regularly",
+      "scoringKey": "a3_impact_visibility_need"
     },
     {
       "id": "vp_10",
-      "type": "select",
-      "required": false,
-      "question": "What does career success look like to you in 5 years?",
-      "options": [
-        { "value": "senior_ic", "label": "Senior individual contributor - deep technical expertise" },
-        { "value": "tech_lead", "label": "Tech lead - guiding technical decisions" },
-        { "value": "manager", "label": "Manager - leading and growing a team" },
-        { "value": "specialist", "label": "Specialist - recognized expert in a niche area" },
-        { "value": "generalist", "label": "Generalist - broad skills across the stack" },
-        { "value": "entrepreneur", "label": "Entrepreneur - building my own product/company" },
-        { "value": "unsure", "label": "I'm not sure yet" }
-      ],
-      "scoringKey": "a3_career_vision"
+      "type": "textarea",
+      "required": true,
+      "question": "What does 'success' mean to you personally? How would you define a successful career and life?",
+      "placeholder": "Be honest and specific about what would make you feel fulfilled...",
+      "maxLength": 500,
+      "scoringKey": "a3_success_definition"
     },
     {
       "id": "vp_11",
       "type": "multiselect",
       "required": true,
-      "question": "What benefits or perks matter to you? (Select up to 4)",
+      "question": "Which work characteristics are most important to you? (Select top 4)",
       "maxSelections": 4,
       "options": [
-        { "value": "remote_work", "label": "Remote work flexibility" },
-        { "value": "learning_budget", "label": "Learning and conference budget" },
-        { "value": "health_benefits", "label": "Comprehensive health benefits" },
-        { "value": "equity", "label": "Equity/stock options" },
-        { "value": "unlimited_pto", "label": "Unlimited or generous PTO" },
-        { "value": "equipment", "label": "High-quality equipment and tools" },
-        { "value": "office_culture", "label": "Great office culture and events" },
-        { "value": "career_path", "label": "Clear career progression path" }
+        { "value": "variety_diversity", "label": "Variety and diversity of tasks/projects" },
+        { "value": "innovation_cutting_edge", "label": "Working on innovative, cutting-edge ideas" },
+        { "value": "stability_predictability", "label": "Stability and predictability" },
+        { "value": "global_multicultural", "label": "Global exposure and multicultural environment" },
+        { "value": "social_impact", "label": "Social impact and contribution to society" },
+        { "value": "prestige_reputation", "label": "Prestige and professional reputation" },
+        { "value": "flexibility_autonomy", "label": "Flexibility and autonomy in how I work" },
+        { "value": "continuous_learning", "label": "Continuous learning and development" }
       ],
-      "scoringKey": "a3_benefits_priorities"
+      "scoringKey": "a3_work_characteristics"
     },
     {
       "id": "vp_12",
       "type": "select",
       "required": true,
-      "question": "How do you feel about being on-call or working outside standard hours?",
+      "question": "How do you feel about high-pressure work and tight deadlines?",
       "options": [
-        { "value": "no_problem", "label": "No problem - I'm flexible with hours" },
-        { "value": "occasionally_ok", "label": "Occasionally is fine, but not regularly" },
-        { "value": "rarely", "label": "Only in rare, critical situations" },
-        { "value": "dealbreaker", "label": "This would be a dealbreaker for me" }
+        { "value": "thrive", "label": "I thrive under pressure - it brings out my best work" },
+        { "value": "manageable", "label": "I can handle it when necessary" },
+        { "value": "occasional_ok", "label": "Occasionally is fine, but not regularly" },
+        { "value": "prefer_avoid", "label": "I prefer to avoid high-pressure situations" }
       ],
-      "scoringKey": "a3_hours_flexibility"
+      "scoringKey": "a3_stress_tolerance"
     },
     {
       "id": "vp_13",
-      "type": "text",
+      "type": "textarea",
       "required": false,
-      "question": "What's a non-negotiable requirement for your ideal role?",
-      "placeholder": "e.g., Must be remote, Must have mentorship, Must work with modern tech stack...",
-      "maxLength": 300,
-      "scoringKey": "a3_dealbreakers"
+      "question": "Is there anything else about your values, preferences, or goals that would help us understand what you're looking for in a career?",
+      "placeholder": "Share any other thoughts about what matters to you...",
+      "maxLength": 500,
+      "scoringKey": "a3_additional_context"
     }
   ]
 }
