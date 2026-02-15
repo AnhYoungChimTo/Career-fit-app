@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { config, validateConfig } from './config';
 import authRoutes from './routes/auth.routes';
+import interviewRoutes from './routes/interview.routes';
 
 // Validate configuration
 try {
@@ -42,7 +43,7 @@ app.get('/health', (req: Request, res: Response) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/interviews', interviewRoutes);
+app.use('/api/interviews', interviewRoutes);
 // app.use('/api/results', resultsRoutes);
 // app.use('/api/careers', careerRoutes);
 
