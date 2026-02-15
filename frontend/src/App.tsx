@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import InterviewSelection from './pages/InterviewSelection';
 import Interview from './pages/Interview';
+import Results from './pages/Results';
 import './index.css';
 
 function App() {
@@ -31,6 +32,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Interview />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/results/:interviewId"
+            element={
+              <ProtectedRoute>
+                <Results />
               </ProtectedRoute>
             }
           />
