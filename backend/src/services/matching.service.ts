@@ -792,39 +792,40 @@ IMPORTANT:
     // ─── LAYER 2: Generate personalized analysis with FAST model ───
     console.log(`    ⚡ [${personalizedModel}] Generating personalized analysis for: ${career.name} (interview: ${interviewType})`);
 
-    const personalizedPrompt = `You are a senior career counselor with deep expertise in the Vietnam job market.
+    const personalizedPrompt = `Play the role of an expert career advisor with deep knowledge of the Vietnam job market, Southeast Asian employment trends, and global career development.
 
-## User Profile
+## Here is the complete information from this person's career assessment:
 ${userContext}
 
-## Career: "${career.name}" (${career.vietnameseName})
-Category: ${career.category || 'general'}
-Description: ${career.description}
-Fit Score: ${Math.round(fitScore)}%
+## We have matched this person with the following career: "${career.name}" (${career.vietnameseName})
+- Category: ${career.category || 'general'}
+- Description: ${career.description}
+- Fit Score: ${Math.round(fitScore)}%
 
 ## Your Task
-Based on this specific user's profile, generate a PERSONALIZED career analysis. Reference their actual answers and traits — do NOT write generic career descriptions.
+Now, we need you to synthesize and analyse ALL of the information above. Write a deep analysis demonstrating why this person matches this job, and what are the pros and cons of chasing this career path. The analysis should be around 400 words, written with firm analytics based on every answer that they provided. Do NOT write generic career descriptions — every sentence must reference this specific person's data.
 
 Respond in JSON format:
 {
-  "explanation": "2-3 sentences explaining why THIS SPECIFIC USER is a good/moderate/developing fit for this career. Reference their specific traits, motivators, and preferences.",
-  "detailedAnalysis": "6-10 comprehensive paragraphs covering: (1) Why this career fits THIS user's profile, (2) How their personality traits align, (3) How their skills and aptitudes match, (4) Day-to-day realities and whether they'd enjoy them, (5) Long-term prospects given their goals, (6) Specific challenges they might face based on their profile, (7) Cultural fit in Vietnam market, (8) Work-life balance alignment, (9) Growth trajectory matching their ambitions, (10) What they should consider before pursuing this path. The analysis should be around 400 words, written with firm analytics based on every answer they provided.",
-  "strengths": ["3-4 specific strengths THIS USER has that are relevant to this career"],
-  "growthAreas": ["2-3 specific areas THIS USER would need to develop"],
-  "roadmap": "Personalized 6-month transition roadmap considering their current situation and skills"
+  "explanation": "2-3 sentences summarizing why THIS SPECIFIC PERSON is a good/moderate/developing fit for this career. Reference their specific traits, motivators, and preferences from the assessment.",
+  "detailedAnalysis": "A comprehensive ~400-word analysis covering: (1) Why this career matches THIS person's profile — cite their specific answers, (2) How their personality traits (Big Five, EQ, stress tolerance) align with this career's demands, (3) How their skills and aptitudes support or challenge success in this role, (4) The day-to-day realities of this job and whether this person would enjoy them based on their stated preferences, (5) Long-term career prospects given their goals and values, (6) PROS of pursuing this path — specific advantages based on their profile, (7) CONS and challenges they would face — be honest about gaps, (8) Cultural and market fit in Vietnam (Hanoi/HCMC), (9) Work-life balance alignment with their stated priorities, (10) A clear recommendation on whether to pursue this path and why. Write with firm, evidence-based analysis grounded in every answer they provided.",
+  "strengths": ["3-4 specific strengths THIS PERSON has that are directly relevant to succeeding in this career — cite their assessment data"],
+  "growthAreas": ["2-3 specific areas THIS PERSON would need to develop to succeed — be honest and specific"],
+  "roadmap": "A personalized 6-month transition roadmap considering their current situation, skills, and gaps. Include specific actions for each phase."
 }
 
 IMPORTANT:
-- Make this deeply PERSONAL — reference the user's specific answers and traits
-- Be practical and actionable
-- Write in an encouraging but honest tone`;
+- Every claim must be backed by this person's actual assessment answers
+- Be encouraging but brutally honest about gaps and challenges
+- Include specific pros AND cons of this career path for this person
+- Write in a professional, analytical tone — like a real career advisor giving a consultation`;
 
     const personalizedCompletion = await openai.chat.completions.create({
       model: personalizedModel,
       messages: [
         {
           role: 'system',
-          content: 'You are an expert career counselor specializing in the Vietnam job market. You create personalized career analyses based on individual assessment data.',
+          content: 'You are an expert career advisor. You synthesize assessment data to produce firm, evidence-based career analyses. You always cite specific data points from the user\'s answers. You are honest about both strengths and gaps — like a real career consultant giving a professional consultation.',
         },
         {
           role: 'user',
