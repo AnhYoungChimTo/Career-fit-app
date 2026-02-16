@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import DashboardLayout from './components/DashboardLayout';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -17,16 +18,20 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
+          {/* Protected routes with sidebar layout */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <DashboardLayout>
+                  <Dashboard />
+                </DashboardLayout>
               </ProtectedRoute>
             }
           />
@@ -35,7 +40,9 @@ function App() {
             path="/interview-selection"
             element={
               <ProtectedRoute>
-                <InterviewSelection />
+                <DashboardLayout>
+                  <InterviewSelection />
+                </DashboardLayout>
               </ProtectedRoute>
             }
           />
@@ -44,7 +51,9 @@ function App() {
             path="/interview/:interviewId"
             element={
               <ProtectedRoute>
-                <Interview />
+                <DashboardLayout>
+                  <Interview />
+                </DashboardLayout>
               </ProtectedRoute>
             }
           />
@@ -53,7 +62,9 @@ function App() {
             path="/results/:interviewId"
             element={
               <ProtectedRoute>
-                <Results />
+                <DashboardLayout>
+                  <Results />
+                </DashboardLayout>
               </ProtectedRoute>
             }
           />
@@ -62,7 +73,9 @@ function App() {
             path="/job-library"
             element={
               <ProtectedRoute>
-                <JobLibrary />
+                <DashboardLayout>
+                  <JobLibrary />
+                </DashboardLayout>
               </ProtectedRoute>
             }
           />

@@ -7,14 +7,60 @@ const prisma = new PrismaClient();
 
 /**
  * GET /api/results/:interviewId
- * Get career matching results for a completed interview
+ * Get career matching results for a completed interview.
+ * Uses cached results from the Result table if available (zero API calls on review).
+ * Only calls GPT on first-time generation, then saves for future retrieval.
  */
 export async function getResults(req: Request, res: Response) {
   try {
     const interviewId = String(req.params.interviewId);
 
-    // Generate matches
+    // Step 1: Check if results already exist in the database (cached from first generation)
+    const existingResult = await prisma.result.findFirst({
+      where: { interviewId },
+      orderBy: { generatedAt: 'desc' },
+    });
+
+    if (existingResult) {
+      console.log(`✅ Returning cached results for interview: ${interviewId} (zero API calls)`);
+      const cachedMatches = existingResult.careerMatches as any;
+
+      return res.json({
+        success: true,
+        data: {
+          interviewId,
+          interviewType: cachedMatches.interviewType || 'deep',
+          matches: cachedMatches.matches || cachedMatches,
+          analysisDate: existingResult.generatedAt,
+          dataCompleteness: cachedMatches.dataCompleteness || 100,
+        },
+      });
+    }
+
+    // Step 2: No cached result — generate fresh matches (calls GPT API)
+    console.log(`🔄 No cached results found. Generating fresh results for interview: ${interviewId}`);
     const results = await matchingService.generateMatches(interviewId);
+
+    // Step 3: Save the full result to the database for future retrieval (zero API calls next time)
+    const topMatch = results.matches[0];
+    await prisma.result.create({
+      data: {
+        interviewId,
+        aScore: topMatch ? topMatch.fitScore : 0,
+        a1Score: 0,
+        a2Score: 0,
+        a3Score: 0,
+        confidenceLevel: topMatch ? topMatch.confidence : 'low',
+        careerMatches: {
+          interviewType: results.interviewType,
+          matches: results.matches,
+          dataCompleteness: results.dataCompleteness,
+        } as any,
+        topCareer: topMatch ? topMatch.careerTitle : 'Unknown',
+        topFitScore: topMatch ? topMatch.fitScore : 0,
+      },
+    });
+    console.log(`💾 Saved results to database for future review (interview: ${interviewId})`);
 
     res.json({
       success: true,
@@ -93,10 +139,49 @@ export async function downloadPDF(req: Request, res: Response) {
       });
     }
 
-    console.log(`🔄 Generating matches for PDF...`);
-    // Generate matches
-    const results = await matchingService.generateMatches(interviewId);
-    console.log(`✅ Matches generated. Creating PDF with ${results.matches.length} matches...`);
+    // Check for cached results first (avoid re-calling GPT API)
+    let results;
+    const existingResult = await prisma.result.findFirst({
+      where: { interviewId },
+      orderBy: { generatedAt: 'desc' },
+    });
+
+    if (existingResult) {
+      console.log(`✅ Using cached results for PDF (zero API calls)`);
+      const cachedMatches = existingResult.careerMatches as any;
+      results = {
+        interviewId,
+        interviewType: cachedMatches.interviewType || interview.interviewType,
+        matches: cachedMatches.matches || cachedMatches,
+        analysisDate: existingResult.generatedAt,
+        dataCompleteness: cachedMatches.dataCompleteness || 100,
+      };
+    } else {
+      console.log(`🔄 No cached results. Generating matches for PDF...`);
+      results = await matchingService.generateMatches(interviewId);
+
+      // Save for future use
+      const topMatch = results.matches[0];
+      await prisma.result.create({
+        data: {
+          interviewId,
+          aScore: topMatch ? topMatch.fitScore : 0,
+          a1Score: 0,
+          a2Score: 0,
+          a3Score: 0,
+          confidenceLevel: topMatch ? topMatch.confidence : 'low',
+          careerMatches: {
+            interviewType: results.interviewType,
+            matches: results.matches,
+            dataCompleteness: results.dataCompleteness,
+          } as any,
+          topCareer: topMatch ? topMatch.careerTitle : 'Unknown',
+          topFitScore: topMatch ? topMatch.fitScore : 0,
+        },
+      });
+      console.log(`💾 Saved results to database for future use`);
+    }
+    console.log(`✅ Results ready. Creating PDF with ${results.matches.length} matches...`);
 
     // Generate PDF buffer
     const pdfBuffer = await pdfService.generateResultsPDF(results, interview.user.email);

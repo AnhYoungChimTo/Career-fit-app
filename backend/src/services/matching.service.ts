@@ -665,15 +665,134 @@ async function generateCareerExplanation(
     month6: string;
   };
 }> {
+  // ═══════════════════════════════════════════════════════════════════
+  // TIERED MODEL STRATEGY (3 tiers, all configurable via .env):
+  //   • Premium model (o1)        → Static career data (generated ONCE, shared forever)
+  //   • Analysis model (gpt-4o)   → Deep personalized analysis (per-user, cached after first gen)
+  //   • Fast model (gpt-4o-mini)  → Quick fields: explanation, strengths, growth areas
+  //
+  // For deep interviews: analysis model used for detailedAnalysis
+  // For lite interviews: fast model used for everything (simpler output)
+  // ═══════════════════════════════════════════════════════════════════
+  const PREMIUM_MODEL  = process.env.GPT_PREMIUM_MODEL  || 'o1';           // For career static info (rare, high-quality)
+  const ANALYSIS_MODEL = process.env.GPT_ANALYSIS_MODEL || 'gpt-4o';      // For deep personalized analysis (per-user)
+  const FAST_MODEL     = process.env.GPT_FAST_MODEL     || 'gpt-4o-mini'; // For quick personalized fields
+
+  // Choose which model to use for personalized analysis based on interview depth
+  const personalizedModel = (interviewType === 'deep' || interviewType === 'lite_upgraded')
+    ? ANALYSIS_MODEL   // Deep interviews get the higher-quality analysis model
+    : FAST_MODEL;      // Lite interviews use the fast/cheap model
+
   try {
-    // Use cached static career data if available
+    // Check if static career data already cached (shared across all users)
     const cached = career.cachedAnalysis as any;
     const hasStaticCache = cached?.careerPattern && cached?.salaryInfo && cached?.skillStack;
 
-    // Always generate personalized analysis using user's actual answers
-    console.log(`    🔄 Generating personalized analysis for: ${career.name}`);
+    // ─── LAYER 1: Generate static career data with PREMIUM model (if not cached) ───
+    if (!hasStaticCache) {
+      console.log(`    🧠 [${PREMIUM_MODEL}] Generating HIGH-QUALITY static career data for: ${career.name} (first time — will be reused for ALL future users)`);
 
-    const prompt = `You are a senior career counselor with deep expertise in the Vietnam job market across ALL industries (marketing, finance, law, international relations, creative, NGO, government, healthcare, education, etc.).
+      const staticPrompt = `You are a world-class career research analyst with deep expertise in the Vietnam job market (Hanoi, Ho Chi Minh City), Southeast Asian market, and global trends.
+
+## Career: "${career.name}" (${career.vietnameseName})
+Category: ${career.category || 'general'}
+Description: ${career.description}
+
+## Your Task
+Generate comprehensive, authoritative career reference data for this role. This data will be used as a permanent reference card shared across many users — make it thorough, accurate, and detailed.
+
+Respond in JSON format:
+{
+  "careerPattern": {
+    "progression": "Detailed career progression from Intern/Junior → Mid-level → Senior → Lead/Manager → Director/VP with realistic timelines (years) for each stage. Include typical job titles at each level in Vietnam.",
+    "dailyResponsibilities": "Detailed breakdown of a typical workday at Junior, Mid, and Senior levels. Include specific tasks, tools used, meetings, and deliverables for each level.",
+    "industryOutlook": "Comprehensive analysis covering: (1) Current demand in Hanoi and Ho Chi Minh City markets specifically, (2) Key hiring companies and industries in Vietnam, (3) Southeast Asia regional trends, (4) Global market outlook, (5) Impact of AI/technology on this role, (6) Growth projections for 2025-2030"
+  },
+  "salaryInfo": {
+    "entryLevel": { "range": "X - Y triệu VND/tháng (net)", "experience": "0-2 years" },
+    "midLevel": { "range": "X - Y triệu VND/tháng (net)", "experience": "2-5 years" },
+    "seniorLevel": { "range": "X - Y triệu VND/tháng (net)", "experience": "5+ years" }
+  },
+  "skillStack": ["15-20 specific technical and soft skills to master, ordered by priority. Include both foundational and advanced skills."],
+  "learningPlan": {
+    "month1": "Detailed week-by-week breakdown with specific courses, certifications, resources (include Vietnamese resources where relevant)",
+    "month2": "Continue with intermediate skills...",
+    "month3": "Focus on practical application...",
+    "month4": "Master advanced topics...",
+    "month5": "Build portfolio and real projects...",
+    "month6": "Job ready: interview prep, networking strategy, portfolio review..."
+  }
+}
+
+IMPORTANT:
+- Use realistic, up-to-date Vietnam salary data for 2025-2026
+- Include specific company names hiring in Vietnam for this role
+- Reference Hanoi and Ho Chi Minh City markets specifically
+- Include Asia-wide and global context
+- Be thorough — this will be the permanent reference for this career`;
+
+      const staticCompletion = await openai.chat.completions.create({
+        model: PREMIUM_MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: 'You are an elite career research analyst. You produce authoritative, detailed career reference data used by career counseling platforms. Your data must be accurate, comprehensive, and specific to the Vietnam/Asia market.',
+          },
+          {
+            role: 'user',
+            content: staticPrompt,
+          },
+        ],
+        temperature: 0.5, // Lower temperature for factual accuracy
+        response_format: { type: 'json_object' },
+        max_tokens: 4000,
+      });
+
+      const staticResult = JSON.parse(staticCompletion.choices[0].message.content || '{}');
+      console.log(`    ✅ [${PREMIUM_MODEL}] Generated premium static data for: ${career.name}`);
+
+      // Save to Career.cachedAnalysis — shared across ALL users forever
+      const staticData = {
+        careerPattern: staticResult.careerPattern || {
+          progression: 'Standard career progression path.',
+          dailyResponsibilities: 'Day-to-day responsibilities vary by level.',
+          industryOutlook: 'Growing demand in Vietnam market.',
+        },
+        salaryInfo: staticResult.salaryInfo || {
+          entryLevel: { range: '10 - 20 triệu VND/tháng', experience: '0-2 years' },
+          midLevel: { range: '20 - 40 triệu VND/tháng', experience: '2-5 years' },
+          seniorLevel: { range: '40 - 80 triệu VND/tháng', experience: '5+ years' },
+        },
+        skillStack: staticResult.skillStack || ['Core competencies', 'Technical skills', 'Soft skills'],
+        learningPlan: staticResult.learningPlan || {
+          month1: 'Foundation building',
+          month2: 'Skill development',
+          month3: 'Practice and projects',
+          month4: 'Advanced topics',
+          month5: 'Portfolio building',
+          month6: 'Job preparation',
+        },
+        generatedBy: PREMIUM_MODEL,
+        generatedAt: new Date().toISOString(),
+      };
+
+      await prisma.career.update({
+        where: { id: career.id },
+        data: { cachedAnalysis: staticData as any },
+      });
+      console.log(`    💾 [${PREMIUM_MODEL}] Saved permanent Job Card for: ${career.name}`);
+
+      // Update local reference so personalized step below can use it
+      career.cachedAnalysis = staticData;
+    }
+
+    // At this point, static cache is guaranteed to exist
+    const staticCache = career.cachedAnalysis as any;
+
+    // ─── LAYER 2: Generate personalized analysis with FAST model ───
+    console.log(`    ⚡ [${personalizedModel}] Generating personalized analysis for: ${career.name} (interview: ${interviewType})`);
+
+    const personalizedPrompt = `You are a senior career counselor with deep expertise in the Vietnam job market.
 
 ## User Profile
 ${userContext}
@@ -684,105 +803,54 @@ Description: ${career.description}
 Fit Score: ${Math.round(fitScore)}%
 
 ## Your Task
-Based on this specific user's profile, generate a PERSONALIZED career analysis. Reference their actual answers and traits - do NOT write generic career descriptions.
+Based on this specific user's profile, generate a PERSONALIZED career analysis. Reference their actual answers and traits — do NOT write generic career descriptions.
 
 Respond in JSON format:
 {
   "explanation": "2-3 sentences explaining why THIS SPECIFIC USER is a good/moderate/developing fit for this career. Reference their specific traits, motivators, and preferences.",
-  "detailedAnalysis": "6-10 comprehensive paragraphs covering: (1) Why this career fits THIS user's profile, (2) How their personality traits align, (3) How their skills and aptitudes match, (4) Day-to-day realities and whether they'd enjoy them, (5) Long-term prospects given their goals, (6) Specific challenges they might face based on their profile, (7) Cultural fit in Vietnam market, (8) Work-life balance alignment, (9) Growth trajectory matching their ambitions, (10) What they should consider before pursuing this path",
+  "detailedAnalysis": "6-10 comprehensive paragraphs covering: (1) Why this career fits THIS user's profile, (2) How their personality traits align, (3) How their skills and aptitudes match, (4) Day-to-day realities and whether they'd enjoy them, (5) Long-term prospects given their goals, (6) Specific challenges they might face based on their profile, (7) Cultural fit in Vietnam market, (8) Work-life balance alignment, (9) Growth trajectory matching their ambitions, (10) What they should consider before pursuing this path. The analysis should be around 400 words, written with firm analytics based on every answer they provided.",
   "strengths": ["3-4 specific strengths THIS USER has that are relevant to this career"],
   "growthAreas": ["2-3 specific areas THIS USER would need to develop"],
-  "roadmap": "Personalized 6-month transition roadmap considering their current situation and skills"${hasStaticCache ? '' : `,
-  "careerPattern": {
-    "progression": "Detailed career progression from Junior → Mid → Senior → Lead → Principal/Manager with timelines",
-    "dailyResponsibilities": "Typical day at Junior, Mid, and Senior levels",
-    "industryOutlook": "Vietnam market demand, growth projections, salary trends, hiring companies"
-  },
-  "salaryInfo": {
-    "entryLevel": { "range": "X - Y triệu VND/tháng (net)", "experience": "0-2 years" },
-    "midLevel": { "range": "X - Y triệu VND/tháng (net)", "experience": "2-5 years" },
-    "seniorLevel": { "range": "X - Y triệu VND/tháng (net)", "experience": "5+ years" }
-  },
-  "skillStack": ["10-15 specific technical and soft skills to master, ordered by priority"],
-  "learningPlan": {
-    "month1": "Week-by-week breakdown with specific resources",
-    "month2": "Continue with...",
-    "month3": "Focus on...",
-    "month4": "Master...",
-    "month5": "Build portfolio...",
-    "month6": "Job ready: interview prep, networking..."
-  }`}
+  "roadmap": "Personalized 6-month transition roadmap considering their current situation and skills"
 }
 
 IMPORTANT:
-- Make this PERSONAL - reference the user's specific answers and traits
-- Use realistic Vietnam salary data for 2026
+- Make this deeply PERSONAL — reference the user's specific answers and traits
 - Be practical and actionable
 - Write in an encouraging but honest tone`;
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
+    const personalizedCompletion = await openai.chat.completions.create({
+      model: personalizedModel,
       messages: [
         {
           role: 'system',
-          content: 'You are an expert career counselor specializing in the Vietnam job market across all industries. You create personalized career analyses based on individual assessment data.',
+          content: 'You are an expert career counselor specializing in the Vietnam job market. You create personalized career analyses based on individual assessment data.',
         },
         {
           role: 'user',
-          content: prompt,
+          content: personalizedPrompt,
         },
       ],
       temperature: 0.7,
       response_format: { type: 'json_object' },
-      max_tokens: 4000,
+      max_tokens: 3000,
     });
 
-    const result = JSON.parse(completion.choices[0].message.content || '{}');
-    console.log(`    ✅ Generated personalized analysis for: ${career.name}`);
+    const personalizedResult = JSON.parse(personalizedCompletion.choices[0].message.content || '{}');
+    console.log(`    ✅ [${personalizedModel}] Generated personalized analysis for: ${career.name}`);
 
-    // Merge: personalized parts from GPT, static parts from cache (or GPT if no cache)
+    // Merge: personalized parts from fast model + static parts from premium cache
     const analysisData = {
-      explanation: result.explanation || `Based on your profile, ${career.name} is a match with a ${Math.round(fitScore)}% fit score.`,
-      detailedAnalysis: result.detailedAnalysis || 'Detailed analysis not available.',
-      strengths: result.strengths || ['Alignment with core competencies', 'Compatible work style', 'Values match'],
-      growthAreas: result.growthAreas || ['Build domain expertise', 'Expand professional network'],
-      roadmap: result.roadmap || 'Focus on building relevant skills and gaining experience.',
-      careerPattern: hasStaticCache ? cached.careerPattern : (result.careerPattern || {
-        progression: 'Standard career progression path.',
-        dailyResponsibilities: 'Day-to-day responsibilities vary by level.',
-        industryOutlook: 'Growing demand in Vietnam market.',
-      }),
-      salaryInfo: hasStaticCache ? cached.salaryInfo : (result.salaryInfo || {
-        entryLevel: { range: '10 - 20 triệu VND/tháng', experience: '0-2 years' },
-        midLevel: { range: '20 - 40 triệu VND/tháng', experience: '2-5 years' },
-        seniorLevel: { range: '40 - 80 triệu VND/tháng', experience: '5+ years' },
-      }),
-      skillStack: hasStaticCache ? cached.skillStack : (result.skillStack || ['Core competencies', 'Technical skills', 'Soft skills']),
-      learningPlan: hasStaticCache ? cached.learningPlan : (result.learningPlan || {
-        month1: 'Foundation building',
-        month2: 'Skill development',
-        month3: 'Practice and projects',
-        month4: 'Advanced topics',
-        month5: 'Portfolio building',
-        month6: 'Job preparation',
-      }),
+      explanation: personalizedResult.explanation || `Based on your profile, ${career.name} is a match with a ${Math.round(fitScore)}% fit score.`,
+      detailedAnalysis: personalizedResult.detailedAnalysis || 'Detailed analysis not available.',
+      strengths: personalizedResult.strengths || ['Alignment with core competencies', 'Compatible work style', 'Values match'],
+      growthAreas: personalizedResult.growthAreas || ['Build domain expertise', 'Expand professional network'],
+      roadmap: personalizedResult.roadmap || 'Focus on building relevant skills and gaining experience.',
+      careerPattern: staticCache.careerPattern,
+      salaryInfo: staticCache.salaryInfo,
+      skillStack: staticCache.skillStack,
+      learningPlan: staticCache.learningPlan,
     };
-
-    // Save static career data to cache if not already cached
-    if (!hasStaticCache) {
-      await prisma.career.update({
-        where: { id: career.id },
-        data: {
-          cachedAnalysis: {
-            careerPattern: analysisData.careerPattern,
-            salaryInfo: analysisData.salaryInfo,
-            skillStack: analysisData.skillStack,
-            learningPlan: analysisData.learningPlan,
-          } as any,
-        },
-      });
-      console.log(`    💾 Saved static Job Card to cache for: ${career.name}`);
-    }
 
     return analysisData;
   } catch (error: any) {
