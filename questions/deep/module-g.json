@@ -1,8 +1,8 @@
 {
   "moduleId": "G",
   "title": "Career Goals & Vision",
-  "description": "Where you see yourself heading in your career",
-  "estimatedMinutes": 5,
+  "description": "Where you see yourself heading in your career and life",
+  "estimatedMinutes": 6,
   "isRecommended": true,
   "questions": [
     {
@@ -13,31 +13,31 @@
       "options": [
         {
           "value": "land_first_role",
-          "label": "Land my first tech role"
+          "label": "Land my first professional role in a field I care about"
         },
         {
           "value": "become_senior",
-          "label": "Reach senior-level expertise"
+          "label": "Grow into a more senior or experienced position"
         },
         {
-          "value": "switch_domains",
-          "label": "Switch to a different tech domain"
+          "value": "switch_fields",
+          "label": "Explore or switch to a different field or industry"
         },
         {
           "value": "leadership",
-          "label": "Move into technical leadership"
+          "label": "Move into a leadership or management position"
         },
         {
           "value": "specialist",
-          "label": "Become a recognized specialist"
+          "label": "Become a recognized specialist or expert in my area"
         },
         {
           "value": "start_business",
-          "label": "Start my own tech business/product"
+          "label": "Start my own business or venture"
         },
         {
           "value": "stable_growth",
-          "label": "Stable employment with steady growth"
+          "label": "Find stable employment with steady growth"
         }
       ],
       "scoringKey": "a3_short_term_goal"
@@ -49,40 +49,40 @@
       "question": "In 5-10 years, which career path appeals to you most?",
       "options": [
         {
-          "value": "ic_staff_principal",
-          "label": "Individual Contributor - Staff/Principal Engineer"
+          "value": "expert_specialist",
+          "label": "Expert/Specialist - becoming a top authority in my field"
         },
         {
-          "value": "tech_lead",
-          "label": "Tech Lead - guiding technical direction"
+          "value": "team_leader",
+          "label": "Team Leader - guiding and managing teams"
         },
         {
-          "value": "engineering_manager",
-          "label": "Engineering Manager - leading teams"
+          "value": "director_executive",
+          "label": "Director/Executive - shaping organizational strategy"
         },
         {
-          "value": "architect",
-          "label": "Architect - designing systems"
+          "value": "entrepreneur",
+          "label": "Entrepreneur - building my own business or organization"
         },
         {
-          "value": "product_manager",
-          "label": "Product Manager - driving product strategy"
+          "value": "consultant_advisor",
+          "label": "Consultant/Advisor - working independently with diverse clients"
         },
         {
-          "value": "founder_cto",
-          "label": "Founder/CTO - building my own company"
+          "value": "educator_mentor",
+          "label": "Educator/Mentor - teaching and developing others"
         },
         {
-          "value": "consultant",
-          "label": "Consultant/Freelancer - working independently"
+          "value": "researcher",
+          "label": "Researcher - advancing knowledge in my area of interest"
         },
         {
-          "value": "educator",
-          "label": "Educator - teaching and mentoring"
+          "value": "creative_professional",
+          "label": "Creative professional - producing original work or content"
         },
         {
           "value": "unsure",
-          "label": "Not sure yet - exploring options"
+          "label": "Not sure yet - still exploring what fits me best"
         }
       ],
       "scoringKey": "a3_long_term_path"
@@ -96,23 +96,23 @@
       "options": [
         {
           "value": "high_comp",
-          "label": "High compensation (top 10% in field)"
+          "label": "High income and financial rewards"
         },
         {
-          "value": "technical_mastery",
-          "label": "Technical mastery and expertise"
+          "value": "mastery_expertise",
+          "label": "Deep expertise and mastery in my field"
         },
         {
-          "value": "impact_scale",
-          "label": "Massive impact (millions of users)"
+          "value": "meaningful_impact",
+          "label": "Making a meaningful impact on people or society"
         },
         {
           "value": "work_life",
-          "label": "Perfect work-life balance"
+          "label": "Healthy work-life balance"
         },
         {
           "value": "recognition",
-          "label": "Industry recognition and reputation"
+          "label": "Professional recognition and reputation"
         },
         {
           "value": "team_building",
@@ -124,15 +124,15 @@
         },
         {
           "value": "financial_freedom",
-          "label": "Financial freedom and security"
+          "label": "Financial freedom and independence"
         },
         {
           "value": "continuous_learning",
-          "label": "Continuous learning and growth"
+          "label": "Continuous learning and personal growth"
         },
         {
           "value": "autonomy",
-          "label": "Autonomy and independence"
+          "label": "Autonomy and freedom in how I work"
         }
       ],
       "scoringKey": "a3_success_definition"
@@ -144,47 +144,47 @@
       "question": "How important is climbing the career ladder (titles, promotions) to you?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not important - I care about the work",
-      "maxLabel": "Very important - I'm ambitious",
+      "minLabel": "Not important - I care about the work itself",
+      "maxLabel": "Very important - I'm driven by advancement",
       "scoringKey": "a3_title_importance"
     },
     {
       "id": "g_5",
       "type": "select",
       "required": true,
-      "question": "What type of company do you want to work for long-term?",
+      "question": "What type of organization do you want to work for long-term?",
       "options": [
         {
-          "value": "faang",
-          "label": "FAANG/Big Tech - prestige, scale, compensation"
+          "value": "large_prestigious",
+          "label": "Large, prestigious organization - resources, reputation, stability"
         },
         {
           "value": "high_growth_startup",
-          "label": "High-growth startup - equity upside, fast pace"
+          "label": "High-growth startup - fast pace, equity potential, big opportunity"
         },
         {
           "value": "early_startup",
-          "label": "Early-stage startup - high impact, build from scratch"
+          "label": "Early-stage startup - build from scratch, high impact"
         },
         {
-          "value": "midsize_tech",
-          "label": "Mid-size tech company - balance of stability and growth"
+          "value": "midsize",
+          "label": "Mid-size company - balance of stability and agility"
         },
         {
-          "value": "enterprise",
-          "label": "Enterprise - stability, clear career path"
+          "value": "ngo_nonprofit",
+          "label": "NGO or non-profit - mission-driven, social impact"
         },
         {
-          "value": "remote_first",
-          "label": "Remote-first company - flexibility and autonomy"
+          "value": "government_public",
+          "label": "Government or public sector - serving the public interest"
         },
         {
-          "value": "own_company",
-          "label": "My own company - full control"
+          "value": "own_business",
+          "label": "My own business - full control and independence"
         },
         {
-          "value": "mission_driven",
-          "label": "Mission-driven org - social impact"
+          "value": "flexible_freelance",
+          "label": "Freelance or consulting - variety and flexibility"
         }
       ],
       "scoringKey": "a3_ideal_company_type"
@@ -193,65 +193,65 @@
       "id": "g_6",
       "type": "slider",
       "required": true,
-      "question": "How much do you want to stay hands-on technical vs move into management?",
+      "question": "Do you see yourself staying hands-on in your craft or moving into management?",
       "min": 1,
       "max": 10,
-      "minLabel": "Definitely want to move into management",
-      "maxLabel": "Want to stay hands-on technical",
+      "minLabel": "I want to move into management and lead people",
+      "maxLabel": "I want to stay hands-on and deepen my expertise",
       "scoringKey": "a3_ic_vs_management"
     },
     {
       "id": "g_7",
       "type": "multiselect",
       "required": true,
-      "question": "What skills do you want to develop in the next 1-2 years? (Select up to 5)",
+      "question": "What skills or abilities do you want to develop in the next 1-2 years? (Select up to 5)",
       "maxSelections": 5,
       "options": [
-        {
-          "value": "system_design",
-          "label": "System design and architecture"
-        },
         {
           "value": "leadership",
           "label": "Leadership and people management"
         },
         {
-          "value": "specific_tech",
-          "label": "Specific technology stack mastery"
-        },
-        {
-          "value": "product_thinking",
-          "label": "Product thinking and strategy"
-        },
-        {
           "value": "communication",
-          "label": "Communication and presentation"
+          "label": "Communication and presentation skills"
         },
         {
-          "value": "data_skills",
+          "value": "strategic_thinking",
+          "label": "Strategic thinking and planning"
+        },
+        {
+          "value": "data_analysis",
           "label": "Data analysis and decision-making"
+        },
+        {
+          "value": "creative_skills",
+          "label": "Creative and design skills"
         },
         {
           "value": "business_acumen",
           "label": "Business and commercial awareness"
         },
         {
-          "value": "mentorship",
-          "label": "Mentorship and coaching"
+          "value": "domain_expertise",
+          "label": "Deep knowledge in a specific industry or field"
         },
         {
-          "value": "domain_expertise",
-          "label": "Deep domain expertise (e.g., fintech, healthtech)"
+          "value": "mentorship",
+          "label": "Mentorship and coaching abilities"
+        },
+        {
+          "value": "digital_skills",
+          "label": "Digital tools and technical literacy"
         }
       ],
       "scoringKey": "a3_skill_development_goals"
     },
     {
       "id": "g_8",
-      "type": "text",
+      "type": "textarea",
       "required": false,
-      "question": "Describe your ideal role 5 years from now",
-      "placeholder": "What are you working on? What's your day-to-day? What have you accomplished?",
+      "question": "Describe your ideal role 5 years from now. What are you doing, what have you accomplished, and how does it feel?",
+      "placeholder": "e.g., Leading a small team at an international organization, running my own business, advising companies as an expert consultant...",
       "maxLength": 500,
       "scoringKey": "a3_ideal_future_role"
     },
@@ -262,8 +262,8 @@
       "question": "How willing are you to relocate for career opportunities?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not willing - must stay local/remote",
-      "maxLabel": "Very willing - will relocate anywhere",
+      "minLabel": "Not willing - I want to stay where I am or work remotely",
+      "maxLabel": "Very willing - I'd move anywhere for the right opportunity",
       "scoringKey": "a3_relocation_willingness"
     },
     {
@@ -273,36 +273,36 @@
       "question": "What would make you feel like you've 'made it' in your career?",
       "options": [
         {
-          "value": "senior_title",
-          "label": "Reaching senior/principal title"
+          "value": "senior_role",
+          "label": "Reaching a senior or leadership position"
         },
         {
-          "value": "comp_target",
-          "label": "Hitting a specific compensation target"
+          "value": "income_target",
+          "label": "Achieving a specific income or financial goal"
         },
         {
-          "value": "shipping_product",
-          "label": "Shipping a product used by millions"
+          "value": "meaningful_impact",
+          "label": "Making a visible difference in people's lives"
         },
         {
           "value": "leading_team",
-          "label": "Leading a successful team"
+          "label": "Leading a successful team or organization"
         },
         {
-          "value": "industry_speaker",
-          "label": "Being invited to speak at conferences"
+          "value": "respected_voice",
+          "label": "Being recognized as an expert or thought leader"
         },
         {
           "value": "financial_independence",
           "label": "Achieving financial independence"
         },
         {
-          "value": "starting_company",
-          "label": "Starting a successful company"
+          "value": "own_business",
+          "label": "Running my own successful business or venture"
         },
         {
-          "value": "work_life_balance",
-          "label": "Perfect work-life balance with meaningful work"
+          "value": "balanced_life",
+          "label": "Having meaningful work with a balanced, fulfilling life"
         }
       ],
       "scoringKey": "a3_made_it_definition"
@@ -311,52 +311,20 @@
       "id": "g_11",
       "type": "slider",
       "required": true,
-      "question": "How important is working in a specific tech hub (SF, NYC, Austin, etc.)?",
+      "question": "How important is being in a major professional hub or city for your career?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not important - remote is fine",
-      "maxLabel": "Essential - want to be in a hub",
+      "minLabel": "Not important - I can build my career anywhere",
+      "maxLabel": "Very important - I want to be where the opportunities are",
       "scoringKey": "a3_location_importance"
     },
     {
       "id": "g_12",
-      "type": "select",
+      "type": "textarea",
       "required": false,
-      "question": "If you could skip directly to one role, what would it be?",
-      "options": [
-        {
-          "value": "senior_engineer",
-          "label": "Senior Software Engineer at top company"
-        },
-        {
-          "value": "tech_lead",
-          "label": "Tech Lead on impactful product"
-        },
-        {
-          "value": "staff_engineer",
-          "label": "Staff Engineer (senior IC)"
-        },
-        {
-          "value": "eng_manager",
-          "label": "Engineering Manager"
-        },
-        {
-          "value": "product_manager",
-          "label": "Product Manager"
-        },
-        {
-          "value": "founding_engineer",
-          "label": "Founding Engineer at startup"
-        },
-        {
-          "value": "cto",
-          "label": "CTO of growing company"
-        },
-        {
-          "value": "independent",
-          "label": "Independent consultant/contractor"
-        }
-      ],
+      "question": "If you could skip ahead and have any career or role right now, what would it be and why?",
+      "placeholder": "Dream big - what role, organization, or lifestyle would make you happiest?",
+      "maxLength": 400,
       "scoringKey": "a3_dream_role"
     }
   ]

@@ -119,12 +119,12 @@
       "id": "e_5",
       "type": "slider",
       "required": true,
-      "question": "How much do you enjoy pair programming or close code collaboration?",
+      "question": "How much do you enjoy working closely with someone on the same task (side by side or in real time)?",
       "min": 1,
       "max": 10,
-      "minLabel": "Strongly dislike - I work better alone",
-      "maxLabel": "Love it - highly productive for me",
-      "scoringKey": "a1_pair_programming_enjoyment"
+      "minLabel": "I prefer working independently on my own tasks",
+      "maxLabel": "I love collaborating closely in real time",
+      "scoringKey": "a1_close_collaboration_enjoyment"
     },
     {
       "id": "e_6",
@@ -149,8 +149,8 @@
           "label": "Only when asked"
         },
         {
-          "value": "automated",
-          "label": "Automated tracking/dashboards"
+          "value": "visual_tracking",
+          "label": "Visual progress boards or shared trackers"
         }
       ],
       "scoringKey": "a1_update_style"
@@ -179,8 +179,8 @@
           "label": "Good documentation practices"
         },
         {
-          "value": "async_first",
-          "label": "Async-first communication"
+          "value": "written_first",
+          "label": "Written communication before meetings (email, messages)"
         },
         {
           "value": "face_time",
@@ -201,12 +201,12 @@
       "id": "e_8",
       "type": "slider",
       "required": true,
-      "question": "How comfortable are you with technical writing and documentation?",
+      "question": "How comfortable are you with writing reports, summaries, or documentation?",
       "min": 1,
       "max": 10,
       "minLabel": "Struggle with it - not my strength",
       "maxLabel": "Excel at it - I enjoy writing docs",
-      "scoringKey": "a2_technical_writing"
+      "scoringKey": "a2_writing_documentation"
     },
     {
       "id": "e_9",
@@ -261,7 +261,7 @@
       "id": "e_12",
       "type": "select",
       "required": true,
-      "question": "How do you handle receiving critical feedback in public (e.g., code review comments)?",
+      "question": "How do you handle receiving critical feedback in front of others (e.g., in a meeting or group setting)?",
       "options": [
         {
           "value": "grateful",

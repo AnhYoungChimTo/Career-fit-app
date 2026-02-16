@@ -1,7 +1,7 @@
 {
   "moduleId": "K",
   "title": "Industry & Domain Interests",
-  "description": "Which industries and problem domains interest you most",
+  "description": "Which industries and areas of work interest you most",
   "estimatedMinutes": 5,
   "isRecommended": false,
   "questions": [
@@ -9,68 +9,68 @@
       "id": "k_1",
       "type": "multiselect",
       "required": true,
-      "question": "Which industries or domains interest you? (Select up to 5)",
+      "question": "Which industries or sectors interest you? (Select up to 5)",
       "maxSelections": 5,
       "options": [
         {
-          "value": "fintech",
-          "label": "Fintech - payments, banking, investing"
+          "value": "finance_banking",
+          "label": "Finance, banking, and investment"
         },
         {
-          "value": "healthtech",
-          "label": "Healthtech - medical, wellness, healthcare"
+          "value": "healthcare_wellness",
+          "label": "Healthcare, wellness, and life sciences"
         },
         {
-          "value": "edtech",
-          "label": "Edtech - education and learning"
+          "value": "education_training",
+          "label": "Education, training, and development"
         },
         {
-          "value": "ecommerce",
-          "label": "E-commerce and retail tech"
+          "value": "retail_consumer",
+          "label": "Retail, e-commerce, and consumer goods"
         },
         {
-          "value": "social",
-          "label": "Social media and community platforms"
+          "value": "media_entertainment",
+          "label": "Media, entertainment, and creative industries"
         },
         {
-          "value": "gaming",
-          "label": "Gaming and entertainment"
+          "value": "government_public",
+          "label": "Government, public policy, and public service"
         },
         {
-          "value": "enterprise_saas",
-          "label": "Enterprise SaaS and B2B tools"
+          "value": "ngo_development",
+          "label": "NGOs, international development, and social impact"
         },
         {
-          "value": "devtools",
-          "label": "Developer tools and infrastructure"
+          "value": "technology_innovation",
+          "label": "Technology and innovation"
         },
         {
-          "value": "ai_ml",
-          "label": "AI/ML platforms and applications"
+          "value": "environment_sustainability",
+          "label": "Environment, sustainability, and climate"
         },
         {
-          "value": "climate",
-          "label": "Climate tech and sustainability"
+          "value": "consulting_advisory",
+          "label": "Consulting and professional services"
         },
         {
-          "value": "cybersecurity",
-          "label": "Cybersecurity"
+          "value": "marketing_communications",
+          "label": "Marketing, communications, and PR"
         },
         {
-          "value": "blockchain",
-          "label": "Blockchain and web3"
+          "value": "hospitality_tourism",
+          "label": "Hospitality, tourism, and events"
         },
         {
-          "value": "transportation",
-          "label": "Transportation and mobility"
+          "value": "law_legal",
+          "label": "Law, legal, and compliance"
         },
         {
           "value": "real_estate",
-          "label": "Real estate and proptech"
+          "label": "Real estate and property"
         },
         {
           "value": "no_preference",
-          "label": "No strong preference"
+          "label": "No strong preference - open to any industry"
         }
       ],
       "scoringKey": "a3_industry_interests"
@@ -79,87 +79,87 @@
       "id": "k_2",
       "type": "select",
       "required": true,
-      "question": "What type of user do you want to build products for?",
+      "question": "Who do you most want to serve or work with?",
       "options": [
         {
-          "value": "consumers",
-          "label": "Consumers - general public"
-        },
-        {
-          "value": "developers",
-          "label": "Developers - building tools for builders"
+          "value": "general_public",
+          "label": "The general public and everyday people"
         },
         {
           "value": "businesses",
-          "label": "Businesses - B2B enterprise"
+          "label": "Businesses and organizations"
         },
         {
-          "value": "specific_vertical",
-          "label": "Specific vertical (healthcare, education, etc.)"
+          "value": "specific_communities",
+          "label": "Specific communities (youth, elderly, underserved groups)"
         },
         {
-          "value": "internal",
-          "label": "Internal users - improving my own company"
+          "value": "professionals",
+          "label": "Other professionals in a specific field"
+        },
+        {
+          "value": "students_learners",
+          "label": "Students and learners"
         },
         {
           "value": "open_minded",
-          "label": "Open-minded - depends on the product"
+          "label": "Open-minded - depends on the work itself"
         }
       ],
-      "scoringKey": "a3_target_user_preference"
+      "scoringKey": "a3_target_audience_preference"
     },
     {
       "id": "k_3",
       "type": "slider",
       "required": true,
-      "question": "How important is domain expertise in your career?",
+      "question": "How important is developing deep expertise in a specific industry?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not important - I want to stay general",
-      "maxLabel": "Very important - want to be a domain expert",
+      "minLabel": "I prefer being a generalist across industries",
+      "maxLabel": "I want to be a deep expert in one industry",
       "scoringKey": "a3_domain_expertise_value"
     },
     {
       "id": "k_4",
       "type": "multiselect",
       "required": true,
-      "question": "What types of problems do you want to solve? (Select all that apply)",
+      "question": "What types of problems do you want to work on? (Select all that apply)",
       "options": [
         {
           "value": "efficiency",
-          "label": "Making things more efficient"
+          "label": "Making things more efficient and streamlined"
         },
         {
-          "value": "accessibility",
-          "label": "Making tech accessible to more people"
+          "value": "access_equity",
+          "label": "Improving access and equity for underserved groups"
         },
         {
           "value": "connection",
-          "label": "Connecting people"
+          "label": "Connecting people and building communities"
         },
         {
-          "value": "automation",
-          "label": "Automating manual processes"
+          "value": "education_growth",
+          "label": "Helping people learn and grow"
         },
         {
-          "value": "insights",
-          "label": "Deriving insights from data"
+          "value": "insights_understanding",
+          "label": "Creating insights and deeper understanding"
         },
         {
-          "value": "creativity",
+          "value": "creative_expression",
           "label": "Enabling creativity and expression"
         },
         {
-          "value": "security",
-          "label": "Protecting and securing systems/data"
+          "value": "health_wellbeing",
+          "label": "Improving health and wellbeing"
         },
         {
-          "value": "scale",
-          "label": "Scaling systems to handle growth"
+          "value": "sustainability",
+          "label": "Building a more sustainable future"
         },
         {
-          "value": "intelligence",
-          "label": "Building intelligent, adaptive systems"
+          "value": "economic_growth",
+          "label": "Driving economic growth and opportunity"
         }
       ],
       "scoringKey": "a3_problem_domains"
@@ -168,23 +168,23 @@
       "id": "k_5",
       "type": "select",
       "required": true,
-      "question": "Would you prefer to work in a regulated industry (healthcare, finance)?",
+      "question": "Would you prefer to work in a highly regulated industry (healthcare, finance, government)?",
       "options": [
         {
           "value": "yes_interesting",
-          "label": "Yes - I find the challenges interesting"
+          "label": "Yes - I find the structure and responsibility appealing"
         },
         {
           "value": "neutral",
-          "label": "Neutral - doesn't matter to me"
+          "label": "Neutral - it wouldn't affect my decision"
         },
         {
           "value": "prefer_avoid",
-          "label": "Prefer to avoid - too restrictive"
+          "label": "Prefer to avoid - I want more flexibility"
         },
         {
           "value": "depends",
-          "label": "Depends on the specific opportunity"
+          "label": "Depends on the specific role and opportunity"
         }
       ],
       "scoringKey": "a3_regulated_industry_interest"
@@ -193,11 +193,11 @@
       "id": "k_6",
       "type": "slider",
       "required": true,
-      "question": "How important is social impact in the product you work on?",
+      "question": "How important is social impact in the work you do?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not important - just interesting work",
-      "maxLabel": "Essential - need to make positive impact",
+      "minLabel": "Not important - I focus on interesting work and growth",
+      "maxLabel": "Essential - I need to make a positive difference",
       "scoringKey": "a3_social_impact_importance"
     },
     {
@@ -208,39 +208,39 @@
       "options": [
         {
           "value": "education",
-          "label": "Improving education access"
+          "label": "Improving education and access to learning"
         },
         {
           "value": "health",
-          "label": "Advancing healthcare"
+          "label": "Advancing healthcare and public health"
         },
         {
           "value": "environment",
-          "label": "Environmental sustainability"
+          "label": "Environmental sustainability and conservation"
         },
         {
           "value": "equality",
-          "label": "Social equality and justice"
+          "label": "Social equality, diversity, and inclusion"
         },
         {
           "value": "poverty",
-          "label": "Reducing poverty"
+          "label": "Reducing poverty and improving livelihoods"
         },
         {
-          "value": "free_internet",
-          "label": "Open and free internet"
+          "value": "human_rights",
+          "label": "Human rights and civil liberties"
         },
         {
-          "value": "privacy",
-          "label": "Privacy and data rights"
+          "value": "arts_culture",
+          "label": "Arts, culture, and heritage preservation"
         },
         {
           "value": "innovation",
-          "label": "Pushing human innovation forward"
+          "label": "Pushing innovation and progress forward"
         },
         {
           "value": "none",
-          "label": "None specifically - I'm mission-agnostic"
+          "label": "No specific cause - I'm open to any mission"
         }
       ],
       "scoringKey": "a3_mission_alignment"
@@ -253,33 +253,33 @@
       "options": [
         {
           "value": "massive_millions",
-          "label": "Massive - millions of users"
+          "label": "Massive - reaching millions of people"
         },
         {
           "value": "meaningful_thousands",
-          "label": "Meaningful - thousands of engaged users"
+          "label": "Meaningful - serving thousands who really benefit"
         },
         {
           "value": "deep_hundreds",
-          "label": "Deep - hundreds who really need it"
+          "label": "Deep - transforming the lives of hundreds"
         },
         {
           "value": "focused_niche",
-          "label": "Focused - niche group, high value"
+          "label": "Focused - high-value impact on a specific group"
         },
         {
-          "value": "dont_care",
-          "label": "Don't care about scale - care about impact quality"
+          "value": "quality_over_scale",
+          "label": "I care more about the quality of impact than the number"
         }
       ],
       "scoringKey": "a3_impact_scale_preference"
     },
     {
       "id": "k_9",
-      "type": "text",
+      "type": "textarea",
       "required": false,
-      "question": "If you could solve one problem in the world with technology, what would it be?",
-      "placeholder": "Be specific about the problem and why it matters to you",
+      "question": "If you could dedicate your career to solving one problem in the world, what would it be and why?",
+      "placeholder": "e.g., Improving education access in developing countries, reducing healthcare inequality, creating sustainable business practices...",
       "maxLength": 500,
       "scoringKey": "a3_dream_problem_to_solve"
     },
@@ -287,27 +287,27 @@
       "id": "k_10",
       "type": "select",
       "required": true,
-      "question": "What's your view on working for companies with ethical concerns?",
+      "question": "What's your view on working for organizations whose values you may not fully share?",
       "options": [
         {
           "value": "dealbreaker",
-          "label": "Absolute dealbreaker - values must align"
+          "label": "Dealbreaker - my values and the organization's must align"
         },
         {
           "value": "important",
-          "label": "Important - would need to carefully evaluate"
+          "label": "Important - I would need to carefully evaluate"
         },
         {
           "value": "depends",
-          "label": "Depends on the specific concerns"
+          "label": "Depends on the specific concerns and my role"
         },
         {
           "value": "separate",
-          "label": "Separate - I can compartmentalize work"
+          "label": "I can separate my personal values from work"
         },
         {
           "value": "pragmatic",
-          "label": "Pragmatic - perfect companies don't exist"
+          "label": "Pragmatic - no organization is perfect"
         }
       ],
       "scoringKey": "a3_ethical_standards"
@@ -316,12 +316,12 @@
       "id": "k_11",
       "type": "slider",
       "required": true,
-      "question": "How interested are you in working with emerging technologies?",
+      "question": "How interested are you in working in fast-changing, innovative fields?",
       "min": 1,
       "max": 10,
-      "minLabel": "Prefer mature, stable tech",
-      "maxLabel": "Very interested in cutting-edge tech",
-      "scoringKey": "a3_emerging_tech_interest"
+      "minLabel": "I prefer established, stable industries",
+      "maxLabel": "I'm drawn to rapidly evolving and cutting-edge fields",
+      "scoringKey": "a3_innovation_field_interest"
     }
   ]
 }

@@ -108,6 +108,9 @@ model Career {
   vietnameseName    String
   description       String
 
+  // Category/Industry classification
+  category          String   @default("general") // 'marketing', 'finance', 'international-relations', 'technology', 'creative', etc.
+
   // Requirements (JSON)
   // Format: { a1: {trait1: value, trait2: value}, a2: {...}, a3: {...} }
   requirements      Json
@@ -126,4 +129,5 @@ model Career {
   updatedAt         DateTime @updatedAt
 
   @@index([name])
+  @@index([category])
 }

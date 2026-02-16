@@ -50,12 +50,12 @@
       "id": "c_2",
       "type": "slider",
       "required": true,
-      "question": "How important is working on products you're personally passionate about?",
+      "question": "How important is working on something you're personally passionate about?",
       "min": 1,
       "max": 10,
       "minLabel": "Not important - work is just work",
-      "maxLabel": "Essential - I need to believe in the product",
-      "scoringKey": "a3_product_passion"
+      "maxLabel": "Essential - I need to believe in what I'm working on",
+      "scoringKey": "a3_passion_importance"
     },
     {
       "id": "c_3",
@@ -73,7 +73,7 @@
         },
         {
           "value": "accessibility",
-          "label": "Making technology accessible to everyone"
+          "label": "Making things accessible to everyone"
         },
         {
           "value": "social_good",
@@ -85,7 +85,7 @@
         },
         {
           "value": "innovation",
-          "label": "Pushing technological innovation"
+          "label": "Pushing innovation and new ideas forward"
         },
         {
           "value": "team_success",
@@ -158,7 +158,7 @@
         },
         {
           "value": "advancing_field",
-          "label": "Advancing the field of technology"
+          "label": "Advancing knowledge or practice in my field"
         },
         {
           "value": "building_things",
@@ -206,8 +206,8 @@
           "label": "Feel like my work doesn't matter"
         },
         {
-          "value": "tech_debt",
-          "label": "Overwhelming technical debt and poor practices"
+          "value": "poor_standards",
+          "label": "Poor standards and outdated practices"
         }
       ],
       "scoringKey": "a3_dealbreakers"
@@ -304,7 +304,7 @@
         },
         {
           "value": "interesting_problems",
-          "label": "Most interesting technical problems"
+          "label": "Most interesting and stimulating challenges"
         },
         {
           "value": "team_quality",

@@ -27,6 +27,7 @@ const internationalRelationsCareers = [
     name: 'NGO Intern',
     vietnameseName: 'Thực tập sinh Tổ chức Phi chính phủ',
     description: 'Entry-level internship at non-governmental organizations, learning about international development, project management, community outreach, and NGO operations. Supports program staff with research, data collection, event coordination, and administrative tasks.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -71,6 +72,7 @@ const internationalRelationsCareers = [
     name: 'International Relations Intern',
     vietnameseName: 'Thực tập sinh Quan hệ Quốc tế',
     description: 'Entry-level position supporting international relations activities, including research on global affairs, policy analysis, diplomatic communications, and event coordination for international conferences and meetings.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -116,6 +118,7 @@ const internationalRelationsCareers = [
     name: 'Program Assistant (NGO)',
     vietnameseName: 'Trợ lý Chương trình (NGO)',
     description: 'Support program implementation at NGOs by coordinating project activities, maintaining databases, preparing reports, liaising with partners, and assisting in monitoring and evaluation. Entry-level role with direct project involvement.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 80,
@@ -159,6 +162,7 @@ const internationalRelationsCareers = [
     name: 'Project Coordinator (NGO)',
     vietnameseName: 'Điều phối viên Dự án (NGO)',
     description: 'Coordinate day-to-day project activities, manage budgets, organize events and workshops, maintain stakeholder relationships, and ensure project deliverables are met on time. First project management role in NGO sector.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 80,
@@ -249,6 +253,7 @@ const internationalRelationsCareers = [
     name: 'Program Officer (NGO)',
     vietnameseName: 'Chuyên viên Chương trình (NGO)',
     description: 'Lead program implementation, design project proposals, conduct needs assessments, manage budgets, supervise staff, monitor impact, and ensure compliance with donor requirements. Core professional role in NGO program management.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -294,6 +299,7 @@ const internationalRelationsCareers = [
     name: 'Project Manager (NGO)',
     vietnameseName: 'Quản lý Dự án (NGO)',
     description: 'Manage entire project lifecycle from design to evaluation, lead teams of 5-15 staff, develop budgets ($100K-$500K), write funding proposals, build partnerships, and report to donors. Senior project leadership role.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -340,6 +346,7 @@ const internationalRelationsCareers = [
     name: 'Grants & Partnerships Manager',
     vietnameseName: 'Quản lý Tài trợ & Đối tác',
     description: 'Identify funding opportunities, write grant proposals, manage donor relationships, negotiate partnerships, ensure grant compliance, and develop fundraising strategies. Critical role for NGO sustainability.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 80,
@@ -385,6 +392,7 @@ const internationalRelationsCareers = [
     name: 'External Relations Manager',
     vietnameseName: 'Quản lý Quan hệ Đối ngoại',
     description: 'Develop and execute external relations strategy, manage communications team, build high-level partnerships, represent organization at events, handle media relations, and coordinate advocacy campaigns.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -430,6 +438,7 @@ const internationalRelationsCareers = [
     name: 'Monitoring & Evaluation Manager',
     vietnameseName: 'Quản lý Giám sát & Đánh giá',
     description: 'Design M&E frameworks, develop indicators and tools, conduct evaluations, analyze program impact, train staff on data collection, and produce learning reports for donors and stakeholders.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 80,
@@ -476,6 +485,7 @@ const internationalRelationsCareers = [
     name: 'Senior Program Manager (NGO)',
     vietnameseName: 'Quản lý Chương trình Cấp cao (NGO)',
     description: 'Oversee multiple programs and large portfolios ($1M+), lead program teams of 20-50 staff, develop organizational strategy, manage key donor relationships, and ensure program quality and impact across the organization.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -521,6 +531,7 @@ const internationalRelationsCareers = [
     name: 'Country Director (NGO)',
     vietnameseName: 'Giám đốc Quốc gia (NGO)',
     description: 'Lead all NGO operations in Vietnam, manage budgets of $2M-$10M, oversee 50-200 staff, develop country strategy, represent organization to government and donors, ensure compliance and impact.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -566,6 +577,7 @@ const internationalRelationsCareers = [
     name: 'Head of External Relations',
     vietnameseName: 'Trưởng phòng Quan hệ Đối ngoại',
     description: 'Lead external relations department, develop global communications strategy, manage senior partnerships with governments and UN agencies, oversee advocacy initiatives, and represent organization at high-level forums.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -612,6 +624,7 @@ const internationalRelationsCareers = [
     name: 'Regional Director (NGO)',
     vietnameseName: 'Giám đốc Khu vực (NGO)',
     description: 'Oversee NGO operations across Southeast Asia region, manage budgets of $10M-$50M, lead country directors, develop regional strategy, manage relationships with regional bodies (ASEAN, etc.), ensure organizational growth and impact.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -657,6 +670,7 @@ const internationalRelationsCareers = [
     name: 'Executive Director (NGO)',
     vietnameseName: 'Giám đốc Điều hành (NGO)',
     description: 'Lead entire NGO organization, set strategic vision, manage global operations and budgets ($50M+), engage with boards and major donors, represent organization globally, and ensure organizational sustainability and impact at scale.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -702,6 +716,7 @@ const internationalRelationsCareers = [
     name: 'Communications Director (International)',
     vietnameseName: 'Giám đốc Truyền thông (Quốc tế)',
     description: 'Lead global communications strategy for international organization, manage media relations, oversee digital campaigns, coordinate crisis communications, manage communications team across regions, and protect organizational reputation.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -751,6 +766,7 @@ const internationalRelationsCareers = [
     name: 'Diplomatic Attaché',
     vietnameseName: 'Tùy viên Ngoại giao',
     description: 'Entry-level diplomatic position supporting embassy or consulate operations, handling administrative duties, assisting with diplomatic communications, coordinating events, and supporting visa and consular services.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -795,6 +811,7 @@ const internationalRelationsCareers = [
     name: 'Consular Officer',
     vietnameseName: 'L영사 Consular',
     description: 'Provide consular services to nationals abroad including visa processing, passport services, assistance to citizens in distress, and coordination with local authorities. Front-line diplomatic service role.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 80,
@@ -840,6 +857,7 @@ const internationalRelationsCareers = [
     name: 'Political Affairs Officer',
     vietnameseName: 'Chuyên viên Chính trị',
     description: 'Analyze political developments, prepare briefings for ambassadors, monitor government policies, maintain relationships with host government officials, and report on political trends affecting bilateral relations.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -885,6 +903,7 @@ const internationalRelationsCareers = [
     name: 'First Secretary (Diplomat)',
     vietnameseName: 'Tham tán Nhất',
     description: 'Senior diplomatic role managing specific portfolio (economic, political, cultural), leading negotiations, representing country at official functions, supervising junior diplomats, and advising ambassador on key issues.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -930,6 +949,7 @@ const internationalRelationsCareers = [
     name: 'Ambassador',
     vietnameseName: 'Đại sứ',
     description: 'Represent country at highest diplomatic level, lead embassy operations, conduct high-level negotiations, manage bilateral relations, advise government on foreign policy, and protect national interests abroad.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 98,
@@ -979,6 +999,7 @@ const internationalRelationsCareers = [
     name: 'Development Intern',
     vietnameseName: 'Thực tập sinh Phát triển Quốc tế',
     description: 'Support international development projects focused on poverty reduction, education, health, or economic development. Assist with research, data collection, community surveys, and program documentation.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1022,6 +1043,7 @@ const internationalRelationsCareers = [
     name: 'Development Officer',
     vietnameseName: 'Chuyên viên Phát triển',
     description: 'Implement development programs in areas like education, health, microfinance, or agriculture. Work with communities, conduct assessments, deliver training, monitor progress, and report to donors.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1067,6 +1089,7 @@ const internationalRelationsCareers = [
     name: 'Development Program Manager',
     vietnameseName: 'Quản lý Chương trình Phát triển',
     description: 'Manage development programs addressing SDGs, lead project teams, develop theories of change, coordinate with government and local partners, manage budgets, and ensure sustainable impact.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1112,6 +1135,7 @@ const internationalRelationsCareers = [
     name: 'Technical Advisor (Development)',
     vietnameseName: 'Cố vấn Kỹ thuật (Phát triển)',
     description: 'Provide specialized technical expertise (health, education, WASH, governance) to development programs, conduct capacity building, design technical interventions, and advise government counterparts.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1157,6 +1181,7 @@ const internationalRelationsCareers = [
     name: 'UN Programme Officer (JPO)',
     vietnameseName: 'Chuyên viên Chương trình LHQ (JPO)',
     description: 'Junior Professional Officer working for UN agencies (UNDP, UNICEF, WHO, etc.), supporting program design and implementation, conducting research, coordinating with governments, and contributing to global development goals.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1202,6 +1227,7 @@ const internationalRelationsCareers = [
     name: 'UN Programme Specialist',
     vietnameseName: 'Chuyên gia Chương trình LHQ',
     description: 'Mid-to-senior level UN position leading programs in specific sectors, managing portfolios, coordinating with government ministries, mobilizing resources, and representing UN agency at technical meetings.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1247,6 +1273,7 @@ const internationalRelationsCareers = [
     name: 'UN Country Director',
     vietnameseName: 'Giám đốc Quốc gia LHQ',
     description: 'Lead UN agency operations in Vietnam, oversee country programs and budgets ($10M-$100M), coordinate with government at ministerial level, represent agency to donors, and ensure achievement of development outcomes.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 98,
@@ -1292,6 +1319,7 @@ const internationalRelationsCareers = [
     name: 'Chief of Development Cooperation',
     vietnameseName: 'Trưởng Ban Hợp tác Phát triển',
     description: 'Lead development cooperation unit in government ministry, coordinate with international donors and development partners, manage ODA portfolio, negotiate agreements, and align international aid with national priorities.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1341,6 +1369,7 @@ const internationalRelationsCareers = [
     name: 'Humanitarian Affairs Intern',
     vietnameseName: 'Thực tập sinh Nhân đạo',
     description: 'Support humanitarian response operations during emergencies and disasters, assist with needs assessments, coordinate relief supplies, support beneficiary registration, and help with reporting to humanitarian clusters.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1385,6 +1414,7 @@ const internationalRelationsCareers = [
     name: 'Field Officer (Humanitarian)',
     vietnameseName: 'Cán bộ Hiện trường (Nhân đạo)',
     description: 'Work in disaster-affected areas delivering humanitarian assistance, conducting rapid assessments, coordinating with local authorities and communities, managing distribution of relief items, and ensuring accountability.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1430,6 +1460,7 @@ const internationalRelationsCareers = [
     name: 'Emergency Response Coordinator',
     vietnameseName: 'Điều phối viên Ứng phó Khẩn cấp',
     description: 'Coordinate emergency response operations during disasters, lead rapid response teams, manage emergency supplies and logistics, coordinate with humanitarian clusters, activate contingency plans, and report to donors.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 85,
@@ -1475,6 +1506,7 @@ const internationalRelationsCareers = [
     name: 'Humanitarian Program Manager',
     vietnameseName: 'Quản lý Chương trình Nhân đạo',
     description: 'Manage humanitarian programs addressing protection, WASH, shelter, food security, or health needs. Lead emergency assessments, design interventions, manage teams in challenging environments, ensure humanitarian principles.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1520,6 +1552,7 @@ const internationalRelationsCareers = [
     name: 'Head of Humanitarian Operations',
     vietnameseName: 'Trưởng phòng Hoạt động Nhân đạo',
     description: 'Lead humanitarian operations for organization in emergency contexts, manage multiple humanitarian programs, oversee security and safety, coordinate with UN OCHA and clusters, ensure compliance with humanitarian standards.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1565,6 +1598,7 @@ const internationalRelationsCareers = [
     name: 'Humanitarian Coordinator',
     vietnameseName: 'Điều phối viên Nhân đạo (HC)',
     description: 'UN-appointed senior role leading humanitarian response in crisis-affected countries, coordinate all UN agencies and NGOs, chair humanitarian country team, mobilize resources, advocate for humanitarian access and protection.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1614,6 +1648,7 @@ const internationalRelationsCareers = [
     name: 'Policy Research Intern',
     vietnameseName: 'Thực tập sinh Nghiên cứu Chính sách',
     description: 'Support policy research on international issues, assist with literature reviews, collect and analyze data, prepare research summaries, and contribute to policy briefs and reports for think tanks or research institutes.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1658,6 +1693,7 @@ const internationalRelationsCareers = [
     name: 'Policy Analyst (International)',
     vietnameseName: 'Chuyên viên Phân tích Chính sách (Quốc tế)',
     description: 'Analyze international policies and trends, conduct research on global issues (trade, climate, security), prepare policy briefs, provide recommendations to decision-makers, and contribute to policy debates.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1703,6 +1739,7 @@ const internationalRelationsCareers = [
     name: 'Advocacy Officer',
     vietnameseName: 'Chuyên viên Vận động Chính sách',
     description: 'Lead advocacy campaigns on international issues (human rights, environment, development), coordinate coalitions, engage with policymakers, organize public events, use media and social media for advocacy.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 90,
@@ -1748,6 +1785,7 @@ const internationalRelationsCareers = [
     name: 'Senior Policy Advisor',
     vietnameseName: 'Cố vấn Chính sách Cấp cao',
     description: 'Advise senior leadership and government officials on international policy issues, lead policy research initiatives, represent organization in policy forums, build coalitions, and influence policy decisions.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1793,6 +1831,7 @@ const internationalRelationsCareers = [
     name: 'Advocacy Director',
     vietnameseName: 'Giám đốc Vận động Chính sách',
     description: 'Lead advocacy department and strategy, manage campaigns on major global issues, coordinate with international advocacy networks, represent organization to governments and multilateral bodies, mobilize public support.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 95,
@@ -1838,6 +1877,7 @@ const internationalRelationsCareers = [
     name: 'Think Tank Research Fellow',
     vietnameseName: 'Nghiên cứu viên Viện Nghiên cứu',
     description: 'Conduct independent research on international relations and global policy issues, publish in academic and policy journals, present at conferences, advise governments and international organizations, contribute to public debate.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 100,
@@ -1883,6 +1923,7 @@ const internationalRelationsCareers = [
     name: 'Director of Research (Think Tank)',
     vietnameseName: 'Giám đốc Nghiên cứu (Viện Nghiên cứu)',
     description: 'Lead research agenda for think tank or policy institute, manage research teams, secure funding for research projects, build partnerships with universities and policymakers, publish influential research, shape policy debates.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 100,
@@ -1928,6 +1969,7 @@ const internationalRelationsCareers = [
     name: 'Global Campaigns Director',
     vietnameseName: 'Giám đốc Chiến dịch Toàn cầu',
     description: 'Lead global advocacy and campaigning for international NGO on major issues (climate, human rights, poverty), coordinate campaigns across regions, mobilize millions of supporters, engage with UN and governments, drive systemic change.',
+    category: 'international-relations',
     requirements: {
       a1: {
         openness: 98,

@@ -78,15 +78,15 @@
       "id": "j_4",
       "type": "multiselect",
       "required": true,
-      "question": "What factors make you feel secure in a job? (Select all that apply)",
+      "question": "What factors would make you feel secure in a career? (Select all that apply)",
       "options": [
         {
           "value": "company_stable",
           "label": "Company financial stability"
         },
         {
-          "value": "in_demand_skills",
-          "label": "Having in-demand skills"
+          "value": "valuable_skills",
+          "label": "Having skills that are valuable and needed"
         },
         {
           "value": "strong_network",
@@ -188,7 +188,7 @@
       "id": "j_8",
       "type": "multiselect",
       "required": true,
-      "question": "What would convince you to leave a stable job? (Select all that apply)",
+      "question": "What would convince you to leave a stable situation for something new? (Select all that apply)",
       "options": [
         {
           "value": "much_higher_comp",
@@ -240,8 +240,8 @@
       "id": "j_10",
       "type": "text",
       "required": false,
-      "question": "Describe a career risk you took (or wish you had taken)",
-      "placeholder": "What happened? Would you do it again?",
+      "question": "Describe a risk you took (or wish you had taken) - in career, school, or life",
+      "placeholder": "What was the situation? What happened? Would you do it again?",
       "maxLength": 500,
       "scoringKey": "a1_risk_taking_example"
     },

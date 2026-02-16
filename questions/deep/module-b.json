@@ -1,164 +1,148 @@
 {
   "moduleId": "B",
-  "title": "Technical Aptitudes & Skills",
-  "description": "Comprehensive assessment of your technical capabilities and potential",
-  "estimatedMinutes": 6,
+  "title": "Practical Skills & Aptitudes",
+  "description": "Comprehensive assessment of your practical capabilities and potential across diverse skill areas",
+  "estimatedMinutes": 7,
   "isRecommended": true,
   "questions": [
     {
       "id": "b_1",
       "type": "multiselect",
       "required": true,
-      "question": "Which programming concepts do you understand? (Select all that apply)",
+      "question": "Which of these skill areas do you feel most confident in? (Select all that apply)",
       "options": [
         {
-          "value": "variables_datatypes",
-          "label": "Variables and data types"
+          "value": "analytical_reasoning",
+          "label": "Analytical reasoning and logical thinking"
         },
         {
-          "value": "loops_conditionals",
-          "label": "Loops and conditionals"
+          "value": "creative_expression",
+          "label": "Creative expression and generating ideas"
         },
         {
-          "value": "functions",
-          "label": "Functions and methods"
+          "value": "written_communication",
+          "label": "Writing clearly and persuasively"
         },
         {
-          "value": "oop",
-          "label": "Object-oriented programming"
+          "value": "verbal_communication",
+          "label": "Speaking, presenting, and explaining ideas"
         },
         {
-          "value": "data_structures",
-          "label": "Data structures (arrays, objects, etc.)"
+          "value": "organizing_planning",
+          "label": "Organizing, planning, and managing projects"
         },
         {
-          "value": "algorithms",
-          "label": "Algorithms and complexity"
+          "value": "research_investigation",
+          "label": "Researching, investigating, and finding information"
         },
         {
-          "value": "async",
-          "label": "Asynchronous programming"
+          "value": "interpersonal",
+          "label": "Understanding people and building relationships"
         },
         {
-          "value": "apis",
-          "label": "APIs and HTTP requests"
+          "value": "quantitative",
+          "label": "Working with numbers, data, and statistics"
         },
         {
-          "value": "databases",
-          "label": "Database concepts"
+          "value": "digital_tools",
+          "label": "Using digital tools and learning new software"
         },
         {
-          "value": "none_yet",
-          "label": "None yet, but willing to learn"
+          "value": "hands_on_practical",
+          "label": "Hands-on practical work and making things"
         }
       ],
-      "scoringKey": "a2_coding_knowledge"
+      "scoringKey": "a2_skill_confidence"
     },
     {
       "id": "b_2",
       "type": "select",
       "required": true,
-      "question": "If you've written code, which language(s) are you most comfortable with?",
+      "question": "Which type of task do you find comes most naturally to you?",
       "options": [
         {
-          "value": "javascript",
-          "label": "JavaScript/TypeScript"
+          "value": "analyzing_info",
+          "label": "Analyzing information and drawing conclusions"
         },
         {
-          "value": "python",
-          "label": "Python"
+          "value": "creating_content",
+          "label": "Creating content, designs, or original work"
         },
         {
-          "value": "java",
-          "label": "Java"
+          "value": "coordinating_people",
+          "label": "Coordinating people and managing activities"
         },
         {
-          "value": "csharp",
-          "label": "C#"
+          "value": "persuading_influencing",
+          "label": "Persuading and influencing others"
         },
         {
-          "value": "cpp",
-          "label": "C/C++"
+          "value": "solving_puzzles",
+          "label": "Solving puzzles and figuring out how things work"
         },
         {
-          "value": "ruby",
-          "label": "Ruby"
-        },
-        {
-          "value": "go",
-          "label": "Go"
-        },
-        {
-          "value": "swift",
-          "label": "Swift"
-        },
-        {
-          "value": "other",
-          "label": "Other language"
-        },
-        {
-          "value": "none",
-          "label": "Haven't written code yet"
+          "value": "helping_supporting",
+          "label": "Helping, advising, and supporting others"
         }
       ],
-      "scoringKey": "a2_primary_language"
+      "scoringKey": "a2_natural_task_type"
     },
     {
       "id": "b_3",
       "type": "slider",
       "required": true,
-      "question": "Rate your comfort with reading and understanding existing code",
+      "question": "How comfortable are you with reading and interpreting complex information (reports, articles, data)?",
       "min": 1,
       "max": 10,
-      "minLabel": "Very difficult for me",
-      "maxLabel": "I can read code easily",
-      "scoringKey": "a2_code_reading"
+      "minLabel": "I find it challenging and slow",
+      "maxLabel": "I can process complex information easily",
+      "scoringKey": "a2_information_processing"
     },
     {
       "id": "b_4",
       "type": "multiselect",
       "required": true,
-      "question": "Which technical tools/technologies have you used? (Select all)",
+      "question": "Which tools and platforms have you used? (Select all that apply)",
       "options": [
         {
-          "value": "git",
-          "label": "Git/GitHub for version control"
+          "value": "office_suite",
+          "label": "Office tools (Word, Excel, Google Docs, Sheets)"
         },
         {
-          "value": "terminal",
-          "label": "Command line/terminal"
+          "value": "presentation",
+          "label": "Presentation tools (PowerPoint, Google Slides, Canva)"
         },
         {
-          "value": "html_css",
-          "label": "HTML/CSS"
-        },
-        {
-          "value": "sql",
-          "label": "SQL databases"
-        },
-        {
-          "value": "cloud",
-          "label": "Cloud platforms (AWS, Azure, GCP)"
-        },
-        {
-          "value": "docker",
-          "label": "Docker/containers"
-        },
-        {
-          "value": "testing",
-          "label": "Testing frameworks"
-        },
-        {
-          "value": "ci_cd",
-          "label": "CI/CD pipelines"
+          "value": "social_media",
+          "label": "Social media platforms for content or outreach"
         },
         {
           "value": "design_tools",
-          "label": "Design tools (Figma, Sketch, etc.)"
+          "label": "Design tools (Photoshop, Figma, Canva, etc.)"
         },
         {
-          "value": "analytics",
-          "label": "Analytics tools (Google Analytics, etc.)"
+          "value": "data_analysis",
+          "label": "Data or analysis tools (Excel formulas, SPSS, Tableau)"
+        },
+        {
+          "value": "project_management",
+          "label": "Project management tools (Trello, Notion, Asana)"
+        },
+        {
+          "value": "writing_editing",
+          "label": "Writing or editing platforms (blogs, newsletters, CMS)"
+        },
+        {
+          "value": "research_databases",
+          "label": "Research databases or academic tools"
+        },
+        {
+          "value": "video_audio",
+          "label": "Video or audio production tools"
+        },
+        {
+          "value": "coding_programming",
+          "label": "Coding or programming tools"
         },
         {
           "value": "none",
@@ -171,94 +155,90 @@
       "id": "b_5",
       "type": "select",
       "required": true,
-      "question": "When you encounter a bug or error, what's your typical approach?",
+      "question": "When you encounter a mistake or something that isn't working, what's your typical approach?",
       "options": [
         {
-          "value": "systematic_debug",
-          "label": "Systematic debugging - isolate and test hypotheses"
+          "value": "systematic",
+          "label": "Work through it systematically to find the root cause"
         },
         {
-          "value": "google_search",
-          "label": "Search for the error message online"
-        },
-        {
-          "value": "read_docs",
-          "label": "Read documentation carefully"
+          "value": "research",
+          "label": "Look up solutions and learn from others' experiences"
         },
         {
           "value": "ask_help",
-          "label": "Ask for help from others"
+          "label": "Ask someone with more experience for guidance"
         },
         {
-          "value": "trial_error",
-          "label": "Trial and error until something works"
+          "value": "experiment",
+          "label": "Try different things until something works"
         },
         {
-          "value": "frustrated",
-          "label": "I get frustrated and struggle"
+          "value": "step_back",
+          "label": "Step back and rethink the overall approach"
         }
       ],
-      "scoringKey": "a2_debugging_approach"
+      "scoringKey": "a2_troubleshooting_approach"
     },
     {
       "id": "b_6",
       "type": "slider",
       "required": true,
-      "question": "How quickly do you pick up new programming languages or frameworks?",
+      "question": "How quickly do you pick up new tools, methods, or ways of working?",
       "min": 1,
       "max": 10,
-      "minLabel": "Very slowly - it takes me months",
-      "maxLabel": "Very quickly - days to weeks",
-      "scoringKey": "a2_tech_learning_speed"
+      "minLabel": "I need time and practice to feel comfortable",
+      "maxLabel": "I adapt to new tools and methods quickly",
+      "scoringKey": "a2_adaptability_speed"
     },
     {
       "id": "b_7",
       "type": "multiselect",
       "required": true,
-      "question": "What types of projects have you built or contributed to? (Select all)",
+      "question": "What types of projects or activities have you completed? (Select all that apply)",
       "options": [
         {
-          "value": "personal_website",
-          "label": "Personal website or portfolio"
+          "value": "written_report",
+          "label": "Written a report, essay, or article"
         },
         {
-          "value": "web_app",
-          "label": "Web application (full-stack)"
+          "value": "organized_event",
+          "label": "Organized an event, campaign, or initiative"
         },
         {
-          "value": "mobile_app",
-          "label": "Mobile application"
+          "value": "creative_project",
+          "label": "Completed a creative project (design, art, media)"
         },
         {
-          "value": "data_analysis",
-          "label": "Data analysis or visualization project"
+          "value": "research_project",
+          "label": "Conducted research or analysis"
         },
         {
-          "value": "automation_script",
-          "label": "Automation scripts or tools"
+          "value": "led_team",
+          "label": "Led a team or coordinated a group effort"
         },
         {
-          "value": "api",
-          "label": "REST API or backend service"
+          "value": "presentation",
+          "label": "Delivered a presentation or pitch"
         },
         {
-          "value": "open_source",
-          "label": "Open source contributions"
+          "value": "built_something",
+          "label": "Built or made something (product, website, prototype)"
         },
         {
-          "value": "game",
-          "label": "Game or interactive project"
+          "value": "taught_mentored",
+          "label": "Taught, tutored, or mentored someone"
         },
         {
-          "value": "ml_project",
-          "label": "Machine learning project"
+          "value": "community_service",
+          "label": "Participated in community service or volunteering"
         },
         {
           "value": "none",
-          "label": "No projects yet"
+          "label": "No significant projects yet"
         }
       ],
-      "scoringKey": "a2_project_types"
+      "scoringKey": "a2_project_experience"
     },
     {
       "id": "b_8",
@@ -267,91 +247,87 @@
       "question": "How comfortable are you with mathematical and logical reasoning?",
       "min": 1,
       "max": 10,
-      "minLabel": "Math is very challenging for me",
-      "maxLabel": "I excel at math and logic",
+      "minLabel": "I prefer to avoid heavy math and logic",
+      "maxLabel": "I enjoy and excel at math and logic",
       "scoringKey": "a2_math_logic"
     },
     {
       "id": "b_9",
       "type": "select",
       "required": true,
-      "question": "Which aspect of building software interests you most?",
+      "question": "Which type of work interests you most?",
       "options": [
         {
-          "value": "frontend_ui",
-          "label": "Frontend - building beautiful, interactive UIs"
+          "value": "strategy_planning",
+          "label": "Strategy and planning - shaping direction and goals"
         },
         {
-          "value": "backend_logic",
-          "label": "Backend - server logic, databases, APIs"
+          "value": "creative_production",
+          "label": "Creative production - designing, writing, or producing content"
         },
         {
-          "value": "data_infrastructure",
-          "label": "Data - pipelines, analysis, infrastructure"
+          "value": "analysis_insight",
+          "label": "Analysis and insight - understanding data and trends"
         },
         {
-          "value": "devops",
-          "label": "DevOps - deployment, infrastructure, automation"
+          "value": "people_relationships",
+          "label": "People and relationships - connecting, advising, supporting"
         },
         {
-          "value": "mobile",
-          "label": "Mobile - iOS/Android native development"
+          "value": "operations_execution",
+          "label": "Operations and execution - making things run smoothly"
         },
         {
-          "value": "security",
-          "label": "Security - protecting systems and data"
-        },
-        {
-          "value": "ai_ml",
-          "label": "AI/ML - machine learning and data science"
+          "value": "innovation_development",
+          "label": "Innovation and development - creating new solutions"
         },
         {
           "value": "not_sure",
-          "label": "Not sure yet, want to explore"
+          "label": "Not sure yet - want to explore"
         }
       ],
-      "scoringKey": "a2_tech_domain_interest"
+      "scoringKey": "a2_work_type_interest"
     },
     {
       "id": "b_10",
       "type": "slider",
       "required": true,
-      "question": "How much do you enjoy working with visual design and aesthetics?",
+      "question": "How much do you enjoy working with visual and aesthetic elements?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not at all - I focus on functionality",
-      "maxLabel": "Very much - design matters to me",
+      "minLabel": "I focus more on substance and logic",
+      "maxLabel": "I care deeply about how things look and feel",
       "scoringKey": "a2_design_interest"
     },
     {
       "id": "b_11",
       "type": "multiselect",
       "required": false,
-      "question": "What technical certifications or courses have you completed? (Select all)",
+      "question": "What formal or informal learning have you completed? (Select all that apply)",
       "options": [
         {
-          "value": "cs_degree",
-          "label": "CS/Engineering degree"
+          "value": "university_degree",
+          "label": "University degree (completed or in progress)"
         },
         {
-          "value": "bootcamp",
-          "label": "Coding bootcamp"
+          "value": "professional_course",
+          "label": "Professional courses or workshops"
         },
         {
-          "value": "online_course",
-          "label": "Online courses (Coursera, Udemy, etc.)"
+          "value": "online_learning",
+          "label": "Online courses (Coursera, Udemy, LinkedIn Learning, etc.)"
         },
         {
-          "value": "aws_cert",
-          "label": "AWS/Cloud certification"
-        },
-        {
-          "value": "security_cert",
-          "label": "Security certification"
+          "value": "certification",
+          "label": "Professional certifications"
         },
         {
           "value": "self_taught",
-          "label": "Self-taught through books/docs"
+          "label": "Self-taught through books, articles, or practice"
+        },
+        {
+          "value": "mentorship",
+          "label": "Mentorship or coaching"
         },
         {
           "value": "none",
@@ -362,10 +338,10 @@
     },
     {
       "id": "b_12",
-      "type": "text",
+      "type": "textarea",
       "required": false,
-      "question": "Describe your most technically challenging project or problem you've solved",
-      "placeholder": "What made it difficult? How did you approach it?",
+      "question": "Describe the most challenging project or task you've tackled (from school, work, volunteering, or personal life). What made it difficult and how did you approach it?",
+      "placeholder": "e.g., Organized a major event with limited budget, completed a complex research paper, led a team through a difficult situation...",
       "maxLength": 600,
       "scoringKey": "a2_challenging_project"
     },
@@ -373,88 +349,88 @@
       "id": "b_13",
       "type": "slider",
       "required": true,
-      "question": "How comfortable are you with ambiguous technical requirements?",
+      "question": "How comfortable are you when instructions are unclear and you need to figure things out on your own?",
       "min": 1,
       "max": 10,
-      "minLabel": "I need very specific requirements",
-      "maxLabel": "I thrive with ambiguous requirements",
-      "scoringKey": "a2_requirements_ambiguity"
+      "minLabel": "I prefer very clear instructions and guidance",
+      "maxLabel": "I'm comfortable figuring things out independently",
+      "scoringKey": "a2_ambiguity_comfort"
     },
     {
       "id": "b_14",
       "type": "select",
       "required": true,
-      "question": "What's your relationship with staying current with technology trends?",
+      "question": "What's your relationship with staying current on trends and developments in areas you care about?",
       "options": [
         {
-          "value": "cutting_edge",
-          "label": "I actively follow and try new tech constantly"
+          "value": "actively_follow",
+          "label": "I actively follow news, trends, and developments"
         },
         {
-          "value": "selective",
-          "label": "I stay aware but adopt selectively"
+          "value": "selectively_aware",
+          "label": "I stay aware but focus on what's most relevant"
         },
         {
-          "value": "practical",
-          "label": "I learn what I need for my projects"
+          "value": "learn_as_needed",
+          "label": "I learn what I need when I need it"
         },
         {
-          "value": "stable",
-          "label": "I prefer stable, proven technologies"
+          "value": "prefer_established",
+          "label": "I prefer well-established knowledge over trends"
         },
         {
           "value": "overwhelmed",
-          "label": "I feel overwhelmed by constant changes"
+          "label": "I sometimes feel overwhelmed by constant change"
         }
       ],
-      "scoringKey": "a2_tech_currency"
+      "scoringKey": "a2_trend_awareness"
     },
     {
       "id": "b_15",
       "type": "multiselect",
       "required": true,
-      "question": "Which technical skills do you want to develop? (Select up to 5)",
+      "question": "Which skills do you most want to develop? (Select up to 5)",
       "maxSelections": 5,
       "options": [
         {
-          "value": "frontend_frameworks",
-          "label": "Frontend frameworks (React, Vue, etc.)"
+          "value": "leadership",
+          "label": "Leadership and people management"
         },
         {
-          "value": "backend_dev",
-          "label": "Backend development"
+          "value": "public_speaking",
+          "label": "Public speaking and presentation"
         },
         {
-          "value": "databases",
-          "label": "Database design and optimization"
+          "value": "writing",
+          "label": "Writing and content creation"
         },
         {
-          "value": "system_design",
-          "label": "System design and architecture"
+          "value": "data_analysis",
+          "label": "Data analysis and interpretation"
         },
         {
-          "value": "algorithms",
-          "label": "Algorithms and data structures"
+          "value": "strategic_thinking",
+          "label": "Strategic thinking and planning"
         },
         {
-          "value": "cloud_infrastructure",
-          "label": "Cloud infrastructure"
+          "value": "creative_design",
+          "label": "Creative and design skills"
         },
         {
-          "value": "mobile_dev",
-          "label": "Mobile development"
+          "value": "negotiation",
+          "label": "Negotiation and persuasion"
         },
         {
-          "value": "machine_learning",
-          "label": "Machine learning and AI"
+          "value": "digital_skills",
+          "label": "Digital and technical skills"
         },
         {
-          "value": "cybersecurity",
-          "label": "Cybersecurity"
+          "value": "research_methods",
+          "label": "Research and analytical methods"
         },
         {
-          "value": "devops",
-          "label": "DevOps and CI/CD"
+          "value": "foreign_languages",
+          "label": "Foreign languages"
         }
       ],
       "scoringKey": "a2_desired_skills"
@@ -463,22 +439,22 @@
       "id": "b_16",
       "type": "slider",
       "required": true,
-      "question": "How important is writing clean, well-documented code to you?",
+      "question": "How important is producing high-quality, polished work to you?",
       "min": 1,
       "max": 10,
-      "minLabel": "I focus on making it work first",
-      "maxLabel": "Code quality is essential to me",
-      "scoringKey": "a2_code_quality_value"
+      "minLabel": "I prioritize getting things done over perfection",
+      "maxLabel": "Quality and polish are essential to me",
+      "scoringKey": "a2_quality_orientation"
     },
     {
       "id": "b_17",
       "type": "select",
       "required": true,
-      "question": "How do you feel about code reviews and peer feedback on your code?",
+      "question": "How do you feel about receiving feedback and constructive criticism on your work?",
       "options": [
         {
           "value": "love_it",
-          "label": "I love it - essential for growth"
+          "label": "I welcome it - essential for growth"
         },
         {
           "value": "appreciate",
@@ -486,79 +462,47 @@
         },
         {
           "value": "neutral",
-          "label": "Neutral - it's part of the job"
+          "label": "I accept it as part of improving"
         },
         {
           "value": "uncomfortable",
-          "label": "Uncomfortable but I accept it"
+          "label": "It's uncomfortable but I try to learn from it"
         },
         {
-          "value": "defensive",
-          "label": "I tend to feel defensive"
+          "value": "sensitive",
+          "label": "I tend to take it personally at first"
         }
       ],
-      "scoringKey": "a2_code_review_attitude"
+      "scoringKey": "a2_feedback_receptivity"
     },
     {
       "id": "b_18",
       "type": "slider",
       "required": true,
-      "question": "How much do you enjoy optimizing performance and efficiency?",
+      "question": "How much do you enjoy improving and optimizing existing processes or work?",
       "min": 1,
       "max": 10,
-      "minLabel": "Not interested - I focus on features",
-      "maxLabel": "Love it - optimization excites me",
+      "minLabel": "I prefer creating new things from scratch",
+      "maxLabel": "I love making existing things better and more efficient",
       "scoringKey": "a2_optimization_interest"
     },
     {
       "id": "b_19",
-      "type": "select",
+      "type": "textarea",
       "required": false,
-      "question": "If you could master one technical skill instantly, what would it be?",
-      "options": [
-        {
-          "value": "fullstack",
-          "label": "Full-stack development expertise"
-        },
-        {
-          "value": "system_design",
-          "label": "System design and scalability"
-        },
-        {
-          "value": "ml_ai",
-          "label": "Machine learning and AI"
-        },
-        {
-          "value": "security",
-          "label": "Cybersecurity and ethical hacking"
-        },
-        {
-          "value": "mobile",
-          "label": "Mobile app development"
-        },
-        {
-          "value": "cloud_arch",
-          "label": "Cloud architecture"
-        },
-        {
-          "value": "data_eng",
-          "label": "Data engineering"
-        },
-        {
-          "value": "ui_ux",
-          "label": "UI/UX design and implementation"
-        }
-      ],
+      "question": "If you could instantly become an expert in one skill or subject, what would it be and why?",
+      "placeholder": "Think about what excites you most - it could be anything from public speaking to data analysis to design to languages...",
+      "maxLength": 400,
       "scoringKey": "a2_dream_skill"
     },
     {
       "id": "b_20",
-      "type": "text",
+      "type": "textarea",
       "required": false,
-      "question": "What technical concept or technology do you find most fascinating right now?",
-      "placeholder": "e.g., Blockchain, AI, Edge Computing, WebAssembly...",
-      "maxLength": 300,
-      "scoringKey": "a2_current_fascination"
+      "question": "What topic, subject, or activity do you find yourself naturally drawn to in your free time?",
+      "placeholder": "e.g., Reading about psychology, creating art, following business news, volunteering, watching documentaries about science...",
+      "maxLength": 400,
+      "scoringKey": "a2_natural_curiosity"
     }
   ]
 }

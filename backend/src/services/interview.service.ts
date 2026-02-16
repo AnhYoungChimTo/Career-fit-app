@@ -36,6 +36,49 @@ interface SaveAnswerRequest {
   answer: any;
   moduleId?: string;
   category?: string;
+  scoringKey?: string;
+}
+
+// Cache for question scoringKey lookup (questionId -> scoringKey)
+let scoringKeyCache: Record<string, string> | null = null;
+
+function buildScoringKeyCache(): Record<string, string> {
+  if (scoringKeyCache) return scoringKeyCache;
+
+  const cache: Record<string, string> = {};
+
+  // Load lite questions
+  const liteDir = path.join(__dirname, '../../..', 'questions', 'lite');
+  if (fs.existsSync(liteDir)) {
+    const liteFiles = fs.readdirSync(liteDir).filter(f => f.endsWith('.json'));
+    for (const file of liteFiles) {
+      const content = fs.readFileSync(path.join(liteDir, file), 'utf8');
+      const data = JSON.parse(content);
+      for (const q of data.questions || []) {
+        if (q.id && q.scoringKey) {
+          cache[q.id] = q.scoringKey;
+        }
+      }
+    }
+  }
+
+  // Load deep questions
+  const deepDir = path.join(__dirname, '../../..', 'questions', 'deep');
+  if (fs.existsSync(deepDir)) {
+    const deepFiles = fs.readdirSync(deepDir).filter(f => f.endsWith('.json'));
+    for (const file of deepFiles) {
+      const content = fs.readFileSync(path.join(deepDir, file), 'utf8');
+      const data = JSON.parse(content);
+      for (const q of data.questions || []) {
+        if (q.id && q.scoringKey) {
+          cache[q.id] = q.scoringKey;
+        }
+      }
+    }
+  }
+
+  scoringKeyCache = cache;
+  return cache;
 }
 
 interface InterviewStatus {
@@ -191,16 +234,20 @@ export async function saveAnswer(
     throw new Error('Interview is not in progress');
   }
 
-  // Determine which data field to update based on scoring key
-  const scoringKey = questionId.split('_')[0]; // e.g., "a1", "a2", "a3", "session"
+  // Look up the scoringKey for this question
+  const cache = buildScoringKeyCache();
+  const resolvedScoringKey = cache[questionId] || questionId;
+
+  // Determine which data field to update based on scoringKey prefix
+  const scoringPrefix = resolvedScoringKey.split('_')[0]; // e.g., "a1", "a2", "a3", "session"
 
   let dataField: 'personalityData' | 'talentsData' | 'valuesData' | 'sessionData';
 
-  if (scoringKey === 'a1') {
+  if (scoringPrefix === 'a1') {
     dataField = 'personalityData';
-  } else if (scoringKey === 'a2') {
+  } else if (scoringPrefix === 'a2') {
     dataField = 'talentsData';
-  } else if (scoringKey === 'a3') {
+  } else if (scoringPrefix === 'a3') {
     dataField = 'valuesData';
   } else {
     dataField = 'sessionData';
@@ -209,11 +256,12 @@ export async function saveAnswer(
   // Get current data
   const currentData = (interview[dataField] as any) || {};
 
-  // Add the answer
+  // Store answer keyed by scoringKey (so scoring functions can find it)
   const updatedData = {
     ...currentData,
-    [questionId]: {
+    [resolvedScoringKey]: {
       answer,
+      questionId,
       moduleId,
       category,
       answeredAt: new Date().toISOString(),

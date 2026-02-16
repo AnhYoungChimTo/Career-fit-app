@@ -9,7 +9,7 @@
       "id": "f_1",
       "type": "select",
       "required": true,
-      "question": "When faced with a new technical problem, what's your first step?",
+      "question": "When faced with a new problem or challenge, what's your first step?",
       "options": [
         {
           "value": "understand_problem",
@@ -72,16 +72,16 @@
           "label": "Visualization - draw diagrams"
         },
         {
-          "value": "rubber_duck",
-          "label": "Rubber duck debugging - explain it aloud"
+          "value": "talk_it_out",
+          "label": "Talking it through - explain the problem aloud"
         },
         {
           "value": "step_away",
           "label": "Step away and return with fresh perspective"
         },
         {
-          "value": "systematic_debug",
-          "label": "Systematic debugging - test hypotheses"
+          "value": "systematic_testing",
+          "label": "Systematic testing - form and test hypotheses"
         }
       ],
       "scoringKey": "a1_problem_solving_strategies"
@@ -90,34 +90,34 @@
       "id": "f_4",
       "type": "select",
       "required": true,
-      "question": "When debugging, what's your typical approach?",
+      "question": "When something goes wrong with your work, how do you typically find the cause?",
       "options": [
         {
-          "value": "print_statements",
-          "label": "Print/log statements to trace flow"
+          "value": "trace_steps",
+          "label": "Trace back through each step to find where things went wrong"
         },
         {
-          "value": "debugger",
-          "label": "Use debugger to step through code"
+          "value": "isolate_narrow",
+          "label": "Narrow down by testing different parts separately"
         },
         {
-          "value": "reproduce_minimal",
-          "label": "Create minimal reproduction"
+          "value": "ask_others",
+          "label": "Ask someone who has more experience or a different perspective"
         },
         {
-          "value": "read_code",
-          "label": "Carefully read and trace through code"
+          "value": "research_similar",
+          "label": "Look up whether others have faced the same issue"
         },
         {
-          "value": "binary_search",
-          "label": "Binary search - isolate the problematic section"
+          "value": "review_carefully",
+          "label": "Carefully review everything from the beginning"
         },
         {
-          "value": "google_error",
-          "label": "Google the error message"
+          "value": "intuition_experience",
+          "label": "Rely on intuition and past experience to spot the issue"
         }
       ],
-      "scoringKey": "a2_debugging_method"
+      "scoringKey": "a2_troubleshooting_method"
     },
     {
       "id": "f_5",
@@ -218,20 +218,20 @@
           "label": "Simplest solution that works"
         },
         {
-          "value": "most_performant",
-          "label": "Most performant solution"
+          "value": "most_effective",
+          "label": "Most effective and high-quality result"
         },
         {
-          "value": "most_maintainable",
-          "label": "Most maintainable long-term"
+          "value": "most_sustainable",
+          "label": "Most sustainable and easy to maintain long-term"
         },
         {
           "value": "fastest_to_implement",
           "label": "Fastest to implement"
         },
         {
-          "value": "most_scalable",
-          "label": "Most scalable for future growth"
+          "value": "most_adaptable",
+          "label": "Most adaptable for future needs"
         },
         {
           "value": "most_elegant",
@@ -279,8 +279,8 @@
           "label": "Urgent fires that need quick solutions"
         },
         {
-          "value": "complex_systems",
-          "label": "Complex system-level problems"
+          "value": "complex_interconnected",
+          "label": "Complex problems with many interconnected parts"
         },
         {
           "value": "user_facing",
@@ -288,7 +288,7 @@
         },
         {
           "value": "optimization",
-          "label": "Performance and optimization challenges"
+          "label": "Efficiency and improvement challenges"
         }
       ],
       "scoringKey": "a3_energizing_problem_type"

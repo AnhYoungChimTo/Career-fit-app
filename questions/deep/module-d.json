@@ -182,7 +182,7 @@
       "id": "d_8",
       "type": "select",
       "required": true,
-      "question": "What's your biggest obstacle to learning new technical skills?",
+      "question": "What's your biggest obstacle to learning new skills?",
       "options": [
         {
           "value": "time",
@@ -276,12 +276,12 @@
           "label": "Project ideas and challenges"
         },
         {
-          "value": "code_reviews",
-          "label": "Code reviews and feedback"
+          "value": "expert_feedback",
+          "label": "Regular feedback from experienced people"
         },
         {
-          "value": "office_hours",
-          "label": "Office hours with experts"
+          "value": "mentorship_access",
+          "label": "Access to mentors or subject matter experts"
         },
         {
           "value": "peer_group",

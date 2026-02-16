@@ -154,8 +154,8 @@
       "question": "How do you handle routine, repetitive tasks?",
       "options": [
         {
-          "value": "automate",
-          "label": "I immediately look for ways to automate them"
+          "value": "streamline",
+          "label": "I immediately look for ways to streamline or simplify them"
         },
         {
           "value": "efficient",
@@ -257,8 +257,8 @@
       "id": "a_11",
       "type": "text",
       "required": false,
-      "question": "Describe a work situation where you felt 'in flow' and highly productive",
-      "placeholder": "What were you doing? What made it feel effortless?",
+      "question": "Describe a situation where you felt 'in flow' and highly productive (from work, school, hobbies, or any activity)",
+      "placeholder": "What were you doing? What made it feel effortless? It can be from any area of your life...",
       "maxLength": 500,
       "scoringKey": "a1_flow_state_example"
     },

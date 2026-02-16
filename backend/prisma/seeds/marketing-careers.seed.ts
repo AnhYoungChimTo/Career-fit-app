@@ -37,6 +37,7 @@ const marketingCareers = [
     name: 'Marketing Intern',
     vietnameseName: 'Thực tập sinh Marketing',
     description: 'Entry-level internship learning fundamental marketing skills. Assists team with research, content creation, social media, event support, and administrative tasks. Perfect for students or career changers starting in marketing.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75, // Eager to learn
@@ -80,6 +81,7 @@ const marketingCareers = [
     name: 'Digital Marketing Intern',
     vietnameseName: 'Thực tập sinh Marketing Số',
     description: 'Specialized internship focused on digital marketing channels. Learns SEO, social media, email marketing, analytics, and paid advertising while supporting digital campaigns and creating content.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -123,6 +125,7 @@ const marketingCareers = [
     name: 'Content Marketing Intern',
     vietnameseName: 'Thực tập sinh Marketing Nội dung',
     description: 'Internship focused on content creation and writing. Assists with blog posts, social media content, newsletters, and copywriting while learning content strategy and SEO basics.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -168,6 +171,7 @@ const marketingCareers = [
     name: 'Digital Marketing Coordinator',
     vietnameseName: 'Điều phối viên Marketing Số',
     description: 'Entry-level role supporting digital marketing campaigns across multiple channels including social media, email, SEO, and paid advertising. Assists senior marketers with campaign execution, content scheduling, and performance tracking.',
+    category: 'marketing',
     requirements: {
       a1: {
         // Personality traits
@@ -213,6 +217,7 @@ const marketingCareers = [
     name: 'Marketing Analyst',
     vietnameseName: 'Chuyên viên Phân tích Marketing',
     description: 'Data-focused role analyzing marketing campaign performance, customer behavior, and market trends. Creates reports, dashboards, and actionable insights to optimize marketing ROI and strategy.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 65,
@@ -257,6 +262,7 @@ const marketingCareers = [
     name: 'Content Marketing Specialist',
     vietnameseName: 'Chuyên viên Marketing Nội dung',
     description: 'Creates engaging written content including blog posts, articles, social media posts, and marketing copy. Develops content strategies to attract and engage target audiences while supporting SEO goals.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85, // Creative and curious
@@ -300,6 +306,7 @@ const marketingCareers = [
     name: 'Digital Marketing Manager',
     vietnameseName: 'Quản lý Marketing Số',
     description: 'Manages digital marketing strategy and execution across all online channels. Leads campaigns, manages budgets, analyzes performance, and drives customer acquisition and engagement through digital platforms.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -346,6 +353,7 @@ const marketingCareers = [
     name: 'Brand Manager',
     vietnameseName: 'Quản lý Thương hiệu',
     description: 'Owns brand strategy, positioning, and identity for a product or company. Develops brand campaigns, manages brand guidelines, conducts market research, and ensures consistent brand messaging across all touchpoints.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -391,6 +399,7 @@ const marketingCareers = [
     name: 'Product Marketing Manager',
     vietnameseName: 'Quản lý Marketing Sản phẩm',
     description: 'Bridges product development and marketing by positioning products in the market. Develops go-to-market strategies, creates product messaging, conducts competitive analysis, and enables sales teams with product knowledge.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -436,6 +445,7 @@ const marketingCareers = [
     name: 'Social Media Manager',
     vietnameseName: 'Quản lý Truyền thông Xã hội',
     description: 'Develops and executes social media strategy across platforms (Facebook, Instagram, TikTok, LinkedIn, etc.). Creates content calendars, manages community engagement, analyzes performance, and builds brand presence on social channels.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85,
@@ -481,6 +491,7 @@ const marketingCareers = [
     name: 'Performance Marketing Manager',
     vietnameseName: 'Quản lý Marketing Hiệu suất',
     description: 'Focuses on measurable ROI through paid advertising channels (Google Ads, Facebook Ads, etc.). Manages ad budgets, optimizes campaigns for conversions, conducts A/B testing, and drives customer acquisition at scale.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 70,
@@ -526,6 +537,7 @@ const marketingCareers = [
     name: 'Senior Marketing Manager',
     vietnameseName: 'Quản lý Marketing Cấp cao',
     description: 'Leads multiple marketing functions or major strategic initiatives. Manages teams, oversees large budgets, develops comprehensive marketing strategies, and reports to marketing director or VP level.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -572,6 +584,7 @@ const marketingCareers = [
     name: 'Marketing Director',
     vietnameseName: 'Giám đốc Marketing',
     description: 'Oversees entire marketing department or major division. Sets strategic direction, manages leadership team, owns P&L responsibility, and drives company growth through comprehensive marketing strategy.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -620,6 +633,7 @@ const marketingCareers = [
     name: 'VP of Marketing',
     vietnameseName: 'Phó Chủ tịch Marketing',
     description: 'Senior executive overseeing all marketing functions company-wide. Reports to CMO or CEO, drives revenue growth, builds marketing organization, sets long-term strategy, and represents marketing at C-level.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -668,6 +682,7 @@ const marketingCareers = [
     name: 'Chief Marketing Officer (CMO)',
     vietnameseName: 'Giám đốc Marketing (CMO)',
     description: 'Top marketing executive responsible for all marketing strategy and execution. C-suite member driving company vision, brand strategy, revenue growth, and market positioning. Leads entire marketing organization.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85,
@@ -718,6 +733,7 @@ const marketingCareers = [
     name: 'Graphic Designer (Marketing)',
     vietnameseName: 'Thiết kế Đồ họa (Marketing)',
     description: 'Creates visual content for marketing campaigns including social media graphics, presentations, infographics, email templates, ads, and brand materials. Works closely with marketing team to bring campaigns to life visually.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 90, // Creative
@@ -764,6 +780,7 @@ const marketingCareers = [
     name: 'Video Editor',
     vietnameseName: 'Biên tập Video',
     description: 'Edits and produces video content for marketing including social media videos, ads, product demos, testimonials, and promotional content. Manages video production workflow from raw footage to final delivery.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85,
@@ -810,6 +827,7 @@ const marketingCareers = [
     name: 'Photographer/Videographer',
     vietnameseName: 'Nhiếp ảnh gia/Quay phim',
     description: 'Captures photo and video content for marketing campaigns, products, events, and brand storytelling. Manages shoots from concept to post-production, creating visual assets for all marketing channels.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 90,
@@ -857,6 +875,7 @@ const marketingCareers = [
     name: 'Content Strategist',
     vietnameseName: 'Chuyên gia Chiến lược Nội dung',
     description: 'Develops comprehensive content strategies aligned with business goals. Plans content calendars, defines messaging frameworks, conducts audience research, and ensures content drives measurable results across all channels.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85,
@@ -903,6 +922,7 @@ const marketingCareers = [
     name: 'Event Marketing Specialist',
     vietnameseName: 'Chuyên viên Marketing Sự kiện',
     description: 'Plans and executes marketing events including trade shows, conferences, product launches, webinars, and experiential campaigns. Manages logistics, vendor relationships, budgets, and measures event ROI.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -949,6 +969,7 @@ const marketingCareers = [
     name: 'Motion Graphics Designer',
     vietnameseName: 'Thiết kế Chuyển động',
     description: 'Creates animated graphics, explainer videos, and motion content for digital marketing. Combines design and animation to create engaging visual content for social media, ads, and websites.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 90,
@@ -995,6 +1016,7 @@ const marketingCareers = [
     name: 'UX Writer',
     vietnameseName: 'Nhà Viết Trải nghiệm Người dùng',
     description: 'Writes user-facing copy for digital products, apps, and websites. Creates microcopy, error messages, onboarding flows, and interface text that guides users and reinforces brand voice.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -1047,6 +1069,7 @@ const marketingCareers = [
     name: 'Marketing Agency Intern',
     vietnameseName: 'Thực tập sinh Agency Marketing',
     description: 'Internship at marketing agency learning client servicing, campaign execution, and agency operations. Assists account teams, prepares presentations, conducts research, and learns advertising fundamentals.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -1091,6 +1114,7 @@ const marketingCareers = [
     name: 'Creative Intern',
     vietnameseName: 'Thực tập sinh Sáng tạo',
     description: 'Internship in agency creative department learning copywriting, design, and creative concepting. Assists copywriters and art directors, creates mock-ups, and learns advertising creativity.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85, // Creative mindset
@@ -1135,6 +1159,7 @@ const marketingCareers = [
     name: 'Social Media Intern (Agency)',
     vietnameseName: 'Thực tập sinh Truyền thông Xã hội (Agency)',
     description: 'Agency internship managing social media for multiple clients. Creates posts, monitors engagement, learns community management, and assists with social media strategy.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -1181,6 +1206,7 @@ const marketingCareers = [
     name: 'Junior Account Executive',
     vietnameseName: 'Nhân viên Quản lý Tài khoản Khách hàng',
     description: 'Entry-level client-facing role at marketing agencies. Coordinates campaign execution, manages client communications, prepares reports, and supports senior account managers with day-to-day client work.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 70,
@@ -1225,6 +1251,7 @@ const marketingCareers = [
     name: 'Account Manager',
     vietnameseName: 'Quản lý Tài khoản Khách hàng',
     description: 'Manages client relationships and marketing campaigns at agencies. Develops strategic recommendations, oversees campaign execution, manages budgets, and ensures client satisfaction across multiple accounts.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -1271,6 +1298,7 @@ const marketingCareers = [
     name: 'Senior Account Manager',
     vietnameseName: 'Quản lý Tài khoản Cấp cao',
     description: 'Manages multiple client accounts or large strategic accounts at agencies. Leads account teams, develops campaign strategies, grows client relationships, and drives revenue growth.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 75,
@@ -1318,6 +1346,7 @@ const marketingCareers = [
     name: 'Account Director',
     vietnameseName: 'Giám đốc Tài khoản',
     description: 'Leads major client accounts and account teams at agencies. Drives strategic direction, manages P&L, builds long-term client partnerships, and oversees multiple account managers.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -1365,6 +1394,7 @@ const marketingCareers = [
     name: 'Copywriter',
     vietnameseName: 'Nhà sáng tạo Nội dung Quảng cáo',
     description: 'Creates persuasive advertising copy and marketing content for agency clients. Writes headlines, taglines, scripts, social posts, and campaign concepts. Collaborates with art directors on creative campaigns.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 90, // Highly creative
@@ -1409,6 +1439,7 @@ const marketingCareers = [
     name: 'Senior Copywriter',
     vietnameseName: 'Nhà sáng tạo Nội dung Cấp cao',
     description: 'Leads copywriting for major agency campaigns. Mentors junior copywriters, develops creative concepts, presents to clients, and drives award-winning creative work.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 90,
@@ -1455,6 +1486,7 @@ const marketingCareers = [
     name: 'Art Director',
     vietnameseName: 'Giám đốc Nghệ thuật',
     description: 'Leads visual creative direction for agency campaigns. Develops visual concepts, oversees design execution, collaborates with copywriters, and ensures high-quality creative output for clients.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 95, // Highly creative
@@ -1501,6 +1533,7 @@ const marketingCareers = [
     name: 'Creative Director',
     vietnameseName: 'Giám đốc Sáng tạo',
     description: 'Leads creative department at agency overseeing all creative output. Develops big ideas, guides creative teams (copywriters, designers, art directors), presents to senior clients, and drives creative excellence.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 95,
@@ -1548,6 +1581,7 @@ const marketingCareers = [
     name: 'Digital Strategist',
     vietnameseName: 'Chuyên gia Chiến lược Số',
     description: 'Develops digital marketing strategies for agency clients. Conducts research, analyzes digital ecosystems, creates strategic frameworks, and guides campaign development across digital channels.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85,
@@ -1593,6 +1627,7 @@ const marketingCareers = [
     name: 'Media Planner',
     vietnameseName: 'Chuyên viên Lập kế hoạch Truyền thông',
     description: 'Plans and buys media (TV, radio, digital, print, OOH) for agency clients. Develops media strategies, negotiates with vendors, allocates budgets across channels, and optimizes media mix for reach and frequency.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 70,
@@ -1642,6 +1677,7 @@ const marketingCareers = [
     name: 'Marketing Generalist (SME)',
     vietnameseName: 'Chuyên viên Marketing Đa năng (Doanh nghiệp SME)',
     description: 'Jack-of-all-trades marketing role for small businesses. Handles everything from social media, content, email, events, to basic analytics and design. Wears multiple hats and learns rapidly.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85, // Must be versatile
@@ -1687,6 +1723,7 @@ const marketingCareers = [
     name: 'Growth Hacker',
     vietnameseName: 'Chuyên gia Tăng trưởng',
     description: 'Experiments across marketing channels to drive rapid user acquisition and growth for startups. Data-driven, technical, and creative. Runs A/B tests, optimizes funnels, and finds scalable growth tactics.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 95, // Experimental mindset
@@ -1732,6 +1769,7 @@ const marketingCareers = [
     name: 'Marketing Manager (SME)',
     vietnameseName: 'Quản lý Marketing (Doanh nghiệp SME)',
     description: 'Leads marketing for small-medium business, often with small team or solo. Develops strategy, executes campaigns hands-on, manages budget, and drives growth with limited resources.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -1778,6 +1816,7 @@ const marketingCareers = [
     name: 'Head of Marketing (SME)',
     vietnameseName: 'Trưởng phòng Marketing (Doanh nghiệp SME)',
     description: 'Builds and leads marketing function for growing SME. Develops strategy, manages team (3-8 people), drives revenue growth, and establishes marketing foundations and processes.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -1824,6 +1863,7 @@ const marketingCareers = [
     name: 'VP of Marketing (Startup)',
     vietnameseName: 'Phó Chủ tịch Marketing (Startup)',
     description: 'First senior marketing hire building marketing organization from scratch for startups. Defines strategy, builds team, drives growth metrics, and works closely with founders to scale company.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 90, // Startup mindset
@@ -1875,6 +1915,7 @@ const marketingCareers = [
     name: 'SEO/SEM Specialist',
     vietnameseName: 'Chuyên viên SEO/SEM',
     description: 'Technical specialist optimizing websites for search engines (SEO) and managing paid search campaigns (SEM). Conducts keyword research, technical audits, link building, and PPC campaign management.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 70,
@@ -1920,6 +1961,7 @@ const marketingCareers = [
     name: 'Community Manager',
     vietnameseName: 'Quản lý Cộng đồng',
     description: 'Builds and nurtures online communities around brands. Manages social engagement, moderates discussions, creates community content, organizes events, and turns customers into brand advocates.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 80,
@@ -1965,6 +2007,7 @@ const marketingCareers = [
     name: 'Influencer Marketing Manager',
     vietnameseName: 'Quản lý Marketing Người ảnh hưởng',
     description: 'Manages influencer partnerships and campaigns. Identifies influencers, negotiates contracts, coordinates campaigns, tracks performance, and builds long-term creator relationships.',
+    category: 'marketing',
     requirements: {
       a1: {
         openness: 85,

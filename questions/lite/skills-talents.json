@@ -9,7 +9,7 @@
       "type": "textarea",
       "required": true,
       "question": "Think about a time when you felt most capable or confident. What were you doing, and why did it feel natural to you?",
-      "placeholder": "Describe the situation, what you were doing, and what made you feel successful...",
+      "placeholder": "e.g., Leading a group project, organizing an event, helping a friend through a challenge, creating something you were proud of...",
       "maxLength": 500,
       "scoringKey": "a2_natural_strengths_narrative"
     },
@@ -135,7 +135,7 @@
       "type": "textarea",
       "required": false,
       "question": "What do you wish you were better at? What skills or abilities would you like to develop?",
-      "placeholder": "Be honest about areas where you'd like to grow...",
+      "placeholder": "e.g., Public speaking, writing, leadership, analytical thinking, foreign languages, being more organized...",
       "maxLength": 400,
       "scoringKey": "a2_growth_aspirations"
     },

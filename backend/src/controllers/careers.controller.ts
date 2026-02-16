@@ -65,31 +65,19 @@ export const getAllCareers = async (req: Request, res: Response) => {
       prisma.career.count({ where }),
     ]);
 
-    // Post-processing filters (for fields stored in JSON or complex logic)
-    let filteredCareers = careers;
-
-    // Category filter (categories stored in description or inferred from name)
+    // Category filter (now using the actual category field from database)
     if (category && typeof category === 'string') {
-      const categoryLower = category.toLowerCase();
-      filteredCareers = filteredCareers.filter(career => {
-        const nameMatch = career.name.toLowerCase().includes(categoryLower);
-        const descMatch = career.description.toLowerCase().includes(categoryLower);
+      where.category = category;
+    }
 
-        // Check if it's a marketing career (agency, in-house, etc.)
-        if (categoryLower === 'marketing') {
-          return nameMatch || descMatch ||
-                 career.name.toLowerCase().includes('marketing') ||
-                 career.name.toLowerCase().includes('brand') ||
-                 career.name.toLowerCase().includes('content') ||
-                 career.name.toLowerCase().includes('social media') ||
-                 career.name.toLowerCase().includes('seo') ||
-                 career.name.toLowerCase().includes('digital') ||
-                 career.name.toLowerCase().includes('copywriter') ||
-                 career.name.toLowerCase().includes('creative') ||
-                 career.name.toLowerCase().includes('account');
-        }
-
-        return nameMatch || descMatch;
+    // Re-fetch with category filter if it was added
+    let filteredCareers = careers;
+    if (category && typeof category === 'string') {
+      filteredCareers = await prisma.career.findMany({
+        where,
+        take: Number(limit),
+        skip: Number(offset),
+        orderBy: { name: 'asc' },
       });
     }
 
@@ -171,16 +159,9 @@ export const getAllCareers = async (req: Request, res: Response) => {
         }
       }
 
-      // Infer category from career name/description
-      const inferCategory = (): string => {
-        const name = career.name.toLowerCase();
-        if (name.includes('marketing') || name.includes('brand') || name.includes('content') ||
-            name.includes('social') || name.includes('seo') || name.includes('digital') ||
-            name.includes('copywriter') || name.includes('creative') || name.includes('account')) {
-          return 'Marketing';
-        }
-        // Add more categories as needed
-        return 'General';
+      // Use actual category from database
+      const getCategory = (): string => {
+        return career.category || 'general';
       };
 
       // Infer experience level
@@ -204,7 +185,7 @@ export const getAllCareers = async (req: Request, res: Response) => {
         workHoursPerWeek: career.workHoursPerWeek,
         stressLevel: career.stressLevel,
         growthPotential: career.growthPotential,
-        category: inferCategory(),
+        category: getCategory(),
         experienceLevel: inferExperienceLevel(),
         requirements: career.requirements,
         createdAt: career.createdAt,
@@ -299,10 +280,18 @@ export const getCareerStats = async (req: Request, res: Response) => {
     const allCareers = await prisma.career.findMany({
       select: {
         name: true,
+        category: true,
         stressLevel: true,
         growthPotential: true,
       },
     });
+
+    // Count by category (using actual category field)
+    const byCategory = allCareers.reduce((acc: any, career) => {
+      const category = career.category || 'general';
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {});
 
     // Count by stress level
     const byStressLevel = allCareers.reduce((acc: any, career) => {
@@ -315,21 +304,6 @@ export const getCareerStats = async (req: Request, res: Response) => {
     const byGrowthPotential = allCareers.reduce((acc: any, career) => {
       const level = career.growthPotential || 'unknown';
       acc[level] = (acc[level] || 0) + 1;
-      return acc;
-    }, {});
-
-    // Infer categories
-    const byCategory = allCareers.reduce((acc: any, career) => {
-      const name = career.name.toLowerCase();
-      let category = 'General';
-
-      if (name.includes('marketing') || name.includes('brand') || name.includes('content') ||
-          name.includes('social') || name.includes('seo') || name.includes('digital') ||
-          name.includes('copywriter') || name.includes('creative') || name.includes('account')) {
-        category = 'Marketing';
-      }
-
-      acc[category] = (acc[category] || 0) + 1;
       return acc;
     }, {});
 
