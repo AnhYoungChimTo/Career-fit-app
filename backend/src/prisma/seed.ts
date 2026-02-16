@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { seedMarketingCareers } from '../../prisma/seeds/marketing-careers.seed';
 import { seedInternationalRelationsCareers } from '../../prisma/seeds/international-relations-careers.seed';
+import { seedFinanceCareers } from '../../prisma/seeds/finance-careers.seed';
+import { seedLawCareers } from '../../prisma/seeds/law-careers.seed';
 
 const prisma = new PrismaClient();
 
@@ -24,6 +26,18 @@ async function main() {
   // Seed international relations careers
   console.log('🌍 Seeding International Relations Careers...');
   await seedInternationalRelationsCareers();
+
+  console.log('');
+
+  // Seed finance careers
+  console.log('💰 Seeding Finance & Banking Careers...');
+  await seedFinanceCareers();
+
+  console.log('');
+
+  // Seed law & legal careers
+  console.log('⚖️ Seeding Law & Legal Careers...');
+  await seedLawCareers();
 
   console.log('');
   console.log('🎉 Database seed completed!');

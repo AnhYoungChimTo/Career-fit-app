@@ -13,6 +13,8 @@
     "seed": "tsx src/prisma/seed.ts",
     "seed:marketing": "tsx prisma/seeds/marketing-careers.seed.ts",
     "seed:international-relations": "tsx prisma/seeds/international-relations-careers.seed.ts",
+    "seed:finance": "tsx prisma/seeds/finance-careers.seed.ts",
+    "seed:law": "tsx prisma/seeds/law-careers.seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
