@@ -18,7 +18,7 @@ export default function Register() {
     email: '',
     password: '',
     confirmPassword: '',
-    securityQuestion: SECURITY_QUESTIONS[0],
+    securityQuestion: '',
     securityAnswer: '',
   });
   const [error, setError] = useState('');
@@ -46,6 +46,11 @@ export default function Register() {
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      return;
+    }
+
+    if (!formData.securityQuestion) {
+      setError('Please select a security question');
       return;
     }
 
@@ -199,6 +204,9 @@ export default function Register() {
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 >
+                  <option value="" disabled>
+                    Select a security question...
+                  </option>
                   {SECURITY_QUESTIONS.map((question) => (
                     <option key={question} value={question}>
                       {question}

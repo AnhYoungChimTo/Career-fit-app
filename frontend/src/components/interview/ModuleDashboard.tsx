@@ -81,6 +81,19 @@ export default function ModuleDashboard({ interviewId, interview, onModuleSelect
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Return to Dashboard Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Return to Dashboard
+          </button>
+        </div>
+
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-start justify-between mb-6">

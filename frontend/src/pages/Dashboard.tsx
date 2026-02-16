@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import type { Interview } from '../types';
 import ProfileModal from '../components/ProfileModal';
+import SettingsDropdown from '../components/SettingsDropdown';
+import ChangePasswordModal from '../components/ChangePasswordModal';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
@@ -105,15 +108,10 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-indigo-600">Career Fit Analysis</h1>
-            <button
-              onClick={handleLogout}
-              className="inline-flex items-center text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors"
-            >
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              Logout
-            </button>
+            <SettingsDropdown
+              onChangePassword={() => setIsChangePasswordModalOpen(true)}
+              onLogout={handleLogout}
+            />
           </div>
         </div>
       </div>
@@ -274,6 +272,11 @@ export default function Dashboard() {
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
         onUpdate={handleProfileUpdate}
+      />
+
+      <ChangePasswordModal
+        isOpen={isChangePasswordModalOpen}
+        onClose={() => setIsChangePasswordModalOpen(false)}
       />
     </div>
   );

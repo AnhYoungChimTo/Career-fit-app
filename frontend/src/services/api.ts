@@ -120,6 +120,46 @@ class ApiService {
     return response.data;
   }
 
+  async getSecurityQuestion(email: string): Promise<ApiResponse<{ securityQuestion: string }>> {
+    const response = await this.api.get(`/api/auth/security-question?email=${encodeURIComponent(email)}`);
+    return response.data;
+  }
+
+  async resetPassword(
+    email: string,
+    securityAnswer: string,
+    newPassword: string
+  ): Promise<ApiResponse<{ message: string }>> {
+    const response = await this.api.post('/api/auth/reset-password', {
+      email,
+      securityAnswer,
+      newPassword,
+    });
+    return response.data;
+  }
+
+  async changePassword(
+    currentPassword: string,
+    newPassword: string
+  ): Promise<ApiResponse<{ message: string }>> {
+    const response = await this.api.post('/api/auth/change-password', {
+      currentPassword,
+      newPassword,
+    });
+    return response.data;
+  }
+
+  // Generic methods for flexibility
+  async get(path: string): Promise<any> {
+    const response = await this.api.get(`/api${path}`);
+    return response.data;
+  }
+
+  async post(path: string, data: any): Promise<any> {
+    const response = await this.api.post(`/api${path}`, data);
+    return response.data;
+  }
+
   // Interview question endpoints (public)
   async getLiteQuestions(): Promise<ApiResponse<{
     interviewType: 'lite';

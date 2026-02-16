@@ -109,6 +109,45 @@ export async function loginUser(data: LoginRequest): Promise<{ user: UserDTO; to
 }
 
 /**
+ * Get security question by email
+ */
+export async function getSecurityQuestion(email: string): Promise<{ securityQuestion: string }> {
+  // Find user
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return { securityQuestion: user.securityQuestion };
+}
+
+/**
+ * Verify security answer
+ */
+export async function verifySecurityAnswer(email: string, securityAnswer: string): Promise<{ verified: boolean }> {
+  // Find user
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Verify security answer
+  const isAnswerValid = await compareSecurityAnswer(securityAnswer, user.securityAnswerHash);
+
+  if (!isAnswerValid) {
+    throw new Error('Incorrect security answer');
+  }
+
+  return { verified: true };
+}
+
+/**
  * Reset password using security question
  */
 export async function resetPassword(data: PasswordResetRequest): Promise<{ message: string }> {
@@ -178,6 +217,53 @@ export async function getUserById(userId: string): Promise<UserDTO | null> {
     currentRole: (user as any).currentRole,
     currentCompany: (user as any).currentCompany,
   };
+}
+
+/**
+ * Change user password
+ */
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+): Promise<{ message: string }> {
+  // Find user
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  // Verify current password
+  const isPasswordValid = await comparePassword(currentPassword, user.passwordHash);
+
+  if (!isPasswordValid) {
+    throw new Error('Current password is incorrect');
+  }
+
+  // Validate new password
+  if (newPassword.length < 8) {
+    throw new Error('Password must be at least 8 characters long');
+  }
+  if (!/\d/.test(newPassword)) {
+    throw new Error('Password must contain at least one number');
+  }
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
+    throw new Error('Password must contain at least one special character');
+  }
+
+  // Hash new password
+  const newPasswordHash = await hashPassword(newPassword);
+
+  // Update password
+  await prisma.user.update({
+    where: { id: userId },
+    data: { passwordHash: newPasswordHash },
+  });
+
+  return { message: 'Password changed successfully' };
 }
 
 /**
