@@ -365,11 +365,18 @@ class ApiService {
 
   async generateQuickAnalysis(
     userDescription: string,
-    targetCareer: string
+    targetCareer: string,
+    structuredData?: {
+      yearsExperience?: string;
+      mbtiType?: string;
+      expectedSalary?: string;
+      primaryBlocker?: string;
+    }
   ): Promise<ApiResponse<{ analysis: string; usage: { used: number; total: number; remaining: number } }>> {
     const response = await this.api.post('/api/quick-analysis', {
       userDescription,
       targetCareer,
+      structuredData,
     });
     return response.data;
   }

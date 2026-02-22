@@ -15,7 +15,17 @@ interface QuickAnalysisRecord {
 const QA_HISTORY_KEY = 'qa_history';
 const QA_DRAFT_KEY = 'qa_draft';
 
-function loadQADraft(): { description: string; targetCareer: string; analysis: string } {
+interface QADraft {
+  description: string;
+  targetCareer: string;
+  analysis: string;
+  yearsExperience?: string;
+  mbtiType?: string;
+  expectedSalary?: string;
+  primaryBlocker?: string;
+}
+
+function loadQADraft(): QADraft {
   try {
     const raw = localStorage.getItem(QA_DRAFT_KEY);
     return raw ? JSON.parse(raw) : { description: '', targetCareer: '', analysis: '' };
@@ -24,8 +34,13 @@ function loadQADraft(): { description: string; targetCareer: string; analysis: s
   }
 }
 
-function saveQADraft(description: string, targetCareer: string, analysis: string) {
-  localStorage.setItem(QA_DRAFT_KEY, JSON.stringify({ description, targetCareer, analysis }));
+function saveQADraft(
+  description: string,
+  targetCareer: string,
+  analysis: string,
+  structured?: { yearsExperience: string; mbtiType: string; expectedSalary: string; primaryBlocker: string }
+) {
+  localStorage.setItem(QA_DRAFT_KEY, JSON.stringify({ description, targetCareer, analysis, ...structured }));
 }
 
 function clearQADraft() {
@@ -93,6 +108,10 @@ function QuickAnalysisBox() {
   const draft = loadQADraft();
   const [description, setDescription] = useState(draft.description);
   const [targetCareer, setTargetCareer] = useState(draft.targetCareer);
+  const [yearsExperience, setYearsExperience] = useState(draft.yearsExperience ?? '');
+  const [mbtiType, setMbtiType] = useState(draft.mbtiType ?? '');
+  const [expectedSalary, setExpectedSalary] = useState(draft.expectedSalary ?? '');
+  const [primaryBlocker, setPrimaryBlocker] = useState(draft.primaryBlocker ?? '');
   const [isGenerating, setIsGenerating] = useState(false);
   const [analysis, setAnalysis] = useState(draft.analysis);
   const [analysisError, setAnalysisError] = useState('');
@@ -102,10 +121,10 @@ function QuickAnalysisBox() {
   const [usageTotal, setUsageTotal] = useState<number>(3);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // Persist draft to localStorage whenever description, targetCareer, or analysis changes
+  // Persist draft to localStorage whenever any field changes
   useEffect(() => {
-    saveQADraft(description, targetCareer, analysis);
-  }, [description, targetCareer, analysis]);
+    saveQADraft(description, targetCareer, analysis, { yearsExperience, mbtiType, expectedSalary, primaryBlocker });
+  }, [description, targetCareer, analysis, yearsExperience, mbtiType, expectedSalary, primaryBlocker]);
 
   useEffect(() => {
     setHistory(loadQAHistory());
@@ -122,7 +141,7 @@ function QuickAnalysisBox() {
   }, []);
 
   const charCount = description.length;
-  const isReady = description.trim().length >= 50 && targetCareer.trim().length >= 2;
+  const isReady = description.trim().length >= 50 && targetCareer.trim().length >= 2 && yearsExperience !== '';
 
   const appendChip = (chipText: string) => {
     const prefix = description.trim() ? description.trimEnd() + '\n' : '';
@@ -135,7 +154,17 @@ function QuickAnalysisBox() {
     setAnalysis('');
     setAnalysisError('');
     try {
-      const response = await api.generateQuickAnalysis(description, targetCareer);
+      const structuredData = {
+        ...(yearsExperience && { yearsExperience }),
+        ...(mbtiType && mbtiType !== 'unknown' && { mbtiType }),
+        ...(expectedSalary && { expectedSalary }),
+        ...(primaryBlocker && { primaryBlocker }),
+      };
+      const response = await api.generateQuickAnalysis(
+        description,
+        targetCareer,
+        Object.keys(structuredData).length > 0 ? structuredData : undefined
+      );
       if (response.success && response.data) {
         setAnalysis(response.data.analysis);
         // Update usage counter from response
@@ -190,6 +219,117 @@ function QuickAnalysisBox() {
       </div>
 
       <div className="p-6 space-y-6">
+
+        {/* ─── Mini-form: 4 structured fields ─────────────────────────────── */}
+        <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 space-y-3">
+          <p className="text-xs font-bold text-indigo-700 uppercase tracking-wide flex items-center gap-1.5">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+            </svg>
+            Bước 1 — Thông tin nhanh (tăng độ chính xác đáng kể)
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+            {/* Years of experience */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-600 mb-1">
+                Số năm kinh nghiệm <span className="text-red-500">*</span>
+              </label>
+              <select
+                value={yearsExperience}
+                onChange={(e) => setYearsExperience(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-700"
+              >
+                <option value="">-- Chọn --</option>
+                <option value="0-1">Chưa có / Dưới 1 năm</option>
+                <option value="1-3">1–3 năm</option>
+                <option value="3-7">3–7 năm</option>
+                <option value="7+">7+ năm</option>
+              </select>
+            </div>
+
+            {/* MBTI */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-600 mb-1">
+                MBTI của bạn <span className="text-gray-400 font-normal">(nếu biết)</span>
+              </label>
+              <select
+                value={mbtiType}
+                onChange={(e) => setMbtiType(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-700"
+              >
+                <option value="unknown">Không biết / Không quan tâm</option>
+                <optgroup label="Analyst (NT)">
+                  <option value="INTJ">INTJ — Kiến trúc sư</option>
+                  <option value="INTP">INTP — Nhà tư duy</option>
+                  <option value="ENTJ">ENTJ — Chỉ huy</option>
+                  <option value="ENTP">ENTP — Tranh luận viên</option>
+                </optgroup>
+                <optgroup label="Diplomat (NF)">
+                  <option value="INFJ">INFJ — Người ủng hộ</option>
+                  <option value="INFP">INFP — Người hòa giải</option>
+                  <option value="ENFJ">ENFJ — Nhà lãnh đạo</option>
+                  <option value="ENFP">ENFP — Nhà vận động</option>
+                </optgroup>
+                <optgroup label="Sentinel (SJ)">
+                  <option value="ISTJ">ISTJ — Người giám sát</option>
+                  <option value="ISFJ">ISFJ — Người bảo vệ</option>
+                  <option value="ESTJ">ESTJ — Giám đốc điều hành</option>
+                  <option value="ESFJ">ESFJ — Nhà ngoại giao</option>
+                </optgroup>
+                <optgroup label="Explorer (SP)">
+                  <option value="ISTP">ISTP — Nhà thực dụng</option>
+                  <option value="ISFP">ISFP — Nhà phiêu lưu</option>
+                  <option value="ESTP">ESTP — Doanh nhân</option>
+                  <option value="ESFP">ESFP — Người biểu diễn</option>
+                </optgroup>
+              </select>
+            </div>
+
+            {/* Expected salary */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-600 mb-1">
+                Kỳ vọng thu nhập <span className="text-gray-400 font-normal">(gross/tháng)</span>
+              </label>
+              <select
+                value={expectedSalary}
+                onChange={(e) => setExpectedSalary(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-700"
+              >
+                <option value="">-- Chọn --</option>
+                <option value="< 15 triệu">Dưới 15 triệu</option>
+                <option value="15-25 triệu">15–25 triệu</option>
+                <option value="25-40 triệu">25–40 triệu</option>
+                <option value="40-70 triệu">40–70 triệu</option>
+                <option value="> 70 triệu">Trên 70 triệu</option>
+              </select>
+            </div>
+
+            {/* Primary blocker */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-600 mb-1">
+                Rào cản lớn nhất hiện tại
+              </label>
+              <select
+                value={primaryBlocker}
+                onChange={(e) => setPrimaryBlocker(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-700"
+              >
+                <option value="">-- Chọn --</option>
+                <option value="direction">Hướng đi chưa rõ</option>
+                <option value="skills">Thiếu kỹ năng cụ thể</option>
+                <option value="network">Thiếu mạng lưới quan hệ</option>
+                <option value="confidence">Thiếu tự tin / sợ thất bại</option>
+                <option value="experience">Thiếu kinh nghiệm / portfolio</option>
+              </select>
+            </div>
+
+          </div>
+          <p className="text-xs text-indigo-500">
+            Thông tin này giúp AI calibrate đúng level, lương và kế hoạch hành động cho bạn — không bao giờ được dùng cho mục đích khác.
+          </p>
+        </div>
+
         {/* Suggestion chips */}
         <div className="space-y-3">
           <p className="text-sm font-semibold text-gray-700">
