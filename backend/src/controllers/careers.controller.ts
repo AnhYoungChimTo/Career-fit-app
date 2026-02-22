@@ -226,7 +226,7 @@ export const getCareerById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const career = await prisma.career.findUnique({
-      where: { id },
+      where: { id: String(id) },
     });
 
     if (!career) {
