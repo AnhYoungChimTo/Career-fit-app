@@ -13,10 +13,50 @@ exports.getInterviewStatus = getInterviewStatus;
 exports.completeModule = completeModule;
 exports.completeInterview = completeInterview;
 exports.getUserInterviews = getUserInterviews;
+exports.getInterviewModules = getInterviewModules;
+exports.upgradeInterview = upgradeInterview;
+exports.abandonInterview = abandonInterview;
 const client_1 = require("@prisma/client");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const prisma = new client_1.PrismaClient();
+// Cache for question scoringKey lookup (questionId -> scoringKey)
+let scoringKeyCache = null;
+function buildScoringKeyCache() {
+    if (scoringKeyCache)
+        return scoringKeyCache;
+    const cache = {};
+    // Load lite questions
+    const liteDir = path_1.default.join(__dirname, '../../..', 'questions', 'lite');
+    if (fs_1.default.existsSync(liteDir)) {
+        const liteFiles = fs_1.default.readdirSync(liteDir).filter(f => f.endsWith('.json'));
+        for (const file of liteFiles) {
+            const content = fs_1.default.readFileSync(path_1.default.join(liteDir, file), 'utf8');
+            const data = JSON.parse(content);
+            for (const q of data.questions || []) {
+                if (q.id && q.scoringKey) {
+                    cache[q.id] = q.scoringKey;
+                }
+            }
+        }
+    }
+    // Load deep questions
+    const deepDir = path_1.default.join(__dirname, '../../..', 'questions', 'deep');
+    if (fs_1.default.existsSync(deepDir)) {
+        const deepFiles = fs_1.default.readdirSync(deepDir).filter(f => f.endsWith('.json'));
+        for (const file of deepFiles) {
+            const content = fs_1.default.readFileSync(path_1.default.join(deepDir, file), 'utf8');
+            const data = JSON.parse(content);
+            for (const q of data.questions || []) {
+                if (q.id && q.scoringKey) {
+                    cache[q.id] = q.scoringKey;
+                }
+            }
+        }
+    }
+    scoringKeyCache = cache;
+    return cache;
+}
 /**
  * Load Lite questions from JSON files
  */
@@ -85,16 +125,8 @@ async function startInterview(data) {
     if (!user) {
         throw new Error('User not found');
     }
-    // Check if user already has an in-progress interview
-    const existingInterview = await prisma.interview.findFirst({
-        where: {
-            userId,
-            status: 'in_progress',
-        },
-    });
-    if (existingInterview) {
-        throw new Error('User already has an in-progress interview. Please complete or cancel it first.');
-    }
+    // Note: Removed restriction - users can now have multiple in-progress interviews
+    // This allows for better UX where users can explore different paths
     // Create new interview
     const interview = await prisma.interview.create({
         data: {
@@ -128,16 +160,19 @@ async function saveAnswer(interviewId, data) {
     if (interview.status !== 'in_progress') {
         throw new Error('Interview is not in progress');
     }
-    // Determine which data field to update based on scoring key
-    const scoringKey = questionId.split('_')[0]; // e.g., "a1", "a2", "a3", "session"
+    // Look up the scoringKey for this question
+    const cache = buildScoringKeyCache();
+    const resolvedScoringKey = cache[questionId] || questionId;
+    // Determine which data field to update based on scoringKey prefix
+    const scoringPrefix = resolvedScoringKey.split('_')[0]; // e.g., "a1", "a2", "a3", "session"
     let dataField;
-    if (scoringKey === 'a1') {
+    if (scoringPrefix === 'a1') {
         dataField = 'personalityData';
     }
-    else if (scoringKey === 'a2') {
+    else if (scoringPrefix === 'a2') {
         dataField = 'talentsData';
     }
-    else if (scoringKey === 'a3') {
+    else if (scoringPrefix === 'a3') {
         dataField = 'valuesData';
     }
     else {
@@ -145,11 +180,12 @@ async function saveAnswer(interviewId, data) {
     }
     // Get current data
     const currentData = interview[dataField] || {};
-    // Add the answer
+    // Store answer keyed by scoringKey (so scoring functions can find it)
     const updatedData = {
         ...currentData,
-        [questionId]: {
+        [resolvedScoringKey]: {
             answer,
+            questionId,
             moduleId,
             category,
             answeredAt: new Date().toISOString(),
@@ -205,18 +241,22 @@ async function getInterviewStatus(interviewId) {
     if (interview.interviewType === 'lite') {
         totalQuestions = 37; // Lite has ~37 questions
     }
-    else if (interview.interviewType === 'deep') {
+    else if (interview.interviewType === 'deep' || interview.interviewType === 'lite_upgraded') {
         const sessionData = interview.sessionData || {};
         const selectedModules = sessionData.selectedModules || ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
         // Average 12 questions per module
         totalQuestions = selectedModules.length * 12;
+        // For lite_upgraded, add the Lite questions that were already answered
+        if (interview.interviewType === 'lite_upgraded') {
+            totalQuestions += 37;
+        }
     }
     const percentComplete = totalQuestions > 0
         ? Math.round((totalAnswered / totalQuestions) * 100)
         : 0;
     // Determine completed modules (for deep interviews)
     const completedModules = [];
-    if (interview.interviewType === 'deep') {
+    if (interview.interviewType === 'deep' || interview.interviewType === 'lite_upgraded') {
         const sessionData = interview.sessionData || {};
         completedModules.push(...(sessionData.completedModules || []));
     }
@@ -297,4 +337,135 @@ async function getUserInterviews(userId) {
         orderBy: { startedAt: 'desc' },
     });
     return interviews;
+}
+/**
+ * Get Deep interview modules with status for a specific interview
+ */
+async function getInterviewModules(interviewId) {
+    // Get interview
+    const interview = await prisma.interview.findUnique({
+        where: { id: interviewId },
+    });
+    if (!interview) {
+        throw new Error('Interview not found');
+    }
+    if (interview.interviewType !== 'deep' && interview.interviewType !== 'lite_upgraded') {
+        throw new Error('This is not a Deep interview');
+    }
+    // Load all modules with full question data to build scoringKey -> moduleId mapping
+    const questionsDir = path_1.default.join(__dirname, '../../..', 'questions', 'deep');
+    const files = fs_1.default.readdirSync(questionsDir)
+        .filter(f => f.startsWith('module-') && f.endsWith('.json'))
+        .sort();
+    const modulesData = [];
+    const scoringKeyToModule = {};
+    for (const file of files) {
+        const filePath = path_1.default.join(questionsDir, file);
+        const content = fs_1.default.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(content);
+        modulesData.push(data);
+        for (const q of data.questions || []) {
+            if (q.scoringKey) {
+                scoringKeyToModule[q.scoringKey] = data.moduleId;
+            }
+        }
+    }
+    // Get completed modules from session data
+    const sessionData = interview.sessionData || {};
+    const completedModules = sessionData.completedModules || [];
+    // Get all answers to count how many questions per module have been answered
+    const allAnswers = {
+        ...(interview.personalityData || {}),
+        ...(interview.talentsData || {}),
+        ...(interview.valuesData || {}),
+        ...(interview.sessionData || {}),
+    };
+    // Count answers per module using the scoringKey -> moduleId mapping
+    const answerCountByModule = {};
+    for (const key of Object.keys(allAnswers)) {
+        const moduleId = scoringKeyToModule[key];
+        if (moduleId) {
+            answerCountByModule[moduleId] = (answerCountByModule[moduleId] || 0) + 1;
+        }
+    }
+    // Build module status array
+    const modules = modulesData.map((meta) => {
+        const moduleId = meta.moduleId;
+        const answeredCount = answerCountByModule[moduleId] || 0;
+        // Determine status
+        let status;
+        if (completedModules.includes(moduleId)) {
+            status = 'completed';
+        }
+        else if (answeredCount > 0) {
+            status = 'in_progress';
+        }
+        else {
+            status = 'not_started';
+        }
+        return {
+            moduleId: meta.moduleId,
+            title: meta.title,
+            description: meta.description,
+            estimatedMinutes: meta.estimatedMinutes,
+            isRecommended: meta.isRecommended || false,
+            questionsCount: meta.questions.length,
+            answeredCount,
+            status,
+        };
+    });
+    return modules;
+}
+/**
+ * Upgrade a Lite interview to Deep (lite_upgraded)
+ */
+async function upgradeInterview(interviewId) {
+    // Get interview
+    const interview = await prisma.interview.findUnique({
+        where: { id: interviewId },
+    });
+    if (!interview) {
+        throw new Error('Interview not found');
+    }
+    if (interview.interviewType !== 'lite') {
+        throw new Error('Only Lite interviews can be upgraded');
+    }
+    if (interview.status !== 'completed') {
+        throw new Error('Interview must be completed before upgrading');
+    }
+    // Update interview to lite_upgraded and set status back to in_progress
+    const updated = await prisma.interview.update({
+        where: { id: interviewId },
+        data: {
+            interviewType: 'lite_upgraded',
+            status: 'in_progress',
+            currentModule: 'A', // Start with Module A
+            currentQuestion: 0,
+            sessionData: {
+                completedModules: [], // No Deep modules completed yet
+                upgradedFrom: 'lite',
+                upgradedAt: new Date().toISOString(),
+            },
+        },
+    });
+    return updated;
+}
+/**
+ * Abandon/delete an interview
+ */
+async function abandonInterview(interviewId) {
+    const interview = await prisma.interview.findUnique({
+        where: { id: interviewId },
+    });
+    if (!interview) {
+        throw new Error('Interview not found');
+    }
+    // Mark as abandoned instead of deleting (preserves data)
+    const updated = await prisma.interview.update({
+        where: { id: interviewId },
+        data: {
+            status: 'abandoned',
+        },
+    });
+    return updated;
 }

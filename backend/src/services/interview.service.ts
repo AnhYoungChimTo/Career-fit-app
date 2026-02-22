@@ -462,8 +462,26 @@ export async function getInterviewModules(interviewId: string) {
     throw new Error('This is not a Deep interview');
   }
 
-  // Load all modules metadata
-  const modulesMetadata = await getDeepModulesMetadata();
+  // Load all modules with full question data to build scoringKey -> moduleId mapping
+  const questionsDir = path.join(__dirname, '../../..', 'questions', 'deep');
+  const files = fs.readdirSync(questionsDir)
+    .filter(f => f.startsWith('module-') && f.endsWith('.json'))
+    .sort();
+
+  const modulesData: Array<{ moduleId: string; title: string; description: string; estimatedMinutes: number; isRecommended: boolean; questions: any[] }> = [];
+  const scoringKeyToModule: Record<string, string> = {};
+
+  for (const file of files) {
+    const filePath = path.join(questionsDir, file);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const data = JSON.parse(content);
+    modulesData.push(data);
+    for (const q of data.questions || []) {
+      if (q.scoringKey) {
+        scoringKeyToModule[q.scoringKey] = data.moduleId;
+      }
+    }
+  }
 
   // Get completed modules from session data
   const sessionData = (interview.sessionData as any) || {};
@@ -477,15 +495,19 @@ export async function getInterviewModules(interviewId: string) {
     ...(interview.sessionData as any || {}),
   };
 
-  // Build module status array
-  const modules = modulesMetadata.map((meta) => {
-    const moduleId = meta.moduleId;
+  // Count answers per module using the scoringKey -> moduleId mapping
+  const answerCountByModule: Record<string, number> = {};
+  for (const key of Object.keys(allAnswers)) {
+    const moduleId = scoringKeyToModule[key];
+    if (moduleId) {
+      answerCountByModule[moduleId] = (answerCountByModule[moduleId] || 0) + 1;
+    }
+  }
 
-    // Count answers for this module (questions start with module letter lowercase)
-    const modulePrefix = moduleId.toLowerCase() + '_';
-    const answeredCount = Object.keys(allAnswers).filter(
-      (key) => key.startsWith(modulePrefix)
-    ).length;
+  // Build module status array
+  const modules = modulesData.map((meta) => {
+    const moduleId = meta.moduleId;
+    const answeredCount = answerCountByModule[moduleId] || 0;
 
     // Determine status
     let status: 'not_started' | 'in_progress' | 'completed';
@@ -502,8 +524,8 @@ export async function getInterviewModules(interviewId: string) {
       title: meta.title,
       description: meta.description,
       estimatedMinutes: meta.estimatedMinutes,
-      isRecommended: meta.isRecommended,
-      questionsCount: meta.questionCount,
+      isRecommended: meta.isRecommended || false,
+      questionsCount: meta.questions.length,
       answeredCount,
       status,
     };

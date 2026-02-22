@@ -11,6 +11,7 @@ import InterviewSelection from './pages/InterviewSelection';
 import Interview from './pages/Interview';
 import Results from './pages/Results';
 import JobLibrary from './pages/JobLibrary';
+import Profile from './pages/Profile';
 import './index.css';
 
 function App() {
@@ -75,6 +76,17 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <JobLibrary />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Profile />
                 </DashboardLayout>
               </ProtectedRoute>
             }

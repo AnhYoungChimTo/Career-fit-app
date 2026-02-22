@@ -12,6 +12,7 @@ export default function Interview() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [selectedModule, setSelectedModule] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     loadInterview();
@@ -97,6 +98,7 @@ export default function Interview() {
   if (isDeepInterview && !selectedModule) {
     return (
       <ModuleDashboard
+        key={refreshKey}
         interviewId={interviewId!}
         interview={interview}
         onModuleSelect={(moduleId) => setSelectedModule(moduleId)}
@@ -114,7 +116,7 @@ export default function Interview() {
       interviewId={interviewId!}
       interviewType={conductorType}
       moduleId={selectedModule || undefined}
-      onBackToDashboard={isDeepInterview ? () => setSelectedModule(null) : undefined}
+      onBackToDashboard={isDeepInterview ? () => { setSelectedModule(null); setRefreshKey((k) => k + 1); } : undefined}
     />
   );
 }

@@ -160,6 +160,16 @@ class ApiService {
     return response.data;
   }
 
+  async put(path: string, data: any): Promise<any> {
+    const response = await this.api.put(`/api${path}`, data);
+    return response.data;
+  }
+
+  async delete(path: string): Promise<any> {
+    const response = await this.api.delete(`/api${path}`);
+    return response.data;
+  }
+
   // Interview question endpoints (public)
   async getLiteQuestions(): Promise<ApiResponse<{
     interviewType: 'lite';
