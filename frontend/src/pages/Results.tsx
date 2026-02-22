@@ -108,21 +108,6 @@ export default function Results() {
     }
   };
 
-  const getConfidenceBadge = (confidence: 'low' | 'medium' | 'high') => {
-    const config = {
-      low: { bg: 'bg-yellow-100', text: 'text-yellow-800', label: 'Medium Confidence' },
-      medium: { bg: 'bg-blue-100', text: 'text-blue-800', label: 'Good Confidence' },
-      high: { bg: 'bg-green-100', text: 'text-green-800', label: 'High Confidence' },
-    };
-
-    const { bg, text, label } = config[confidence];
-    return (
-      <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${bg} ${text}`}>
-        {label}
-      </span>
-    );
-  };
-
   const getVersionBadge = (interviewType: string) => {
     const isLite = interviewType === 'lite';
     return (

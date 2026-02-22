@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { api } from '../services/api';
 import InterviewConductor from '../components/interview/InterviewConductor';
 import ModuleDashboard from '../components/interview/ModuleDashboard';
-import type { InterviewStatus } from '../types';
+import type { InterviewStatus, Interview } from '../types';
 
 export default function Interview() {
   const { interviewId } = useParams<{ interviewId: string }>();
@@ -100,7 +100,7 @@ export default function Interview() {
       <ModuleDashboard
         key={refreshKey}
         interviewId={interviewId!}
-        interview={interview}
+        interview={interview as unknown as Interview}
         onModuleSelect={(moduleId) => setSelectedModule(moduleId)}
       />
     );

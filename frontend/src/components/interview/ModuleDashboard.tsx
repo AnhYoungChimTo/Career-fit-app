@@ -20,7 +20,7 @@ interface ModuleDashboardProps {
   onModuleSelect: (moduleId: string) => void;
 }
 
-export default function ModuleDashboard({ interviewId, interview, onModuleSelect }: ModuleDashboardProps) {
+export default function ModuleDashboard({ interviewId, interview: _interview, onModuleSelect }: ModuleDashboardProps) {
   const [modules, setModules] = useState<Module[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();

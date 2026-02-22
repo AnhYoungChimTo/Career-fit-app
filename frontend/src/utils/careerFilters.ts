@@ -1,4 +1,4 @@
-import { FilterOptions } from '../components/CareerFilterBar';
+import type { FilterOptions } from '../components/CareerFilterBar';
 
 export interface Career {
   id: string;

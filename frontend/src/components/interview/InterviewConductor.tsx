@@ -72,8 +72,6 @@ export default function InterviewConductor({
 
   // Progress
   const totalQuestions = allQuestions.length;
-  const answeredQuestions = Object.keys(answers).length;
-
   // Find current category
   const getCurrentCategory = () => {
     let count = 0;

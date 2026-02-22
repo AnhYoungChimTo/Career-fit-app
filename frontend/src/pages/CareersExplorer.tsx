@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import CareerFilterBar, { FilterOptions } from '../components/CareerFilterBar';
-import { filterCareers, Career, formatCategoryName, getCategoryIcon } from '../utils/careerFilters';
-import api from '../services/api';
+import CareerFilterBar, { type FilterOptions } from '../components/CareerFilterBar';
+import { filterCareers, type Career, formatCategoryName, getCategoryIcon } from '../utils/careerFilters';
+import { api } from '../services/api';
 
 export default function CareersExplorer() {
   const [allCareers, setAllCareers] = useState<Career[]>([]);

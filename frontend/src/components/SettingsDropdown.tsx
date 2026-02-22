@@ -7,7 +7,7 @@ interface SettingsDropdownProps {
 
 export default function SettingsDropdown({ onChangePassword, onLogout }: SettingsDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = () => {
     // Clear any pending close timeout
