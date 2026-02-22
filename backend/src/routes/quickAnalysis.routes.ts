@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/auth.middleware';
-import { generateQuickAnalysis } from '../controllers/quickAnalysis.controller';
+import { generateQuickAnalysis, getQuickAnalysisUsage } from '../controllers/quickAnalysis.controller';
 
 const router = Router();
 
-// POST /api/quick-analysis — requires auth to prevent anonymous API abuse
+// GET /api/quick-analysis/usage — returns how many uses remain for this account
+router.get('/usage', authMiddleware, getQuickAnalysisUsage);
+
+// POST /api/quick-analysis — generate analysis (requires auth, limited to 3 free uses)
 router.post('/', authMiddleware, generateQuickAnalysis);
 
 export default router;

@@ -1,16 +1,48 @@
 import { Request, Response } from 'express';
 import OpenAI from 'openai';
+import { PrismaClient } from '@prisma/client';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const prisma = new PrismaClient();
 
 const ANALYSIS_MODEL = process.env.GPT_ANALYSIS_MODEL || 'gpt-4o';
+const FREE_LIMIT = 3;
+
+/**
+ * GET /api/quick-analysis/usage
+ * Returns how many times this user has used Quick Analysis and how many remain.
+ */
+export async function getQuickAnalysisUsage(req: Request, res: Response) {
+  const userId = (req as any).userId;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { quickAnalysisUsed: true },
+    });
+    const used = user?.quickAnalysisUsed ?? 0;
+    return res.json({
+      success: true,
+      data: {
+        used,
+        total: FREE_LIMIT,
+        remaining: Math.max(0, FREE_LIMIT - used),
+      },
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      error: { code: 'FETCH_FAILED', message: 'Không thể tải thông tin sử dụng.' },
+    });
+  }
+}
 
 /**
  * POST /api/quick-analysis
  * Generate a full PHẦN I-V career fit analysis from a free-text self-description.
- * Requires auth. Costs ~1 API call to gpt-4o.
+ * Requires auth. Limited to FREE_LIMIT uses per account.
  */
 export async function generateQuickAnalysis(req: Request, res: Response) {
+  const userId = (req as any).userId;
   const { userDescription, targetCareer } = req.body;
 
   if (!userDescription || typeof userDescription !== 'string' || userDescription.trim().length < 50) {
@@ -27,11 +59,37 @@ export async function generateQuickAnalysis(req: Request, res: Response) {
     });
   }
 
+  // ── Usage limit check ──────────────────────────────────────────────────────
+  let currentUser;
+  try {
+    currentUser = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { quickAnalysisUsed: true },
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      error: { code: 'DB_ERROR', message: 'Không thể kiểm tra giới hạn sử dụng.' },
+    });
+  }
+
+  const used = currentUser?.quickAnalysisUsed ?? 0;
+  if (used >= FREE_LIMIT) {
+    return res.status(403).json({
+      success: false,
+      error: {
+        code: 'USAGE_LIMIT_REACHED',
+        message: `Bạn đã sử dụng hết ${FREE_LIMIT} lần phân tích miễn phí.`,
+      },
+      data: { used, total: FREE_LIMIT, remaining: 0 },
+    });
+  }
+
   const career = targetCareer.trim();
   const description = userDescription.trim();
 
   try {
-    console.log(`🔍 Quick analysis requested — target: "${career}" (${description.length} chars)`);
+    console.log(`🔍 Quick analysis requested — target: "${career}" (${description.length} chars) — user ${userId} [${used}/${FREE_LIMIT} used]`);
 
     const completion = await openai.chat.completions.create({
       model: ANALYSIS_MODEL,
@@ -393,11 +451,26 @@ QUY TẮC BẮT BUỘC — VI PHẠM SẼ LÀM BÁO CÁO VÔ GIÁ TRỊ:
     });
 
     const analysis = completion.choices[0].message.content || '';
-    console.log(`✅ Quick analysis generated (${analysis.length} chars, model: ${ANALYSIS_MODEL})`);
+
+    // ── Increment usage count ──────────────────────────────────────────────────
+    await prisma.user.update({
+      where: { id: userId },
+      data: { quickAnalysisUsed: { increment: 1 } },
+    });
+    const newUsed = used + 1;
+
+    console.log(`✅ Quick analysis generated (${analysis.length} chars, model: ${ANALYSIS_MODEL}) — user ${userId} now at ${newUsed}/${FREE_LIMIT}`);
 
     return res.json({
       success: true,
-      data: { analysis },
+      data: {
+        analysis,
+        usage: {
+          used: newUsed,
+          total: FREE_LIMIT,
+          remaining: FREE_LIMIT - newUsed,
+        },
+      },
     });
   } catch (error: any) {
     console.error('❌ Quick analysis error:', error.message || error);

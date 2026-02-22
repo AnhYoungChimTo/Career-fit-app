@@ -79,10 +79,22 @@ function QuickAnalysisBox() {
   const [analysisError, setAnalysisError] = useState('');
   const [history, setHistory] = useState<QuickAnalysisRecord[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [usageRemaining, setUsageRemaining] = useState<number | null>(null);
+  const [usageTotal, setUsageTotal] = useState<number>(3);
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setHistory(loadQAHistory());
+    // Load usage count from backend
+    api.getQuickAnalysisUsage().then((res) => {
+      if (res.success && res.data) {
+        setUsageRemaining(res.data.remaining);
+        setUsageTotal(res.data.total);
+      }
+    }).catch(() => {
+      // If we can't fetch, assume full remaining so user isn't blocked by a network error
+      setUsageRemaining(3);
+    });
   }, []);
 
   const charCount = description.length;
@@ -102,6 +114,11 @@ function QuickAnalysisBox() {
       const response = await api.generateQuickAnalysis(description, targetCareer);
       if (response.success && response.data) {
         setAnalysis(response.data.analysis);
+        // Update usage counter from response
+        if (response.data.usage) {
+          setUsageRemaining(response.data.usage.remaining);
+          setUsageTotal(response.data.usage.total);
+        }
         // Save to localStorage history
         const record: QuickAnalysisRecord = {
           id: Date.now().toString(),
@@ -118,6 +135,10 @@ function QuickAnalysisBox() {
         setAnalysisError(response.error?.message || 'Không thể tạo phân tích.');
       }
     } catch (err: any) {
+      const errCode = err.response?.data?.error?.code;
+      if (errCode === 'USAGE_LIMIT_REACHED') {
+        setUsageRemaining(0);
+      }
       setAnalysisError(err.response?.data?.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.');
     } finally {
       setIsGenerating(false);
@@ -222,26 +243,87 @@ function QuickAnalysisBox() {
           </div>
         )}
 
-        {/* Generate button */}
-        <button
-          onClick={handleGenerate}
-          disabled={!isReady || isGenerating}
-          className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isGenerating ? (
-            <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
-              Đang phân tích... (khoảng 30-60 giây)
-            </>
-          ) : (
-            <>
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+        {/* Usage counter badge */}
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-gray-400">
+            {usageRemaining === null ? (
+              <span className="inline-block w-24 h-4 bg-gray-100 rounded animate-pulse" />
+            ) : usageRemaining > 0 ? (
+              <span className="flex items-center gap-1.5">
+                <span className="flex gap-0.5">
+                  {Array.from({ length: usageTotal }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`inline-block w-2 h-2 rounded-full ${i < (usageTotal - usageRemaining) ? 'bg-gray-300' : 'bg-indigo-500'}`}
+                    />
+                  ))}
+                </span>
+                <span className="font-medium text-indigo-700">{usageRemaining}/{usageTotal} lần còn lại</span>
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 text-red-500 font-medium">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                Đã dùng hết {usageTotal}/{usageTotal} lần miễn phí
+              </span>
+            )}
+          </span>
+          <span className="text-xs text-gray-400">Mỗi tài khoản có {usageTotal} lần thử miễn phí</span>
+        </div>
+
+        {/* Generate button or Paywall */}
+        {usageRemaining === 0 ? (
+          <div
+            className="rounded-xl p-5 text-center"
+            style={{
+              background: 'linear-gradient(#faf5ff, #faf5ff) padding-box, linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) border-box',
+              border: '1.5px solid transparent',
+              boxShadow: '0 0 24px rgba(168,85,247,0.12)',
+            }}
+          >
+            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
               </svg>
-              Tạo Báo Cáo Phân Tích Career Fit
-            </>
-          )}
-        </button>
+            </div>
+            <h3 className="text-base font-bold text-gray-900 mb-1">Bạn đã dùng hết lượt miễn phí</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              Nâng cấp lên <span className="font-semibold text-purple-700">Pro Plan</span> để tiếp tục phân tích không giới hạn.
+            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white cursor-default"
+              style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              Pro Plan — Sắp ra mắt
+            </div>
+            <p className="text-xs text-gray-400 mt-3">
+              Tính năng đang được phát triển. Chúng tôi sẽ thông báo khi Pro Plan ra mắt!
+            </p>
+          </div>
+        ) : (
+          <button
+            onClick={handleGenerate}
+            disabled={!isReady || isGenerating || usageRemaining === null}
+            className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isGenerating ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
+                Đang phân tích... (khoảng 30-60 giây)
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                </svg>
+                Tạo Báo Cáo Phân Tích Career Fit
+              </>
+            )}
+          </button>
+        )}
 
         {/* Result */}
         {analysis && (

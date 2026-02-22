@@ -78,25 +78,28 @@ app.use((err: Error, req: Request, res: Response, next: Function) => {
   });
 });
 
-// Start server
-const PORT = config.port;
+// Export app for Vercel serverless
+export default app;
 
-app.listen(PORT, () => {
-  console.log('\n🚀 Career Fit API Server');
-  console.log(`📍 Environment: ${config.nodeEnv}`);
-  console.log(`🌐 Server running on http://localhost:${PORT}`);
-  console.log(`🏥 Health check: http://localhost:${PORT}/health`);
-  console.log(`🔗 CORS enabled for: ${config.corsOrigin}`);
-  console.log('\n✨ Ready to accept requests!\n');
-});
+// Start server only in local development (not in Vercel serverless)
+if (process.env.VERCEL !== '1') {
+  const PORT = config.port;
+  app.listen(PORT, () => {
+    console.log('\n🚀 Career Fit API Server');
+    console.log(`📍 Environment: ${config.nodeEnv}`);
+    console.log(`🌐 Server running on http://localhost:${PORT}`);
+    console.log(`🏥 Health check: http://localhost:${PORT}/health`);
+    console.log(`🔗 CORS enabled for: ${config.corsOrigin}`);
+    console.log('\n✨ Ready to accept requests!\n');
+  });
 
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('\n👋 SIGTERM signal received: closing HTTP server');
-  process.exit(0);
-});
+  process.on('SIGTERM', () => {
+    console.log('\n👋 SIGTERM signal received: closing HTTP server');
+    process.exit(0);
+  });
 
-process.on('SIGINT', () => {
-  console.log('\n👋 SIGINT signal received: closing HTTP server');
-  process.exit(0);
-});
+  process.on('SIGINT', () => {
+    console.log('\n👋 SIGINT signal received: closing HTTP server');
+    process.exit(0);
+  });
+}

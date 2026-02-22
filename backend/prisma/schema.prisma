@@ -1,12 +1,14 @@
 // Prisma schema for Career Fit Analysis
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // User model
@@ -24,6 +26,7 @@ model User {
   currentCompany      String?
   securityQuestion    String
   securityAnswerHash  String
+  quickAnalysisUsed   Int         @default(0)
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
 

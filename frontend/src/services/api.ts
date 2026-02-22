@@ -358,10 +358,15 @@ class ApiService {
   }
 
   // Quick Analysis (free-text self-description → full PHẦN I-V report)
+  async getQuickAnalysisUsage(): Promise<ApiResponse<{ used: number; total: number; remaining: number }>> {
+    const response = await this.api.get('/api/quick-analysis/usage');
+    return response.data;
+  }
+
   async generateQuickAnalysis(
     userDescription: string,
     targetCareer: string
-  ): Promise<ApiResponse<{ analysis: string }>> {
+  ): Promise<ApiResponse<{ analysis: string; usage: { used: number; total: number; remaining: number } }>> {
     const response = await this.api.post('/api/quick-analysis', {
       userDescription,
       targetCareer,
