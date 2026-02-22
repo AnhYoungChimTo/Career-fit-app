@@ -15,17 +15,17 @@ interface QuickAnalysisRecord {
 const QA_HISTORY_KEY = 'qa_history';
 const QA_DRAFT_KEY = 'qa_draft';
 
-function loadQADraft(): { description: string; targetCareer: string } {
+function loadQADraft(): { description: string; targetCareer: string; analysis: string } {
   try {
     const raw = localStorage.getItem(QA_DRAFT_KEY);
-    return raw ? JSON.parse(raw) : { description: '', targetCareer: '' };
+    return raw ? JSON.parse(raw) : { description: '', targetCareer: '', analysis: '' };
   } catch {
-    return { description: '', targetCareer: '' };
+    return { description: '', targetCareer: '', analysis: '' };
   }
 }
 
-function saveQADraft(description: string, targetCareer: string) {
-  localStorage.setItem(QA_DRAFT_KEY, JSON.stringify({ description, targetCareer }));
+function saveQADraft(description: string, targetCareer: string, analysis: string) {
+  localStorage.setItem(QA_DRAFT_KEY, JSON.stringify({ description, targetCareer, analysis }));
 }
 
 function clearQADraft() {
@@ -94,7 +94,7 @@ function QuickAnalysisBox() {
   const [description, setDescription] = useState(draft.description);
   const [targetCareer, setTargetCareer] = useState(draft.targetCareer);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [analysis, setAnalysis] = useState('');
+  const [analysis, setAnalysis] = useState(draft.analysis);
   const [analysisError, setAnalysisError] = useState('');
   const [history, setHistory] = useState<QuickAnalysisRecord[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -102,10 +102,10 @@ function QuickAnalysisBox() {
   const [usageTotal, setUsageTotal] = useState<number>(3);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // Persist draft to localStorage whenever description or targetCareer changes
+  // Persist draft to localStorage whenever description, targetCareer, or analysis changes
   useEffect(() => {
-    saveQADraft(description, targetCareer);
-  }, [description, targetCareer]);
+    saveQADraft(description, targetCareer, analysis);
+  }, [description, targetCareer, analysis]);
 
   useEffect(() => {
     setHistory(loadQAHistory());
