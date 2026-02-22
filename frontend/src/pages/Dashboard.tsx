@@ -13,6 +13,24 @@ interface QuickAnalysisRecord {
 }
 
 const QA_HISTORY_KEY = 'qa_history';
+const QA_DRAFT_KEY = 'qa_draft';
+
+function loadQADraft(): { description: string; targetCareer: string } {
+  try {
+    const raw = localStorage.getItem(QA_DRAFT_KEY);
+    return raw ? JSON.parse(raw) : { description: '', targetCareer: '' };
+  } catch {
+    return { description: '', targetCareer: '' };
+  }
+}
+
+function saveQADraft(description: string, targetCareer: string) {
+  localStorage.setItem(QA_DRAFT_KEY, JSON.stringify({ description, targetCareer }));
+}
+
+function clearQADraft() {
+  localStorage.removeItem(QA_DRAFT_KEY);
+}
 
 function loadQAHistory(): QuickAnalysisRecord[] {
   try {
@@ -72,8 +90,9 @@ const SUGGESTION_GROUPS = [
 
 // ─── Quick Analysis Component ────────────────────────────────────────────────
 function QuickAnalysisBox() {
-  const [description, setDescription] = useState('');
-  const [targetCareer, setTargetCareer] = useState('');
+  const draft = loadQADraft();
+  const [description, setDescription] = useState(draft.description);
+  const [targetCareer, setTargetCareer] = useState(draft.targetCareer);
   const [isGenerating, setIsGenerating] = useState(false);
   const [analysis, setAnalysis] = useState('');
   const [analysisError, setAnalysisError] = useState('');
@@ -82,6 +101,11 @@ function QuickAnalysisBox() {
   const [usageRemaining, setUsageRemaining] = useState<number | null>(null);
   const [usageTotal, setUsageTotal] = useState<number>(3);
   const resultRef = useRef<HTMLDivElement>(null);
+
+  // Persist draft to localStorage whenever description or targetCareer changes
+  useEffect(() => {
+    saveQADraft(description, targetCareer);
+  }, [description, targetCareer]);
 
   useEffect(() => {
     setHistory(loadQAHistory());
@@ -128,6 +152,7 @@ function QuickAnalysisBox() {
           createdAt: new Date().toISOString(),
         };
         saveQARecord(record);
+        clearQADraft();
         setHistory(loadQAHistory());
         setExpandedId(record.id);
         setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
@@ -235,6 +260,16 @@ function QuickAnalysisBox() {
             Nhấp vào chip màu xanh bên trên để thêm nhanh từng mục vào ô mô tả.
           </p>
         </div>
+
+        {/* In-progress navigation warning */}
+        {isGenerating && (
+          <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2 text-sm text-amber-800">
+            <svg className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+            <span>Đang phân tích — bạn có thể chuyển tab, kết quả sẽ tự động lưu vào <strong>Lịch Sử Phân Tích</strong> khi hoàn thành.</span>
+          </div>
+        )}
 
         {/* Error */}
         {analysisError && (
