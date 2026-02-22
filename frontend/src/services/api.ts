@@ -356,6 +356,18 @@ class ApiService {
     const response = await this.api.get('/api/careers/stats');
     return response.data;
   }
+
+  // Quick Analysis (free-text self-description → full PHẦN I-V report)
+  async generateQuickAnalysis(
+    userDescription: string,
+    targetCareer: string
+  ): Promise<ApiResponse<{ analysis: string }>> {
+    const response = await this.api.post('/api/quick-analysis', {
+      userDescription,
+      targetCareer,
+    });
+    return response.data;
+  }
 }
 
 // Export singleton instance

@@ -1,7 +1,508 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import type { Interview } from '../types';
+
+// ─── Quick Analysis history types + localStorage helpers ─────────────────────
+interface QuickAnalysisRecord {
+  id: string;
+  targetCareer: string;
+  descriptionSnippet: string; // first 200 chars of description
+  analysis: string;
+  createdAt: string; // ISO string
+}
+
+const QA_HISTORY_KEY = 'qa_history';
+
+function loadQAHistory(): QuickAnalysisRecord[] {
+  try {
+    const raw = localStorage.getItem(QA_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveQARecord(record: QuickAnalysisRecord) {
+  const existing = loadQAHistory();
+  const updated = [record, ...existing].slice(0, 10);
+  localStorage.setItem(QA_HISTORY_KEY, JSON.stringify(updated));
+}
+
+// ─── Suggestion chip data ───────────────────────────────────────────────────
+const SUGGESTION_GROUPS = [
+  {
+    label: 'THIẾT YẾU',
+    color: 'bg-red-100 text-red-800 border-red-200',
+    dot: 'bg-red-500',
+    note: 'Ảnh hưởng lớn nhất đến độ chính xác',
+    chips: [
+      { text: 'MBTI của bạn (VD: ENTJ, INFP, ISFJ...)', key: 'mbti' },
+      { text: 'Học vấn: trường, ngành, năm học', key: 'edu' },
+      { text: 'Kinh nghiệm: số năm, lĩnh vực, vị trí', key: 'exp' },
+      { text: 'Mục tiêu nghề cụ thể (công ty/vị trí)', key: 'goal' },
+    ],
+  },
+  {
+    label: 'KHUYẾN NGHỊ',
+    color: 'bg-amber-100 text-amber-800 border-amber-200',
+    dot: 'bg-amber-500',
+    note: 'Tăng đáng kể chất lượng phân tích',
+    chips: [
+      { text: 'Kỹ năng chính (hard & soft skills)', key: 'skills' },
+      { text: 'Ngoại ngữ & chứng chỉ (VD: IELTS 7.5)', key: 'lang' },
+      { text: 'Mạng lưới quan hệ trong ngành', key: 'network' },
+      { text: 'GPA / Thành tích nổi bật', key: 'gpa' },
+      { text: 'Điểm mạnh theo người khác nhận xét', key: 'strengths' },
+    ],
+  },
+  {
+    label: 'TÙY CHỌN',
+    color: 'bg-blue-100 text-blue-800 border-blue-200',
+    dot: 'bg-blue-400',
+    note: 'Giúp cá nhân hóa lộ trình',
+    chips: [
+      { text: 'Phong cách làm việc ưa thích', key: 'style' },
+      { text: 'Kỳ vọng thu nhập (VND/tháng)', key: 'salary' },
+      { text: 'Giá trị nghề nghiệp cốt lõi', key: 'values' },
+      { text: 'Lo ngại / rào cản hiện tại', key: 'concerns' },
+    ],
+  },
+];
+
+// ─── Quick Analysis Component ────────────────────────────────────────────────
+function QuickAnalysisBox() {
+  const [description, setDescription] = useState('');
+  const [targetCareer, setTargetCareer] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [analysis, setAnalysis] = useState('');
+  const [analysisError, setAnalysisError] = useState('');
+  const [history, setHistory] = useState<QuickAnalysisRecord[]>([]);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setHistory(loadQAHistory());
+  }, []);
+
+  const charCount = description.length;
+  const isReady = description.trim().length >= 50 && targetCareer.trim().length >= 2;
+
+  const appendChip = (chipText: string) => {
+    const prefix = description.trim() ? description.trimEnd() + '\n' : '';
+    setDescription(prefix + chipText + ': ');
+  };
+
+  const handleGenerate = async () => {
+    if (!isReady) return;
+    setIsGenerating(true);
+    setAnalysis('');
+    setAnalysisError('');
+    try {
+      const response = await api.generateQuickAnalysis(description, targetCareer);
+      if (response.success && response.data) {
+        setAnalysis(response.data.analysis);
+        // Save to localStorage history
+        const record: QuickAnalysisRecord = {
+          id: Date.now().toString(),
+          targetCareer: targetCareer.trim(),
+          descriptionSnippet: description.trim().slice(0, 200),
+          analysis: response.data.analysis,
+          createdAt: new Date().toISOString(),
+        };
+        saveQARecord(record);
+        setHistory(loadQAHistory());
+        setExpandedId(record.id);
+        setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      } else {
+        setAnalysisError(response.error?.message || 'Không thể tạo phân tích.');
+      }
+    } catch (err: any) {
+      setAnalysisError(err.response?.data?.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-white">Phân Tích Career Fit Nhanh</h2>
+            <p className="text-indigo-100 text-sm mt-0.5">
+              Mô tả bản thân → nhận báo cáo PHẦN I-V chi tiết trong vài phút
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 space-y-6">
+        {/* Suggestion chips */}
+        <div className="space-y-3">
+          <p className="text-sm font-semibold text-gray-700">
+            Để đạt kết quả chính xác nhất, hãy đề cập những thông tin sau:
+          </p>
+          <div className="space-y-2.5">
+            {SUGGESTION_GROUPS.map((group) => (
+              <div key={group.label}>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-bold border ${group.color}`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${group.dot}`} />
+                    {group.label}
+                  </span>
+                  <span className="text-xs text-gray-400">{group.note}</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.chips.map((chip) => (
+                    <button
+                      key={chip.key}
+                      onClick={() => appendChip(chip.text)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-indigo-100 hover:text-indigo-800 transition-colors border border-transparent hover:border-indigo-200"
+                      title="Click để thêm vào mô tả"
+                    >
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                      {chip.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Target career input */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+            Nghề nghiệp / Vị trí mục tiêu <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            value={targetCareer}
+            onChange={(e) => setTargetCareer(e.target.value)}
+            placeholder="VD: Consultant tại McKinsey Vietnam, Product Manager tại startup, UX Designer tại Grab..."
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+          />
+        </div>
+
+        {/* Description textarea */}
+        <div>
+          <div className="flex items-baseline justify-between mb-1.5">
+            <label className="block text-sm font-semibold text-gray-700">
+              Mô tả bản thân <span className="text-red-500">*</span>
+            </label>
+            <span className={`text-xs font-medium ${charCount < 50 ? 'text-red-500' : charCount < 200 ? 'text-amber-600' : 'text-green-600'}`}>
+              {charCount} ký tự {charCount < 50 ? `(tối thiểu 50, cần thêm ${50 - charCount})` : charCount < 200 ? '— thêm chi tiết để kết quả tốt hơn' : '— tốt!'}
+            </span>
+          </div>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={8}
+            placeholder={`Ví dụ:\nTôi là sinh viên năm 4 Học viện Ngoại giao, chuyên ngành Truyền thông Quốc tế. MBTI: ENTJ. IELTS 7.5 (Speaking 7.5). GPA: 3.6/4.0.\n\nKinh nghiệm: Intern tại Đại sứ quán Pháp 3 tháng, thực tập truyền thông tại VnExpress 2 tháng.\n\nKỹ năng: Nghiên cứu chính sách, thuyết trình, tiếng Anh & Pháp, Excel cơ bản.\n\nMạng lưới: Quen biết 2 anh chị từng làm tại McKinsey Vietnam và BCG Hanoi.\n\nMục tiêu: Gia nhập McKinsey HCMC với vai trò Business Analyst...`}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 resize-y leading-relaxed"
+          />
+          <p className="text-xs text-gray-400 mt-1">
+            Nhấp vào chip màu xanh bên trên để thêm nhanh từng mục vào ô mô tả.
+          </p>
+        </div>
+
+        {/* Error */}
+        {analysisError && (
+          <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+            {analysisError}
+          </div>
+        )}
+
+        {/* Generate button */}
+        <button
+          onClick={handleGenerate}
+          disabled={!isReady || isGenerating}
+          className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isGenerating ? (
+            <>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
+              Đang phân tích... (khoảng 30-60 giây)
+            </>
+          ) : (
+            <>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+              </svg>
+              Tạo Báo Cáo Phân Tích Career Fit
+            </>
+          )}
+        </button>
+
+        {/* Result */}
+        {analysis && (
+          <div ref={resultRef} className="mt-2">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Báo Cáo Phân Tích Career Fit
+              </h3>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(analysis);
+                }}
+                className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1"
+                title="Sao chép toàn bộ báo cáo"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                Sao chép
+              </button>
+            </div>
+            <div
+              className="rounded-xl p-5 max-h-[70vh] overflow-y-auto"
+              style={{
+                background: 'linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) border-box',
+                border: '1.5px solid transparent',
+                boxShadow: '0 0 28px rgba(99,102,241,0.18), 0 0 12px rgba(168,85,247,0.10)',
+              }}
+            >
+              <pre className="text-sm text-gray-800 whitespace-pre-wrap leading-7 font-sans">
+                {analysis}
+              </pre>
+            </div>
+            <p className="text-xs text-gray-400 mt-2 text-center">
+              Báo cáo được tạo bởi GPT-4o dựa trên mô tả của bạn. Kết quả mang tính tham khảo.
+            </p>
+          </div>
+        )}
+
+        {/* ─── Analysis History ─────────────────────────────────────── */}
+        {history.length > 0 && (
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Lịch Sử Phân Tích ({history.length})
+              <span className="text-xs font-normal text-gray-400 ml-1">— tối đa 10 bản gần nhất</span>
+            </h3>
+            <div className="space-y-2">
+              {history.map((record) => (
+                <div
+                  key={record.id}
+                  className="rounded-lg border border-gray-200 overflow-hidden"
+                >
+                  {/* Record header */}
+                  <button
+                    className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                    onClick={() => setExpandedId(expandedId === record.id ? null : record.id)}
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">
+                          {record.targetCareer}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {new Date(record.createdAt).toLocaleDateString('vi-VN', {
+                            day: '2-digit', month: '2-digit', year: 'numeric',
+                            hour: '2-digit', minute: '2-digit',
+                          })}
+                        </span>
+                      </div>
+                      {expandedId !== record.id && (
+                        <p className="text-xs text-gray-500 mt-1 truncate">
+                          {record.descriptionSnippet}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 ml-3 flex-shrink-0">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigator.clipboard.writeText(record.analysis);
+                        }}
+                        className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1 px-2 py-1 rounded hover:bg-indigo-50 transition-colors"
+                        title="Sao chép báo cáo này"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </button>
+                      <svg
+                        className={`w-4 h-4 text-gray-400 transition-transform ${expandedId === record.id ? 'rotate-180' : ''}`}
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </button>
+
+                  {/* Expanded analysis */}
+                  {expandedId === record.id && (
+                    <div
+                      className="p-4"
+                      style={{
+                        background: 'linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) border-box',
+                        border: '1.5px solid transparent',
+                        borderTop: 'none',
+                        boxShadow: 'inset 0 0 20px rgba(99,102,241,0.04)',
+                      }}
+                    >
+                      <pre className="text-xs text-gray-800 whitespace-pre-wrap leading-6 font-sans max-h-[60vh] overflow-y-auto">
+                        {record.analysis}
+                      </pre>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Standalone Quick Analysis History Card ──────────────────────────────────
+function QuickAnalysisHistoryCard() {
+  const [records, setRecords] = useState<QuickAnalysisRecord[]>([]);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRecords(loadQAHistory());
+  }, []);
+
+  const deleteRecord = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const updated = records.filter(r => r.id !== id);
+    localStorage.setItem(QA_HISTORY_KEY, JSON.stringify(updated));
+    setRecords(updated);
+    if (expandedId === id) setExpandedId(null);
+  };
+
+  if (records.length === 0) return null;
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      {/* Header */}
+      <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+          <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Báo Cáo Phân Tích Nhanh
+        </h2>
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700">
+          {records.length} báo cáo
+        </span>
+      </div>
+
+      {/* Records list */}
+      <div className="divide-y divide-gray-100">
+        {records.map((record) => (
+          <div key={record.id}>
+            {/* Row header — click to expand */}
+            <button
+              className="w-full flex items-start justify-between px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+              onClick={() => setExpandedId(expandedId === record.id ? null : record.id)}
+            >
+              <div className="min-w-0 flex-1 pr-4">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                    style={{
+                      background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+                      color: 'white',
+                    }}
+                  >
+                    {record.targetCareer}
+                  </span>
+                  <span className="text-xs text-gray-400">
+                    {new Date(record.createdAt).toLocaleDateString('vi-VN', {
+                      day: '2-digit', month: '2-digit', year: 'numeric',
+                      hour: '2-digit', minute: '2-digit',
+                    })}
+                  </span>
+                </div>
+                {expandedId !== record.id && (
+                  <p className="text-xs text-gray-500 truncate">{record.descriptionSnippet}</p>
+                )}
+              </div>
+
+              <div className="flex items-center gap-1 flex-shrink-0 mt-0.5">
+                {/* Copy button */}
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(record.analysis);
+                  }}
+                  onKeyDown={(e) => e.key === 'Enter' && navigator.clipboard.writeText(record.analysis)}
+                  className="p-1.5 rounded hover:bg-indigo-100 text-indigo-500 hover:text-indigo-700 transition-colors"
+                  title="Sao chép báo cáo"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </span>
+                {/* Delete button */}
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => deleteRecord(record.id, e)}
+                  onKeyDown={(e) => e.key === 'Enter' && deleteRecord(record.id, e as any)}
+                  className="p-1.5 rounded hover:bg-red-100 text-gray-400 hover:text-red-500 transition-colors"
+                  title="Xóa báo cáo này"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </span>
+                {/* Chevron */}
+                <svg
+                  className={`w-4 h-4 text-gray-400 transition-transform ml-1 ${expandedId === record.id ? 'rotate-180' : ''}`}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </button>
+
+            {/* Expanded full report */}
+            {expandedId === record.id && (
+              <div className="px-6 pb-5">
+                <div
+                  className="rounded-xl p-4 max-h-[65vh] overflow-y-auto"
+                  style={{
+                    background: 'linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) border-box',
+                    border: '1.5px solid transparent',
+                    boxShadow: '0 0 24px rgba(99,102,241,0.14), 0 0 8px rgba(168,85,247,0.08)',
+                  }}
+                >
+                  <pre className="text-xs text-gray-800 whitespace-pre-wrap leading-6 font-sans">
+                    {record.analysis}
+                  </pre>
+                </div>
+                <p className="text-xs text-gray-400 mt-2 text-center">
+                  Được tạo ngày {new Date(record.createdAt).toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                </p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -128,6 +629,9 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Quick Analysis Box */}
+      <QuickAnalysisBox />
 
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -261,6 +765,9 @@ export default function Dashboard() {
               </div>
             )}
           </div>
+
+          {/* Quick Analysis History */}
+          <QuickAnalysisHistoryCard />
         </div>
 
         {/* Right Column - Sidebar Cards */}

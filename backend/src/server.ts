@@ -6,6 +6,7 @@ import interviewRoutes from './routes/interview.routes';
 import resultsRoutes from './routes/results.routes';
 import careersRoutes from './routes/careers.routes';
 import profileRoutes from './routes/profile.routes';
+import quickAnalysisRoutes from './routes/quickAnalysis.routes';
 
 // Validate configuration
 try {
@@ -50,6 +51,7 @@ app.use('/api/interviews', interviewRoutes);
 app.use('/api/results', resultsRoutes);
 app.use('/api/careers', careersRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/quick-analysis', quickAnalysisRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

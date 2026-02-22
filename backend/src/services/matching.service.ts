@@ -18,6 +18,7 @@ interface CareerMatch {
   roadmap: string;
   // Enhanced details
   detailedAnalysis: string; // 6-10 paragraphs in-depth analysis
+  fullStructuredAnalysis: string; // Full PHẦN I-VI structured analysis report (deep only)
   careerPattern: {
     progression: string; // Career progression path
     dailyResponsibilities: string; // Day-to-day work by level
@@ -567,6 +568,7 @@ export async function generateMatches(interviewId: string): Promise<MatchingResu
         growthAreas: explanation.growthAreas,
         roadmap: explanation.roadmap,
         detailedAnalysis: explanation.detailedAnalysis,
+        fullStructuredAnalysis: explanation.fullStructuredAnalysis,
         careerPattern: explanation.careerPattern,
         salaryInfo: explanation.salaryInfo,
         skillStack: explanation.skillStack,
@@ -635,7 +637,7 @@ function getConfidenceLevel(
  */
 async function generateCareerExplanation(
   career: any,
-  answers: any,
+  _answers: any,
   userContext: string,
   fitScore: number,
   interviewType: string
@@ -645,6 +647,7 @@ async function generateCareerExplanation(
   growthAreas: string[];
   roadmap: string;
   detailedAnalysis: string;
+  fullStructuredAnalysis: string;
   careerPattern: {
     progression: string;
     dailyResponsibilities: string;
@@ -840,6 +843,255 @@ IMPORTANT:
     const personalizedResult = JSON.parse(personalizedCompletion.choices[0].message.content || '{}');
     console.log(`    ✅ [${personalizedModel}] Generated personalized analysis for: ${career.name}`);
 
+    // ─── LAYER 3: Generate full PHẦN I-VI structured analysis (deep interviews only) ───
+    let fullStructuredAnalysis = '';
+    const isDeep = interviewType === 'deep' || interviewType === 'lite_upgraded';
+    if (isDeep) {
+      console.log(`    📋 [${ANALYSIS_MODEL}] Generating full structured analysis (PHẦN I-VI) for: ${career.name}`);
+
+      const structuredAnalysisPrompt = `Bạn là chuyên gia tư vấn nghề nghiệp hàng đầu với chuyên môn sâu về thị trường lao động Việt Nam, khu vực Đông Nam Á và xu hướng toàn cầu.
+
+## HỒ SƠ NGƯỜI DÙNG (từ bài đánh giá nghề nghiệp):
+${userContext}
+
+## NGHỀ NGHIỆP MỤC TIÊU: "${career.name}" (${career.vietnameseName})
+Lĩnh vực: ${career.category || 'general'}
+Mô tả: ${career.description}
+Điểm Fit Score tổng thể: ${Math.round(fitScore)}%
+
+## NHIỆM VỤ
+Tạo một báo cáo phân tích career fit toàn diện theo đúng cấu trúc sau. Mỗi phần phải cực kỳ cụ thể — mọi điểm số và nhận định đều phải dựa trên dữ liệu thực tế từ bài đánh giá của người dùng, KHÔNG viết chung chung.
+
+Viết bằng tiếng Việt (dùng tiếng Anh cho thuật ngữ kỹ thuật, tên công ty, từ viết tắt).
+Sử dụng ký hiệu cây (├─ └─ │) cho các phân tích chi tiết.
+
+---
+
+PHÂN TÍCH CAREER FIT: HỒ SƠ NGƯỜI DÙNG → ${career.name.toUpperCase()}
+[Viết 2-3 câu giới thiệu cá nhân hóa, nêu rõ điểm nổi bật và thách thức chính của trường hợp này]
+
+PHẦN I: INPUT ANALYSIS (CÁI BẠN CÓ)
+
+A. PERSONAL ATTRIBUTES: [X.X/10]
+A1. TÍNH CÁCH & ĐẶC ĐIỂM CÁ NHÂN ([điểm]/10)
+[Phân tích chi tiết phong cách làm việc dựa trên dữ liệu đánh giá. Sử dụng ký hiệu cây. Bao gồm:
+- Phong cách giải quyết vấn đề của họ
+- Các hoạt động tạo năng lượng
+- Lĩnh vực quan tâm
+- Tolerance với sự mơ hồ và áp lực
+- Điểm extraversion, conscientiousness, adaptability, stress_tolerance, EQ từ profile
+- Điểm mạnh cho nghề này
+- Thách thức tiềm ẩn
+- FIT FOR THIS CAREER: X/10]
+
+A2. TÀI NĂNG TỰ NHIÊN ([điểm]/10)
+[Phân tích chi tiết. Bao gồm:
+- Điểm analytical_thinking, creativity, communication từ profile
+- Phong cách học tập (learning style từ đánh giá)
+- Sở thích định lượng vs định tính
+- Khả năng chuyển đổi kỹ năng sang nghề này]
+
+A3. ĐỊNH GIÁ TRỊ CỐT LÕI ([điểm]/10)
+[Phân tích chi tiết. Bao gồm:
+- Điểm work_life_balance của họ vs yêu cầu nghề
+- Định hướng impact vs money
+- Stability vs growth preference
+- Môi trường làm việc ưa thích]
+
+SCORING A: (A1 × 0.40) + (A2 × 0.35) + (A3 × 0.25) = X.X/10
+VERDICT: [2 câu tổng kết]
+
+B. PROFESSIONAL CAPABILITIES: [X.X/10]
+B1. KIẾN THỨC CHUYÊN MÔN ([điểm]/10)
+[Map kiến thức hiện tại → yêu cầu nghề. Bao gồm:
+- Lĩnh vực mạnh (dựa trên interest areas và background)
+- Khoảng trống quan trọng cần lấp đầy
+- Mức độ phù hợp tổng thể]
+
+B2. BỘ KỸ NĂNG ([điểm]/10)
+[Bao gồm:
+- Hard skills hiện có vs cần có
+- Soft skills (dựa trên profile scores)
+- Công cụ/kỹ thuật cần học]
+
+B3. CHẤT LƯỢNG KINH NGHIỆM ([điểm]/10)
+[Dựa trên experience level từ đánh giá:
+- Kinh nghiệm hiện tại
+- Khoảng trống kinh nghiệm
+- Tiềm năng phát triển]
+
+SCORING B: (B1 × 0.30) + (B2 × 0.40) + (B3 × 0.30) = X.X/10
+VERDICT: [2 câu tổng kết — thành thật về khoảng trống]
+
+C. VỐN XÃ HỘI: [X.X/10]
+C1. CHẤT LƯỢNG & QUY MÔ MẠNG LƯỚI ([điểm]/10)
+[Dựa trên background và lĩnh vực của họ]
+
+C2. TIỀM NĂNG REFERRAL ([điểm]/10)
+[Khả năng tiếp cận cơ hội thông qua mạng lưới]
+
+C3. DANH TIẾNG & THƯƠNG HIỆU CÁ NHÂN ([điểm]/10)
+[Dựa trên học vấn, kinh nghiệm, thành tích]
+
+SCORING C: (C1 × 0.35) + (C2 × 0.35) + (C3 × 0.30) = X.X/10
+VERDICT: [2 câu tổng kết]
+
+D. ĐỊNH VỊ THỊ TRƯỜNG: [X.X/10]
+D1. KỸ NĂNG PHỎNG VẤN ([điểm]/10)
+[Dựa trên communication skills và mức độ chuẩn bị]
+
+D2. CHIẾN LƯỢC TÌM VIỆC ([điểm]/10)
+[Cách tiếp cận và thực thi tìm kiếm cơ hội]
+
+D3. THỜI ĐIỂM THỊ TRƯỜNG ([điểm]/10)
+[Điều kiện thị trường Vietnam 2025-2026 cho nghề này]
+
+SCORING D: (D1 × 0.40) + (D2 × 0.40) + (D3 × 0.20) = X.X/10
+VERDICT: [2 câu tổng kết]
+
+TỔNG ĐIỂM INPUT
+INPUT = (A × 0.25) + (B × 0.35) + (C × 0.20) + (D × 0.20) = X.X/10 → XX/100
+
+PHẦN II: OUTPUT ANALYSIS (CÔNG VIỆC MANG LẠI GÌ)
+
+E. PHÙ HỢP BẢN CHẤT CÔNG VIỆC: [X.X/10]
+E1. PHÙ HỢP NỘI DUNG CÔNG VIỆC ([điểm]/10)
+[Công việc hàng ngày của nghề này vs hoạt động tạo năng lượng của họ]
+
+E2. PHÙ HỢP TRÁCH NHIỆM ([điểm]/10)
+[Phạm vi, trách nhiệm và khối lượng công việc vs profile của họ]
+
+E3. LỘ TRÌNH PHÁT TRIỂN ([điểm]/10)
+[Cơ hội thăng tiến vs khát vọng phát triển của họ]
+
+SCORING E: (E1 × 0.40) + (E2 × 0.30) + (E3 × 0.30) = X.X/10
+
+F. PHÙ HỢP MÔI TRƯỜNG LÀM VIỆC: [X.X/10]
+F1. TƯƠNG THÍCH VĂN HÓA ([điểm]/10)
+[Văn hóa làm việc của nghề vs phong cách cộng tác và giá trị của họ]
+
+F2. ĐỘNG LỰC NHÓM ([điểm]/10)
+[Cấu trúc nhóm vs sở thích cộng tác]
+
+F3. BỐ TRÍ CÔNG VIỆC ([điểm]/10)
+[Lịch làm việc, địa điểm, linh hoạt vs sở thích của họ]
+
+SCORING F: (F1 × 0.40) + (F2 × 0.35) + (F3 × 0.25) = X.X/10
+
+G. PHÙ HỢP THU NHẬP: [X.X/10]
+G1. LƯƠNG CƠ BẢN ([điểm]/10)
+[Mức lương thị trường Vietnam cho nghề này — số cụ thể]
+
+G2. TỔNG THU NHẬP ([điểm]/10)
+[Toàn bộ gói đãi ngộ bao gồm thưởng, phúc lợi, tiềm năng tăng trưởng]
+
+G3. AN TOÀN TÀI CHÍNH ([điểm]/10)
+[Ổn định việc làm, sức khỏe doanh nghiệp, bền vững nghề nghiệp]
+
+SCORING G: (G1 × 0.35) + (G2 × 0.40) + (G3 × 0.25) = X.X/10
+
+H. PHÙ HỢP NGÀNH & VAI TRÒ: [X.X/10]
+H1. PHÙ HỢP NGÀNH ([điểm]/10)
+H2. PHÙ HỢP VAI TRÒ ([điểm]/10)
+H3. NHU CẦU THỊ TRƯỜNG ([điểm]/10)
+[Supply/demand tại Vietnam cho vai trò này 2025-2026]
+
+SCORING H: (H1 × 0.35) + (H2 × 0.35) + (H3 × 0.30) = X.X/10
+
+I. PHÙ HỢP CÔNG TY & ĐỊA ĐIỂM: [X.X/10]
+I1. ĐÁNH GIÁ CÔNG TY ([điểm]/10)
+[Loại công ty tuyển dụng cho nghề này tại Vietnam — nêu tên cụ thể]
+
+I2. ĐỊA ĐIỂM ([điểm]/10)
+[Cân nhắc địa lý tại Vietnam — Hà Nội/TP.HCM/các tỉnh]
+
+I3. GIÁ TRỊ THƯƠNG HIỆU ([điểm]/10)
+[Giá trị uy tín/học hỏi/mạng lưới của lộ trình nghề nghiệp này]
+
+SCORING I: (I1 × 0.45) + (I2 × 0.30) + (I3 × 0.25) = X.X/10
+
+TỔNG ĐIỂM OUTPUT
+OUTPUT = (E × 0.30) + (F × 0.25) + (G × 0.25) + (H × 0.10) + (I × 0.10) = X.X/10 → XX/100
+
+PHẦN III: KẾT QUẢ PHÂN TÍCH CUỐI CÙNG
+
+KIỂM TRA CỬA (Deal-breakers)
+[Liệt kê 5-6 điều kiện tiên quyết với ✓/✗ dựa trên profile người dùng]
+
+BASE FIT SCORE
+PHƯƠNG PHÁP 1 (Nhân): FIT = (INPUT × OUTPUT) / 100 = XX/100
+PHƯƠNG PHÁP 2 (Cộng): FIT = (INPUT × 0.4) + (OUTPUT × 0.6) = XX/100
+PHƯƠNG PHÁP 3 (Hybrid — KHUYẾN NGHỊ):
+BASE = XX
+ĐIỀU CHỈNH:
+[Liệt kê 6-8 yếu tố điều chỉnh + và - cụ thể với %, dựa trên profile người dùng]
+ĐIỂM ĐIỀU CHỈNH = BASE × [hệ số] = XX/100
+
+KHUYẾN NGHỊ CUỐI CÙNG
+╔════════════════════════════════════════╗
+║  QUYẾT ĐỊNH: [STRONG YES / YES / MAYBE / NO]  ║
+║  [Tên nghề] = [MỨC ĐỘ THEO ĐUỔI]      ║
+╚════════════════════════════════════════╝
+[3-4 câu lý do cụ thể]
+
+XÁC SUẤT THÀNH CÔNG:
+- Không chuẩn bị: XX-XX%
+- Sau 3-6 tháng chuẩn bị: XX-XX%
+- Sau 12 tháng chuẩn bị đầy đủ: XX-XX%
+
+PHẦN IV: KẾ HOẠCH HÀNH ĐỘNG [X] THÁNG
+
+[Kế hoạch chi tiết từng tháng, cực kỳ cụ thể với khoảng trống của người dùng này và yêu cầu của nghề này. Đề cập tên thật: công ty Vietnam tuyển dụng, khóa học/nền tảng cụ thể, sách, tổ chức liên quan]
+
+THÁNG 1-2: XÂY DỰNG NỀN TẢNG
+[Hành động cụ thể theo tuần: tài nguyên, khóa học, mục tiêu]
+
+THÁNG 3-4: CHUẨN BỊ CỐT LÕI
+[Hành động cụ thể: kỹ năng chuyên sâu, thực hành, xây dựng portfolio]
+
+THÁNG 5-6: ỨNG TUYỂN & THỰC THI
+[Hành động cụ thể: CV, mạng lưới, phỏng vấn, nộp hồ sơ]
+
+PHẦN V: QUẢN LÝ RỦI RO & CÁC PHƯƠNG ÁN DỰ PHÒNG
+
+KỊCH BẢN A: Kế hoạch chính thành công
+[Lộ trình cụ thể sau khi vào được nghề]
+
+KỊCH BẢN B: Kế hoạch chính thất bại (không được nhận)
+[Hành động tiếp theo và lộ trình thay thế]
+
+KỊCH BẢN C: Các nghề nghiệp thay thế
+[2-3 nghề thay thế cụ thể với lý do tại sao phù hợp với profile người dùng]
+
+---
+HƯỚNG DẪN QUAN TRỌNG:
+- Mọi điểm số phải được giải thích bằng dữ liệu cụ thể từ đánh giá (extraversion=${Math.round(fitScore)}, openness, stress_tolerance, v.v.)
+- Sử dụng ký hiệu cây (├─ └─ │) cho các phân tích có nhiều mục
+- Nêu tên công ty thực tế tại Vietnam, khóa học thực tế, mức lương thực tế
+- Thành thật tuyệt đối về khoảng trống — KHÔNG làm dịu nhẹ điểm yếu
+- Kế hoạch hành động phải đặc thù cho khoảng trống của người này và nghề này
+- Viết phân tích toàn diện, chuyên sâu — không phiến diện`;
+
+      const structuredCompletion = await openai.chat.completions.create({
+        model: ANALYSIS_MODEL,
+        messages: [
+          {
+            role: 'system',
+            content: 'Bạn là chuyên gia tư vấn nghề nghiệp hàng đầu. Bạn tổng hợp dữ liệu đánh giá để tạo ra báo cáo phân tích career fit toàn diện, có cấu trúc, dựa trên bằng chứng. Mọi điểm số và nhận định phải được minh chứng bằng dữ liệu thực tế từ hồ sơ người dùng. Thành thật về cả điểm mạnh lẫn khoảng trống.',
+          },
+          {
+            role: 'user',
+            content: structuredAnalysisPrompt,
+          },
+        ],
+        temperature: 0.7,
+        max_tokens: 8000,
+      });
+
+      fullStructuredAnalysis = structuredCompletion.choices[0].message.content || '';
+      console.log(`    ✅ [${ANALYSIS_MODEL}] Generated full structured analysis for: ${career.name} (${fullStructuredAnalysis.length} chars)`);
+    }
+
     // Merge: personalized parts from fast model + static parts from premium cache
     const analysisData = {
       explanation: personalizedResult.explanation || `Based on your profile, ${career.name} is a match with a ${Math.round(fitScore)}% fit score.`,
@@ -847,6 +1099,7 @@ IMPORTANT:
       strengths: personalizedResult.strengths || ['Alignment with core competencies', 'Compatible work style', 'Values match'],
       growthAreas: personalizedResult.growthAreas || ['Build domain expertise', 'Expand professional network'],
       roadmap: personalizedResult.roadmap || 'Focus on building relevant skills and gaining experience.',
+      fullStructuredAnalysis,
       careerPattern: staticCache.careerPattern,
       salaryInfo: staticCache.salaryInfo,
       skillStack: staticCache.skillStack,
@@ -859,6 +1112,7 @@ IMPORTANT:
     return {
       explanation: `Based on your profile, ${career.name} is a match with a ${Math.round(fitScore)}% fit score.`,
       detailedAnalysis: 'Unable to generate detailed analysis at this time.',
+      fullStructuredAnalysis: '',
       strengths: ['Strong alignment with core competencies', 'Compatible work style preferences', 'Values match the career path'],
       growthAreas: ['Continue developing relevant skills', 'Build industry-specific knowledge'],
       roadmap: '6-month learning plan to be developed.',

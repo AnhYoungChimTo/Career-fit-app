@@ -133,6 +133,7 @@ export interface CareerMatch {
   roadmap: string;
   // Enhanced detailed information
   detailedAnalysis: string; // 6-10 paragraphs in-depth analysis
+  fullStructuredAnalysis?: string; // Full PHẦN I-VI structured analysis report (deep only)
   careerPattern: {
     progression: string; // Career progression path
     dailyResponsibilities: string; // Day-to-day work by level
