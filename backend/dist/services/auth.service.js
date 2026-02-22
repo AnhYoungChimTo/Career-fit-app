@@ -2,8 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerUser = registerUser;
 exports.loginUser = loginUser;
+exports.getSecurityQuestion = getSecurityQuestion;
+exports.verifySecurityAnswer = verifySecurityAnswer;
 exports.resetPassword = resetPassword;
 exports.getUserById = getUserById;
+exports.changePassword = changePassword;
+exports.updateUserProfile = updateUserProfile;
 const client_1 = require("@prisma/client");
 const bcrypt_1 = require("../utils/bcrypt");
 const jwt_1 = require("../utils/jwt");
@@ -94,6 +98,37 @@ async function loginUser(data) {
     return { user: userDTO, token };
 }
 /**
+ * Get security question by email
+ */
+async function getSecurityQuestion(email) {
+    // Find user
+    const user = await prisma.user.findUnique({
+        where: { email },
+    });
+    if (!user) {
+        throw new Error('User not found');
+    }
+    return { securityQuestion: user.securityQuestion };
+}
+/**
+ * Verify security answer
+ */
+async function verifySecurityAnswer(email, securityAnswer) {
+    // Find user
+    const user = await prisma.user.findUnique({
+        where: { email },
+    });
+    if (!user) {
+        throw new Error('User not found');
+    }
+    // Verify security answer
+    const isAnswerValid = await (0, bcrypt_1.compareSecurityAnswer)(securityAnswer, user.securityAnswerHash);
+    if (!isAnswerValid) {
+        throw new Error('Incorrect security answer');
+    }
+    return { verified: true };
+}
+/**
  * Reset password using security question
  */
 async function resetPassword(data) {
@@ -144,5 +179,69 @@ async function getUserById(userId) {
         email: user.email,
         name: user.name,
         createdAt: user.createdAt,
+        headline: user.headline,
+        location: user.location,
+        phoneNumber: user.phoneNumber,
+        linkedinUrl: user.linkedinUrl,
+        about: user.about,
+        currentRole: user.currentRole,
+        currentCompany: user.currentCompany,
+    };
+}
+/**
+ * Change user password
+ */
+async function changePassword(userId, currentPassword, newPassword) {
+    // Find user
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+    });
+    if (!user) {
+        throw new Error('User not found');
+    }
+    // Verify current password
+    const isPasswordValid = await (0, bcrypt_1.comparePassword)(currentPassword, user.passwordHash);
+    if (!isPasswordValid) {
+        throw new Error('Current password is incorrect');
+    }
+    // Validate new password
+    if (newPassword.length < 8) {
+        throw new Error('Password must be at least 8 characters long');
+    }
+    if (!/\d/.test(newPassword)) {
+        throw new Error('Password must contain at least one number');
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
+        throw new Error('Password must contain at least one special character');
+    }
+    // Hash new password
+    const newPasswordHash = await (0, bcrypt_1.hashPassword)(newPassword);
+    // Update password
+    await prisma.user.update({
+        where: { id: userId },
+        data: { passwordHash: newPasswordHash },
+    });
+    return { message: 'Password changed successfully' };
+}
+/**
+ * Update user profile
+ */
+async function updateUserProfile(userId, updates) {
+    const user = await prisma.user.update({
+        where: { id: userId },
+        data: updates,
+    });
+    return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        createdAt: user.createdAt,
+        headline: user.headline,
+        location: user.location,
+        phoneNumber: user.phoneNumber,
+        linkedinUrl: user.linkedinUrl,
+        about: user.about,
+        currentRole: user.currentRole,
+        currentCompany: user.currentCompany,
     };
 }

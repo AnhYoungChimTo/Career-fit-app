@@ -34,52 +34,10 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const authController = __importStar(require("../controllers/auth.controller"));
 const auth_middleware_1 = require("../middleware/auth.middleware");
+const resultsController = __importStar(require("../controllers/results.controller"));
 const router = (0, express_1.Router)();
-/**
- * POST /api/auth/register
- * Register a new user
- */
-router.post('/register', authController.register);
-/**
- * POST /api/auth/login
- * Login user
- */
-router.post('/login', authController.login);
-/**
- * GET /api/auth/security-question
- * Get security question by email
- */
-router.get('/security-question', authController.getSecurityQuestion);
-/**
- * POST /api/auth/verify-security-answer
- * Verify security answer before password reset
- */
-router.post('/verify-security-answer', authController.verifySecurityAnswer);
-/**
- * POST /api/auth/reset-password
- * Reset password using security question
- */
-router.post('/reset-password', authController.resetPassword);
-/**
- * GET /api/auth/me
- * Get current user (protected route)
- */
-router.get('/me', auth_middleware_1.authMiddleware, authController.getCurrentUser);
-/**
- * POST /api/auth/change-password
- * Change user password (protected route)
- */
-router.post('/change-password', auth_middleware_1.authMiddleware, authController.changePassword);
-/**
- * PUT /api/auth/profile
- * Update user profile (protected route)
- */
-router.put('/profile', auth_middleware_1.authMiddleware, authController.updateProfile);
-/**
- * POST /api/auth/logout
- * Logout (client-side handles token removal)
- */
-router.post('/logout', authController.logout);
+// Protected routes (require authentication)
+router.get('/:interviewId', auth_middleware_1.authMiddleware, resultsController.getResults);
+router.get('/:interviewId/pdf', auth_middleware_1.authMiddleware, resultsController.downloadPDF);
 exports.default = router;

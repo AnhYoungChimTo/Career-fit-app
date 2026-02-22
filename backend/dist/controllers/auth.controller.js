@@ -35,8 +35,12 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = register;
 exports.login = login;
+exports.getSecurityQuestion = getSecurityQuestion;
+exports.verifySecurityAnswer = verifySecurityAnswer;
 exports.resetPassword = resetPassword;
 exports.getCurrentUser = getCurrentUser;
+exports.changePassword = changePassword;
+exports.updateProfile = updateProfile;
 exports.logout = logout;
 const authService = __importStar(require("../services/auth.service"));
 /**
@@ -108,6 +112,72 @@ async function login(req, res) {
     }
 }
 /**
+ * Get security question by email
+ * GET /api/auth/security-question?email=xxx
+ */
+async function getSecurityQuestion(req, res) {
+    try {
+        const { email } = req.query;
+        if (!email || typeof email !== 'string') {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: 'VALIDATION_ERROR',
+                    message: 'Email is required',
+                },
+            });
+        }
+        const result = await authService.getSecurityQuestion(email);
+        res.status(200).json({
+            success: true,
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(404).json({
+            success: false,
+            error: {
+                code: 'USER_NOT_FOUND',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
+ * Verify security answer
+ * POST /api/auth/verify-security-answer
+ */
+async function verifySecurityAnswer(req, res) {
+    try {
+        const { email, securityAnswer } = req.body;
+        // Validate required fields
+        if (!email || !securityAnswer) {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: 'VALIDATION_ERROR',
+                    message: 'Email and security answer are required',
+                },
+            });
+        }
+        const result = await authService.verifySecurityAnswer(email, securityAnswer);
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: 'Security answer verified',
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            success: false,
+            error: {
+                code: 'VERIFICATION_ERROR',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
  * Reset password using security question
  * POST /api/auth/reset-password
  */
@@ -169,6 +239,70 @@ async function getCurrentUser(req, res) {
             success: false,
             error: {
                 code: 'INTERNAL_ERROR',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
+ * Change password
+ * POST /api/auth/change-password
+ */
+async function changePassword(req, res) {
+    try {
+        const userId = req.userId;
+        const { currentPassword, newPassword } = req.body;
+        // Validate required fields
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: 'VALIDATION_ERROR',
+                    message: 'Current password and new password are required',
+                },
+            });
+        }
+        const result = await authService.changePassword(userId, currentPassword, newPassword);
+        res.status(200).json({
+            success: true,
+            data: result,
+            message: 'Password changed successfully',
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            success: false,
+            error: {
+                code: 'CHANGE_PASSWORD_ERROR',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
+ * Update user profile
+ * PUT /api/auth/profile
+ */
+async function updateProfile(req, res) {
+    try {
+        const userId = req.userId;
+        const updates = req.body;
+        // Remove fields that shouldn't be updated
+        delete updates.email;
+        delete updates.password;
+        delete updates.id;
+        const updatedUser = await authService.updateUserProfile(userId, updates);
+        res.status(200).json({
+            success: true,
+            data: updatedUser,
+            message: 'Profile updated successfully',
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            success: false,
+            error: {
+                code: 'UPDATE_ERROR',
                 message: error.message,
             },
         });

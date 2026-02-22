@@ -43,6 +43,9 @@ exports.getInterviewStatus = getInterviewStatus;
 exports.completeModule = completeModule;
 exports.completeInterview = completeInterview;
 exports.getMyInterviews = getMyInterviews;
+exports.getInterviewModules = getInterviewModules;
+exports.upgradeInterview = upgradeInterview;
+exports.abandonInterview = abandonInterview;
 const interviewService = __importStar(require("../services/interview.service"));
 /**
  * GET /api/interviews/questions/lite
@@ -377,6 +380,125 @@ async function getMyInterviews(req, res) {
             success: false,
             error: {
                 code: 'GET_INTERVIEWS_ERROR',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
+ * GET /api/interviews/:id/modules
+ * Get Deep interview modules with status
+ */
+async function getInterviewModules(req, res) {
+    try {
+        const id = String(req.params.id);
+        const modules = await interviewService.getInterviewModules(id);
+        res.json({
+            success: true,
+            data: modules,
+        });
+    }
+    catch (error) {
+        console.error('Error getting interview modules:', error);
+        if (error.message.includes('not found')) {
+            return res.status(404).json({
+                success: false,
+                error: {
+                    code: 'INTERVIEW_NOT_FOUND',
+                    message: error.message,
+                },
+            });
+        }
+        if (error.message.includes('not a Deep interview')) {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: 'INVALID_INTERVIEW_TYPE',
+                    message: error.message,
+                },
+            });
+        }
+        res.status(500).json({
+            success: false,
+            error: {
+                code: 'GET_MODULES_ERROR',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
+ * POST /api/interviews/:id/upgrade
+ * Upgrade a Lite interview to Deep (lite_upgraded)
+ */
+async function upgradeInterview(req, res) {
+    try {
+        const id = String(req.params.id);
+        const interview = await interviewService.upgradeInterview(id);
+        res.json({
+            success: true,
+            data: interview,
+            message: 'Interview upgraded to Deep successfully',
+        });
+    }
+    catch (error) {
+        console.error('Error upgrading interview:', error);
+        if (error.message.includes('not found')) {
+            return res.status(404).json({
+                success: false,
+                error: {
+                    code: 'INTERVIEW_NOT_FOUND',
+                    message: error.message,
+                },
+            });
+        }
+        if (error.message.includes('Only Lite') || error.message.includes('must be completed')) {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: 'INVALID_UPGRADE',
+                    message: error.message,
+                },
+            });
+        }
+        res.status(500).json({
+            success: false,
+            error: {
+                code: 'UPGRADE_ERROR',
+                message: error.message,
+            },
+        });
+    }
+}
+/**
+ * DELETE /api/interviews/:id/abandon
+ * Abandon an in-progress interview
+ */
+async function abandonInterview(req, res) {
+    try {
+        const id = String(req.params.id);
+        const interview = await interviewService.abandonInterview(id);
+        res.json({
+            success: true,
+            data: interview,
+            message: 'Interview abandoned successfully',
+        });
+    }
+    catch (error) {
+        console.error('Error abandoning interview:', error);
+        if (error.message.includes('not found')) {
+            return res.status(404).json({
+                success: false,
+                error: {
+                    code: 'INTERVIEW_NOT_FOUND',
+                    message: error.message,
+                },
+            });
+        }
+        res.status(500).json({
+            success: false,
+            error: {
+                code: 'ABANDON_ERROR',
                 message: error.message,
             },
         });

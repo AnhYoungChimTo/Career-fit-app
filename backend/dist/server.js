@@ -8,6 +8,9 @@ const cors_1 = __importDefault(require("cors"));
 const config_1 = require("./config");
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const interview_routes_1 = __importDefault(require("./routes/interview.routes"));
+const results_routes_1 = __importDefault(require("./routes/results.routes"));
+const careers_routes_1 = __importDefault(require("./routes/careers.routes"));
+const profile_routes_1 = __importDefault(require("./routes/profile.routes"));
 // Validate configuration
 try {
     (0, config_1.validateConfig)();
@@ -44,8 +47,9 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api/auth', auth_routes_1.default);
 app.use('/api/interviews', interview_routes_1.default);
-// app.use('/api/results', resultsRoutes);
-// app.use('/api/careers', careerRoutes);
+app.use('/api/results', results_routes_1.default);
+app.use('/api/careers', careers_routes_1.default);
+app.use('/api/profile', profile_routes_1.default);
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({
