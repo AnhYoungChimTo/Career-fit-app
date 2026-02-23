@@ -19,8 +19,11 @@ const qaDraftKey   = (uid: string) => `qa_draft_${uid}`;
 function getCurrentUserId(): string {
   try {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.id || 'anonymous';
+    const uid = user.id || 'anonymous';
+    console.log('[QA Debug] getCurrentUserId =>', uid, '| user obj =>', user);
+    return uid;
   } catch {
+    console.log('[QA Debug] getCurrentUserId => anonymous (parse error)');
     return 'anonymous';
   }
 }
@@ -139,7 +142,10 @@ function QuickAnalysisBox() {
   }, [description, targetCareer, analysis, yearsExperience, mbtiType, expectedSalary, primaryBlocker]);
 
   useEffect(() => {
-    setHistory(loadQAHistory(uid));
+    const h = loadQAHistory(uid);
+    console.log('[QA Debug] QuickAnalysisBox uid:', uid, '| history key:', `qa_history_${uid}`, '| records:', h.length);
+    console.log('[QA Debug] All localStorage keys:', Object.keys(localStorage).filter(k => k.startsWith('qa_')));
+    setHistory(h);
     // Load usage count from backend
     api.getQuickAnalysisUsage().then((res) => {
       if (res.success && res.data) {
