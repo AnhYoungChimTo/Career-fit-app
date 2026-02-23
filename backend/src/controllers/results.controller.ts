@@ -14,6 +14,27 @@ const prisma = new PrismaClient();
 export async function getResults(req: Request, res: Response) {
   try {
     const interviewId = String(req.params.interviewId);
+    const userId = (req as any).userId; // From auth middleware
+
+    // Verify interview ownership before returning results
+    const interview = await prisma.interview.findUnique({
+      where: { id: interviewId },
+      select: { userId: true },
+    });
+
+    if (!interview) {
+      return res.status(404).json({
+        success: false,
+        error: { code: 'INTERVIEW_NOT_FOUND', message: 'Interview not found' },
+      });
+    }
+
+    if (interview.userId !== userId) {
+      return res.status(403).json({
+        success: false,
+        error: { code: 'FORBIDDEN', message: 'You do not have access to this interview' },
+      });
+    }
 
     // Step 1: Check if results already exist in the database (cached from first generation)
     const existingResult = await prisma.result.findFirst({

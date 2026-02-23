@@ -515,6 +515,50 @@ export default function JobLibrary() {
                 </div>
               </div>
 
+              {/* Full Job Description (cachedAnalysis) */}
+              {selectedCareer.cachedAnalysis && (
+                <div className="mt-6 border-t border-gray-200 pt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                    </svg>
+                    Full Job Description
+                  </h3>
+                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    {typeof selectedCareer.cachedAnalysis === 'string' ? (
+                      <pre className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed font-mono overflow-x-auto">
+                        {selectedCareer.cachedAnalysis}
+                      </pre>
+                    ) : (
+                      <div className="space-y-3 text-sm text-gray-700">
+                        {selectedCareer.cachedAnalysis.detailedAnalysis && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-1">Detailed Analysis</h4>
+                            <p className="whitespace-pre-line leading-relaxed">{selectedCareer.cachedAnalysis.detailedAnalysis}</p>
+                          </div>
+                        )}
+                        {selectedCareer.cachedAnalysis.careerPattern && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-1">Career Pattern</h4>
+                            <p className="whitespace-pre-line leading-relaxed">{selectedCareer.cachedAnalysis.careerPattern.progression}</p>
+                          </div>
+                        )}
+                        {selectedCareer.cachedAnalysis.skillStack && selectedCareer.cachedAnalysis.skillStack.length > 0 && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-1">Key Skills</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedCareer.cachedAnalysis.skillStack.map((skill: string, i: number) => (
+                                <span key={i} className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded text-xs font-medium">{skill}</span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={() => {

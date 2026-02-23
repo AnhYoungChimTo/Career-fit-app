@@ -180,6 +180,7 @@ export interface Career {
   category: string;
   experienceLevel: string;
   requirements: any;
+  cachedAnalysis?: any;
   createdAt: string;
   updatedAt: string;
 }

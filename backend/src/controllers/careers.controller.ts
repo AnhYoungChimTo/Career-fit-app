@@ -188,6 +188,7 @@ export const getAllCareers = async (req: Request, res: Response) => {
         category: getCategory(),
         experienceLevel: inferExperienceLevel(),
         requirements: career.requirements,
+        cachedAnalysis: career.cachedAnalysis ?? null,
         createdAt: career.createdAt,
         updatedAt: career.updatedAt,
       };
