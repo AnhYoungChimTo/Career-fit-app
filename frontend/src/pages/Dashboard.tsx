@@ -12,8 +12,18 @@ interface QuickAnalysisRecord {
   createdAt: string; // ISO string
 }
 
-const QA_HISTORY_KEY = 'qa_history';
-const QA_DRAFT_KEY = 'qa_draft';
+const qaHistoryKey = (uid: string) => `qa_history_${uid}`;
+const qaDraftKey   = (uid: string) => `qa_draft_${uid}`;
+
+// Get current userId from localStorage (set by auth)
+function getCurrentUserId(): string {
+  try {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.id || 'anonymous';
+  } catch {
+    return 'anonymous';
+  }
+}
 
 interface QADraft {
   description: string;
@@ -25,9 +35,9 @@ interface QADraft {
   primaryBlocker?: string;
 }
 
-function loadQADraft(): QADraft {
+function loadQADraft(uid: string): QADraft {
   try {
-    const raw = localStorage.getItem(QA_DRAFT_KEY);
+    const raw = localStorage.getItem(qaDraftKey(uid));
     return raw ? JSON.parse(raw) : { description: '', targetCareer: '', analysis: '' };
   } catch {
     return { description: '', targetCareer: '', analysis: '' };
@@ -35,31 +45,32 @@ function loadQADraft(): QADraft {
 }
 
 function saveQADraft(
+  uid: string,
   description: string,
   targetCareer: string,
   analysis: string,
   structured?: { yearsExperience: string; mbtiType: string; expectedSalary: string; primaryBlocker: string }
 ) {
-  localStorage.setItem(QA_DRAFT_KEY, JSON.stringify({ description, targetCareer, analysis, ...structured }));
+  localStorage.setItem(qaDraftKey(uid), JSON.stringify({ description, targetCareer, analysis, ...structured }));
 }
 
-function clearQADraft() {
-  localStorage.removeItem(QA_DRAFT_KEY);
+function clearQADraft(uid: string) {
+  localStorage.removeItem(qaDraftKey(uid));
 }
 
-function loadQAHistory(): QuickAnalysisRecord[] {
+function loadQAHistory(uid: string): QuickAnalysisRecord[] {
   try {
-    const raw = localStorage.getItem(QA_HISTORY_KEY);
+    const raw = localStorage.getItem(qaHistoryKey(uid));
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
   }
 }
 
-function saveQARecord(record: QuickAnalysisRecord) {
-  const existing = loadQAHistory();
+function saveQARecord(uid: string, record: QuickAnalysisRecord) {
+  const existing = loadQAHistory(uid);
   const updated = [record, ...existing].slice(0, 10);
-  localStorage.setItem(QA_HISTORY_KEY, JSON.stringify(updated));
+  localStorage.setItem(qaHistoryKey(uid), JSON.stringify(updated));
 }
 
 // ─── Suggestion chip data ───────────────────────────────────────────────────
@@ -105,7 +116,8 @@ const SUGGESTION_GROUPS = [
 
 // ─── Quick Analysis Component ────────────────────────────────────────────────
 function QuickAnalysisBox() {
-  const draft = loadQADraft();
+  const uid = getCurrentUserId();
+  const draft = loadQADraft(uid);
   const [description, setDescription] = useState(draft.description);
   const [targetCareer, setTargetCareer] = useState(draft.targetCareer);
   const [yearsExperience, setYearsExperience] = useState(draft.yearsExperience ?? '');
@@ -123,11 +135,11 @@ function QuickAnalysisBox() {
 
   // Persist draft to localStorage whenever any field changes
   useEffect(() => {
-    saveQADraft(description, targetCareer, analysis, { yearsExperience, mbtiType, expectedSalary, primaryBlocker });
+    saveQADraft(uid, description, targetCareer, analysis, { yearsExperience, mbtiType, expectedSalary, primaryBlocker });
   }, [description, targetCareer, analysis, yearsExperience, mbtiType, expectedSalary, primaryBlocker]);
 
   useEffect(() => {
-    setHistory(loadQAHistory());
+    setHistory(loadQAHistory(uid));
     // Load usage count from backend
     api.getQuickAnalysisUsage().then((res) => {
       if (res.success && res.data) {
@@ -180,9 +192,9 @@ function QuickAnalysisBox() {
           analysis: response.data.analysis,
           createdAt: new Date().toISOString(),
         };
-        saveQARecord(record);
-        clearQADraft();
-        setHistory(loadQAHistory());
+        saveQARecord(uid, record);
+        clearQADraft(uid);
+        setHistory(loadQAHistory(uid));
         setExpandedId(record.id);
         setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
       } else {
@@ -630,17 +642,18 @@ function QuickAnalysisBox() {
 
 // ─── Standalone Quick Analysis History Card ──────────────────────────────────
 function QuickAnalysisHistoryCard() {
+  const uid = getCurrentUserId();
   const [records, setRecords] = useState<QuickAnalysisRecord[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
-    setRecords(loadQAHistory());
+    setRecords(loadQAHistory(uid));
   }, []);
 
   const deleteRecord = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     const updated = records.filter(r => r.id !== id);
-    localStorage.setItem(QA_HISTORY_KEY, JSON.stringify(updated));
+    localStorage.setItem(qaHistoryKey(uid), JSON.stringify(updated));
     setRecords(updated);
     if (expandedId === id) setExpandedId(null);
   };
