@@ -20,8 +20,15 @@ try {
 const app: Express = express();
 
 // Middleware
+const allowedOrigins = config.corsOrigin.split(',').map((o: string) => o.trim());
 app.use(cors({
-  origin: config.corsOrigin,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
