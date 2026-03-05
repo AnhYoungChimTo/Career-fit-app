@@ -74,9 +74,7 @@ function App() {
             path="/job-library"
             element={
               <ProtectedRoute>
-                <DashboardLayout>
-                  <JobLibrary />
-                </DashboardLayout>
+                <JobLibrary />
               </ProtectedRoute>
             }
           />
