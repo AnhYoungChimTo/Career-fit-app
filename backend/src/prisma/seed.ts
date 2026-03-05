@@ -3,6 +3,7 @@ import { seedMarketingCareers } from '../../prisma/seeds/marketing-careers.seed'
 import { seedInternationalRelationsCareers } from '../../prisma/seeds/international-relations-careers.seed';
 import { seedFinanceCareers } from '../../prisma/seeds/finance-careers.seed';
 import { seedLawCareers } from '../../prisma/seeds/law-careers.seed';
+import { seedSalesCareers } from '../../prisma/seeds/sales-careers.seed';
 
 const prisma = new PrismaClient();
 
@@ -38,6 +39,12 @@ async function main() {
   // Seed law & legal careers
   console.log('⚖️ Seeding Law & Legal Careers...');
   await seedLawCareers();
+
+  console.log('');
+
+  // Seed sales careers
+  console.log('💼 Seeding Sales Careers...');
+  await seedSalesCareers();
 
   console.log('');
   console.log('🎉 Database seed completed!');
