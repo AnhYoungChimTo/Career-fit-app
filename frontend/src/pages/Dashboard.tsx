@@ -861,6 +861,23 @@ export default function Dashboard() {
         </div>
       )}
 
+      {/* Mentor Feature Banner */}
+      <div className="mb-8 rounded-2xl overflow-hidden flex flex-col sm:flex-row items-center gap-6 p-6" style={{ background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%)' }}>
+        <div className="text-4xl flex-shrink-0">🎯</div>
+        <div className="flex-1 text-white">
+          <p className="text-lg font-bold mb-1" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>Connect with a Finance & Business Mentor</p>
+          <p className="text-sm opacity-90">Get personalized guidance from verified ex-IB, CFA, VC/PE professionals. Browse mentors or become one yourself.</p>
+        </div>
+        <div className="flex gap-3 flex-shrink-0">
+          <button onClick={() => navigate('/mentors')} className="px-4 py-2 rounded-xl bg-white text-sm font-semibold" style={{ color: '#FF6B6B' }}>
+            Find a Mentor
+          </button>
+          <button onClick={() => navigate('/mentor/signup')} className="px-4 py-2 rounded-xl text-sm font-semibold text-white border-2 border-white border-opacity-60 hover:bg-white hover:bg-opacity-10 transition-colors">
+            Become a Mentor
+          </button>
+        </div>
+      </div>
+
       {/* Stats Row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
