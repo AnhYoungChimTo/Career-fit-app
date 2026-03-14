@@ -3,8 +3,8 @@ services:
     name: career-fit-backend
     runtime: node
     rootDir: backend
-    buildCommand: npm install --include=dev && npm run build
-    startCommand: npx prisma migrate deploy && npm start
+    buildCommand: cd backend && npm install --include=dev && npm run build
+    startCommand: cd backend && npx prisma migrate deploy && npm start
     envVars:
       - key: NODE_ENV
         value: production
