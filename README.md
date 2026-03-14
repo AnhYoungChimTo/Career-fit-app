@@ -49,7 +49,9 @@ Career Fit Analysis is a full-stack web application that helps users discover th
 **DevOps**
 - Monorepo with npm workspaces
 - Git + GitHub
-- Local development (production deployment TBD)
+- Frontend → **Vercel** (`https://career-fit-app-frontend.vercel.app`)
+- Backend → **Render** (`https://career-fit-app-1.onrender.com`)
+- Database → **Render PostgreSQL**
 
 ### Project Structure
 
@@ -174,6 +176,7 @@ Backend API: http://localhost:3001
 
 ## 📚 Documentation
 
+- [**Deployment & Feature Launch Guide**](./DEPLOYMENT_GUIDE.md) - ⭐ Start here for deploying or adding features
 - [API Documentation](./docs/API.md) - Complete API reference
 - [Setup Guide](./docs/SETUP.md) - Detailed setup instructions
 - [Architecture](./docs/ARCHITECTURE.md) - System design and decisions
@@ -257,32 +260,19 @@ MIT License - see [LICENSE](./LICENSE) file for details
 ## 🗺️ Roadmap
 
 ### Phase 1: Foundation ✅
-- [x] Project setup
-- [x] Database schema
-- [ ] Authentication system
+- [x] Project setup, database schema, authentication
 
-### Phase 2: Interview System (In Progress)
-- [ ] Question bank creation
-- [ ] Lite interview flow
-- [ ] Deep interview flow
-- [ ] Auto-save functionality
+### Phase 2: Interview System ✅
+- [x] Lite & Deep interview flows, auto-save, career matching, results dashboard, PDF reports
 
-### Phase 3: Matching & Results
-- [ ] Career matching algorithm
-- [ ] Results dashboard
-- [ ] Upgrade flow (Lite → Deep)
+### Phase 3: Mentor Feature ✅ (launched 2026-03-13)
+- [x] Mentor signup wizard, lobby, roadmap builder, chat, sessions, reviews, public profiles
 
-### Phase 4: Reports & Polish
-- [ ] PDF generation
-- [ ] Mobile responsiveness
-- [ ] Error handling
-- [ ] User testing
-
-### Future Enhancements
+### Phase 4: Future
 - [ ] Admin dashboard
 - [ ] Email notifications
 - [ ] Vietnamese language support
-- [ ] Advanced analytics
+- [ ] LinkedIn OAuth + Stripe payments (stubs exist)
 
 ---
 
