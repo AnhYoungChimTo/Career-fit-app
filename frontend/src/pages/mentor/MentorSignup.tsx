@@ -201,8 +201,8 @@ export default function MentorSignup() {
       localStorage.removeItem(STORAGE_KEY);
       navigate('/mentor/pending');
     } catch (err: unknown) {
-      const axiosErr = err as { response?: { data?: { message?: string } } };
-      setError(axiosErr?.response?.data?.message || 'Submission failed. Please try again.');
+      const axiosErr = err as { response?: { data?: { message?: string; error?: string } } };
+      setError(axiosErr?.response?.data?.error || axiosErr?.response?.data?.message || 'Submission failed. Please try again.');
     } finally {
       setSubmitting(false);
     }
