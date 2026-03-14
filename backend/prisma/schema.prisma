@@ -10,14 +10,14 @@ datasource db {
 }
 
 model User {
-  id                 String       @id @default(uuid())
-  email              String       @unique
+  id                 String             @id @default(uuid())
+  email              String             @unique
   passwordHash       String
   name               String?
   securityQuestion   String
   securityAnswerHash String
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
   about              String?
   currentCompany     String?
   currentRole        String?
@@ -25,9 +25,16 @@ model User {
   linkedinUrl        String?
   location           String?
   phoneNumber        String?
-  quickAnalysisUsed  Int          @default(0)
+  quickAnalysisUsed  Int                @default(0)
   interviews         Interview[]
   profile            UserProfile?
+  mentor             Mentor?
+  menteeConnections  MentorConnection[]
+  reviewsGiven       Review[]           @relation("ReviewsGiven")
+  reviewsReceived    Review[]           @relation("ReviewsReceived")
+  waitlistEntries    MentorWaitlist[]   @relation("WaitlistEntries")
+  notifications      Notification[]
+  messagesSent       ChatMessage[]      @relation("MessagesSent")
 
   @@index([email])
 }
@@ -178,4 +185,244 @@ model PortfolioItem {
 
   @@index([profileId])
   @@index([type])
+}
+
+// ─────────────────────────────────────────────
+// MENTOR FEATURE MODELS
+// ─────────────────────────────────────────────
+
+model Mentor {
+  id               String                 @id @default(uuid())
+  userId           String                 @unique
+  displayName      String?
+  username         String                 @unique
+  headline         String?
+  aboutMe          String?
+  philosophy       String?
+  industry         String?
+  yearsExperience  Int?
+  sessionPriceUsd  Decimal                @default(0) @db.Decimal(10, 2)
+  freeIntroSession Boolean                @default(false)
+  maxMentees       Int?
+  status           String                 @default("pending")
+  linkedinUrl      String?
+  linkedinVerified Boolean                @default(false)
+  externalMeetUrl  String?
+  isPremium        Boolean                @default(false)
+  adminVerifiedAt  DateTime?
+  primaryLanguage  String                 @default("english")
+  timezone         String?
+  locationCity     String?
+  locationCountry  String?
+  mentorshipStyle  String?
+  supportedGoals   Json                   @default("[]")
+  mentorIndustries Json                   @default("[]")
+  availability     Json                   @default("{}")
+  sessionDuration  Int                    @default(60)
+  bufferTime       Int                    @default(0)
+  advanceBooking   String                 @default("1_week")
+  mentorStatus     String                 @default("active")
+  onboardingDone   Boolean                @default(false)
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+  user             User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentials      MentorCredential[]
+  connections      MentorConnection[]
+  waitlistEntries  MentorWaitlist[]
+  workExperiences  MentorWorkExperience[]
+  educationEntries MentorEducation[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([username])
+}
+
+model MentorCredential {
+  id         String    @id @default(uuid())
+  mentorId   String
+  badgeType  String
+  badgeLabel String
+  status     String    @default("pending")
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+  mentor     Mentor    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+
+  @@index([mentorId])
+}
+
+model MentorWorkExperience {
+  id          String   @id @default(uuid())
+  mentorId    String
+  company     String
+  title       String
+  startDate   String?
+  endDate     String?
+  description String?
+  createdAt   DateTime @default(now())
+  mentor      Mentor   @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+
+  @@index([mentorId])
+}
+
+model MentorEducation {
+  id             String   @id @default(uuid())
+  mentorId       String
+  university     String
+  degree         String
+  graduationYear String?
+  createdAt      DateTime @default(now())
+  mentor         Mentor   @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+
+  @@index([mentorId])
+}
+
+model MentorConnection {
+  id            String          @id @default(uuid())
+  mentorId      String
+  menteeId      String
+  status        String          @default("pending")
+  introMessage  String?
+  initiatedBy   String?
+  declineReason String?
+  acceptedAt    DateTime?
+  endedAt       DateTime?
+  createdAt     DateTime        @default(now())
+  mentor        Mentor          @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee        User            @relation(fields: [menteeId], references: [id], onDelete: Cascade)
+  roadmap       Roadmap?
+  sessions      MentorSession[]
+  chatMessages  ChatMessage[]
+
+  @@unique([mentorId, menteeId])
+  @@index([mentorId])
+  @@index([menteeId])
+  @@index([status])
+}
+
+model Roadmap {
+  id           String             @id @default(uuid())
+  connectionId String             @unique
+  title        String             @default("My Mentorship Roadmap")
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  connection   MentorConnection   @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  milestones   RoadmapMilestone[]
+}
+
+model RoadmapMilestone {
+  id              String    @id @default(uuid())
+  roadmapId       String
+  title           String
+  description     String?
+  category        String    @default("other")
+  phaseLabel      String?
+  dueDate         DateTime?
+  status          String    @default("not_started")
+  mentorConfirmed Boolean   @default(false)
+  menteeConfirmed Boolean   @default(false)
+  sortOrder       Int       @default(0)
+  autoConfirmedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  roadmap         Roadmap   @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+
+  @@index([roadmapId])
+}
+
+model MentorSession {
+  id           String           @id @default(uuid())
+  connectionId String
+  title        String?
+  scheduledAt  DateTime
+  durationMins Int              @default(60)
+  meetingUrl   String?
+  agenda       String?
+  status       String           @default("confirmed")
+  priceUsd     Decimal          @default(0) @db.Decimal(10, 2)
+  platformFee  Decimal?         @db.Decimal(10, 2)
+  netEarnings  Decimal?         @db.Decimal(10, 2)
+  createdAt    DateTime         @default(now())
+  connection   MentorConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  notes        SessionNote?
+  reviews      Review[]
+
+  @@index([connectionId])
+}
+
+model SessionNote {
+  id        String        @id @default(uuid())
+  sessionId String        @unique
+  content   String?
+  updatedBy String?
+  updatedAt DateTime      @updatedAt
+  createdAt DateTime      @default(now())
+  session   MentorSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id           String        @id @default(uuid())
+  sessionId    String
+  reviewerId   String
+  revieweeId   String
+  reviewerRole String
+  rating       Int
+  body         String
+  tags         String[]
+  isPublic     Boolean       @default(true)
+  mentorReply  String?
+  expiresAt    DateTime?
+  createdAt    DateTime      @default(now())
+  session      MentorSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  reviewer     User          @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  reviewee     User          @relation("ReviewsReceived", fields: [revieweeId], references: [id])
+
+  @@unique([sessionId, reviewerId])
+  @@index([revieweeId])
+  @@index([reviewerId])
+}
+
+model MentorWaitlist {
+  id              String    @id @default(uuid())
+  mentorId        String
+  menteeId        String
+  invitedAt       DateTime?
+  inviteExpiresAt DateTime?
+  status          String    @default("waiting")
+  createdAt       DateTime  @default(now())
+  mentor          Mentor    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee          User      @relation("WaitlistEntries", fields: [menteeId], references: [id], onDelete: Cascade)
+
+  @@unique([mentorId, menteeId])
+  @@index([mentorId])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  title     String?
+  body      String?
+  data      Json?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+}
+
+model ChatMessage {
+  id           String           @id @default(uuid())
+  connectionId String
+  senderId     String
+  content      String
+  fileUrl      String?
+  fileType     String?
+  isRead       Boolean          @default(false)
+  createdAt    DateTime         @default(now())
+  connection   MentorConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  sender       User             @relation("MessagesSent", fields: [senderId], references: [id])
+
+  @@index([connectionId])
+  @@index([senderId])
 }

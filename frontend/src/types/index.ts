@@ -214,3 +214,243 @@ export interface ApiResponse<T> {
   };
   message?: string;
 }
+
+// ─────────────────────────────────────────────
+// MENTOR FEATURE TYPES
+// ─────────────────────────────────────────────
+
+export type MentorStatus = 'pending' | 'active' | 'paused' | 'full' | 'on_leave' | 'rejected';
+export type ConnectionStatus = 'pending' | 'active' | 'declined' | 'ended';
+export type MilestoneStatus = 'not_started' | 'in_progress' | 'pending_confirmation' | 'complete';
+export type SessionStatus = 'confirmed' | 'completed' | 'cancelled' | 'no_show';
+export type WaitlistStatus = 'waiting' | 'invited' | 'accepted' | 'expired' | 'removed';
+
+export interface MentorCredential {
+  id: string;
+  mentorId: string;
+  badgeType: 'ex_tier1_bank' | 'cfa_cpa_mba' | 'vc_pe' | 'university' | 'years_exp';
+  badgeLabel: string;
+  status: 'pending' | 'verified' | 'rejected';
+  verifiedAt?: string;
+  createdAt: string;
+}
+
+export interface MentorWorkExperience {
+  id: string;
+  company: string;
+  title: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+}
+
+export interface MentorEducation {
+  id: string;
+  university: string;
+  degree: string;
+  graduationYear?: string;
+}
+
+export interface Mentor {
+  id: string;
+  userId: string;
+  displayName?: string;
+  username: string;
+  headline?: string;
+  aboutMe?: string;
+  philosophy?: string;
+  industry?: string;
+  yearsExperience?: number;
+  sessionPriceUsd: number;
+  freeIntroSession: boolean;
+  maxMentees?: number;
+  status: MentorStatus;
+  linkedinUrl?: string;
+  linkedinVerified: boolean;
+  externalMeetUrl?: string;
+  isPremium: boolean;
+  adminVerifiedAt?: string;
+  primaryLanguage: string;
+  timezone?: string;
+  locationCity?: string;
+  locationCountry?: string;
+  mentorshipStyle?: string;
+  supportedGoals: string[];
+  mentorIndustries: string[];
+  availability: Record<string, boolean>;
+  sessionDuration: number;
+  bufferTime: number;
+  advanceBooking: string;
+  mentorStatus: string;
+  onboardingDone: boolean;
+  createdAt: string;
+  updatedAt: string;
+  // Relations
+  credentials?: MentorCredential[];
+  workExperiences?: MentorWorkExperience[];
+  educationEntries?: MentorEducation[];
+  user?: User;
+  // Computed
+  matchScore?: number;
+  avgRating?: number;
+  totalReviews?: number;
+  totalMentees?: number;
+  totalSessions?: number;
+}
+
+export interface MentorConnection {
+  id: string;
+  mentorId: string;
+  menteeId: string;
+  status: ConnectionStatus;
+  introMessage?: string;
+  initiatedBy?: string;
+  declineReason?: string;
+  acceptedAt?: string;
+  endedAt?: string;
+  createdAt: string;
+  mentor?: Mentor;
+  mentee?: User & { profile?: any };
+  roadmap?: Roadmap;
+}
+
+export interface Roadmap {
+  id: string;
+  connectionId: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  milestones?: RoadmapMilestone[];
+}
+
+export interface RoadmapMilestone {
+  id: string;
+  roadmapId: string;
+  title: string;
+  description?: string;
+  category: 'cv_application' | 'networking' | 'technical' | 'interview' | 'research' | 'other';
+  phaseLabel?: string;
+  dueDate?: string;
+  status: MilestoneStatus;
+  mentorConfirmed: boolean;
+  menteeConfirmed: boolean;
+  sortOrder: number;
+  autoConfirmedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MentorSession {
+  id: string;
+  connectionId: string;
+  title?: string;
+  scheduledAt: string;
+  durationMins: number;
+  meetingUrl?: string;
+  agenda?: string;
+  status: SessionStatus;
+  priceUsd: number;
+  platformFee?: number;
+  netEarnings?: number;
+  createdAt: string;
+  connection?: MentorConnection;
+  notes?: SessionNote;
+}
+
+export interface SessionNote {
+  id: string;
+  sessionId: string;
+  content?: string;
+  updatedBy?: string;
+  updatedAt: string;
+  createdAt: string;
+}
+
+export interface Review {
+  id: string;
+  sessionId: string;
+  reviewerId: string;
+  revieweeId: string;
+  reviewerRole: 'mentor' | 'mentee';
+  rating: number;
+  body: string;
+  tags: string[];
+  isPublic: boolean;
+  mentorReply?: string;
+  expiresAt?: string;
+  createdAt: string;
+  reviewer?: User;
+}
+
+export interface MentorWaitlist {
+  id: string;
+  mentorId: string;
+  menteeId: string;
+  invitedAt?: string;
+  inviteExpiresAt?: string;
+  status: WaitlistStatus;
+  createdAt: string;
+  mentee?: User & { profile?: any };
+}
+
+export interface Notification {
+  id: string;
+  userId: string;
+  type: string;
+  title?: string;
+  body?: string;
+  data?: Record<string, any>;
+  isRead: boolean;
+  createdAt: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  connectionId: string;
+  senderId: string;
+  content: string;
+  fileUrl?: string;
+  fileType?: string;
+  isRead: boolean;
+  createdAt: string;
+  sender?: User;
+}
+
+// Wizard step data
+export interface MentorSignupData {
+  // Step 1
+  displayName?: string;
+  primaryLanguage: string;
+  timezone?: string;
+  locationCity?: string;
+  locationCountry?: string;
+  // Step 2 (LinkedIn)
+  linkedinUrl?: string;
+  linkedinVerified?: boolean;
+  // Step 3
+  currentRoleTitle?: string;
+  currentCompany?: string;
+  industry?: string;
+  yearsExperience?: number;
+  workExperiences?: MentorWorkExperience[];
+  educationEntries?: MentorEducation[];
+  credentials?: Array<{ badgeType: string; badgeLabel: string }>;
+  // Step 4
+  supportedGoals?: string[];
+  mentorIndustries?: string[];
+  mentorshipStyle?: string;
+  sessionPriceUsd?: number;
+  freeIntroSession?: boolean;
+  maxMentees?: number;
+  // Step 5
+  availability?: Record<string, boolean>;
+  sessionDuration?: number;
+  externalMeetUrl?: string;
+  bufferTime?: number;
+  advanceBooking?: string;
+  // Step 6
+  headline?: string;
+  aboutMe?: string;
+  philosophy?: string;
+  username?: string;
+}
