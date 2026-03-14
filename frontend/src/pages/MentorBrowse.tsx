@@ -8,7 +8,8 @@ function MentorCard({ mentor, onConnect }: { mentor: Mentor; onConnect: (id: str
   const navigate = useNavigate();
   const initials = (mentor.displayName || mentor.username || '?').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   const verifiedBadges = mentor.credentials?.filter(c => c.status === 'verified').slice(0, 2) || [];
-  const statusColor = { active: '#48BB78', paused: '#F6AD55', full: '#FC8181', on_leave: '#9CA3AF' }[mentor.status] || '#9CA3AF';
+  const statusColor: Record<string, string> = { active: '#48BB78', paused: '#F6AD55', full: '#FC8181', on_leave: '#9CA3AF', pending: '#9CA3AF', rejected: '#9CA3AF' };
+  const statusDot = statusColor[mentor.status] || '#9CA3AF';
 
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col hover:shadow-md transition-shadow" style={{ borderRadius: '16px' }}>
@@ -17,7 +18,7 @@ function MentorCard({ mentor, onConnect }: { mentor: Mentor; onConnect: (id: str
           <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: '#FF6B6B' }}>
             {initials}
           </div>
-          <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ backgroundColor: statusColor }} />
+          <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ backgroundColor: statusDot }} />
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-bold text-gray-800 text-sm truncate">{mentor.displayName || mentor.username}</p>
@@ -95,7 +96,7 @@ export default function MentorBrowse() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState({ industry: '', credential: '', price_max: '' });
-  const [connecting, setConnecting] = useState<Record<string, boolean>>({});
+  const [_connecting, setConnecting] = useState<Record<string, boolean>>({});
   const [connected, setConnected] = useState<Record<string, boolean>>({});
 
   useEffect(() => {

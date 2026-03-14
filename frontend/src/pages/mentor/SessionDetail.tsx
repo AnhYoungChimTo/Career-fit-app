@@ -42,7 +42,7 @@ export default function SessionDetail() {
   const [reviewForm, setReviewForm] = useState<ReviewForm>(EMPTY_REVIEW);
   const [submittingReview, setSubmittingReview] = useState(false);
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
-  const [existingReview, setExistingReview] = useState<Review | null>(null);
+  const [existingReview, _setExistingReview] = useState<Review | null>(null);
 
   const [toast, setToast] = useState<string | null>(null);
 

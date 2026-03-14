@@ -13,7 +13,7 @@ const MENTOR_STATUSES = [
 ];
 
 export default function AvailabilityTab() {
-  const [mentor, setMentor] = useState<Mentor | null>(null);
+  const [_mentor, setMentor] = useState<Mentor | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);

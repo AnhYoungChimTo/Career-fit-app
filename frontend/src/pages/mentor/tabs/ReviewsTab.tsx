@@ -15,7 +15,7 @@ function StarRow({ rating }: { rating: number }) {
 
 export default function ReviewsTab() {
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [mentor, setMentor] = useState<Mentor | null>(null);
+  const [_mentor, setMentor] = useState<Mentor | null>(null);
   const [loading, setLoading] = useState(true);
   const [replyText, setReplyText] = useState<Record<string, string>>({});
   const [replyOpen, setReplyOpen] = useState<Record<string, boolean>>({});
