@@ -45,7 +45,7 @@ export default function SidePanel({ activeTab, onTabChange }: SidePanelProps) {
     >
       {/* Logo area */}
       <div className="p-6 border-b border-gray-100">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-3">
           <span className="text-2xl">🎯</span>
           <div>
             <p className="text-xs text-gray-400 font-medium tracking-wide uppercase">Career Fit</p>
@@ -54,6 +54,14 @@ export default function SidePanel({ activeTab, onTabChange }: SidePanelProps) {
             </p>
           </div>
         </div>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all"
+          style={{ backgroundColor: '#FFF0F0', color: '#FF6B6B' }}
+        >
+          <span>←</span>
+          <span>Back to Dashboard</span>
+        </button>
       </div>
 
       {/* Navigation */}
