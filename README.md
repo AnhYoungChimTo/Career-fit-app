@@ -253,7 +253,7 @@ MIT License - see [LICENSE](./LICENSE) file for details
 ## 👤 Contact
 
 **Project Owner:** [Your Name]
-**Repository:** [github.com/YOUR_USERNAME/career-fit-app](https://github.com/YOUR_USERNAME/career-fit-app)
+**Repository:** [github.com/minhanhvibecoding-labs/Career-fit-app](https://github.com/minhanhvibecoding-labs/Career-fit-app)
 
 ---
 

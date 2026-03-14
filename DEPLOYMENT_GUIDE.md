@@ -4,7 +4,7 @@
 - **Frontend:** React 18 + TypeScript + Vite → deployed on **Vercel**
 - **Backend:** Node.js + Express + Prisma + PostgreSQL → deployed on **Render**
 - **Database:** PostgreSQL → **Render PostgreSQL** (Internal URL)
-- **Repo:** `https://github.com/AnhYoungChimTo/Career-fit-app`
+- **Repo:** `https://github.com/minhanhvibecoding-labs/Career-fit-app`
 
 ---
 
