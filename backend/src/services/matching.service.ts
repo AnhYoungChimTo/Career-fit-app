@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 
 const prisma = new PrismaClient();
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'placeholder-key',
 });
 
 interface CareerMatch {

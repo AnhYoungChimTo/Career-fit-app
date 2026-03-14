@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import OpenAI from 'openai';
 import { PrismaClient } from '@prisma/client';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || 'placeholder-key' });
 const prisma = new PrismaClient();
 
 const ANALYSIS_MODEL = process.env.GPT_ANALYSIS_MODEL || 'gpt-4o';
